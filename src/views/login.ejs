@@ -31,5 +31,12 @@
             </div>
         </div>
     </div>
+
+    <script src="/javascripts/main.js"></script>
+    <% if(message) { %>
+        <script>
+            alert('<%= message %>');
+        </script>
+    <% } %>
 </body>
 </html>
