@@ -8,12 +8,17 @@ const db = require('./config/db/index');
 const route = require('./routes/index.route');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const flash = require('express-flash');
 
 // Connecting to MongoDB
 db.connect();
 
 // Static files
 app.use(express.static('public'));
+
+// Get body in form[POST]
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // View engine
 app.set('view engine', 'ejs');
@@ -25,6 +30,9 @@ app.use(cookieSession({
     keys: [process.env.COOKIE_KEY],
 }));
 
+// Message flash
+app.use(flash());
+
 // Init passport
 app.use(passport.initialize());
 app.use(passport.session());
@@ -33,5 +41,5 @@ app.use(passport.session());
 route(app);
 
 app.listen(port, () => {
-    console.log(`App listening at http://localhost:${port}`);
+    console.log(`App listening at http://localhost:${port}/auth/login`);
 });

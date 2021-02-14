@@ -5,20 +5,23 @@
     <div class="login-app">
         <div class="login-app-content">
             <div class="wrap-login-img">
-                <img src="/images/social-network.svg" alt="" class="login-img">
+                <img src="/images/location-search.svg" alt="" class="login-img">
             </div>
             <div class="login-form">
-                <form action="" method="">
+                <form action="/auth/login" method="POST">
                     <h2 class="login-form-heading">Sign in</h2>
                     <div class="form-group">
-                        <input type="text" class="form-control" required>
+                        <input type="text" class="form-control" required name="username">
                         <label for="" class="form-label">Username</label>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" required minlength="6">
+                        <input type="password" class="form-control" required minlength="6" name="password">
                         <label for="" class="form-label">Password</label>
                     </div>
-                    <button class="login-btn login-submit-btn">Sign in</button>
+                    <% if (messages.error) { %>
+                        <p class="alert alert-danger"><%= messages.error %></p>
+                    <% } %>
+                    <button class="login-btn login-submit-btn" type="submit">Sign in</button>
                 </form>
                 <div class="separate">
                     <span class="separate-or">OR</span>
@@ -33,7 +36,7 @@
     </div>
 
     <script src="/javascripts/main.js"></script>
-    <% if(message) { %>
+    <% if (message) { %>
         <script>
             alert('<%= message %>');
         </script>
