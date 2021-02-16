@@ -8,6 +8,12 @@ class HomeController {
             user: req.user,
         });
     }
+
+    // [GET] /logout
+    logout(req, res) {
+        req.logout();
+        res.redirect('/auth/login');
+    }
 }
 
 module.exports = new HomeController();

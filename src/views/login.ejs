@@ -5,19 +5,24 @@
     <div class="login-app">
         <div class="login-app-content">
             <div class="wrap-login-img">
-                <img src="/images/location-search.svg" alt="" class="login-img">
+                <img src="/images/social-network.svg" alt="" class="login-img">
             </div>
             <div class="login-form">
                 <form action="/auth/login" method="POST">
                     <h2 class="login-form-heading">Sign in</h2>
                     <div class="form-group">
-                        <input type="text" class="form-control" required name="username">
-                        <label for="" class="form-label">Username</label>
+                        <input type="text" class="form-control" required name="username" id="username">
+                        <label for="username" class="form-label">Username</label>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" required minlength="6" name="password">
-                        <label for="" class="form-label">Password</label>
+                        <input type="password" class="form-control" required minlength="6" name="password" id="password">
+                        <label for="password" class="form-label">Password</label>
                     </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="rememberMe" id="rememberMe">
+                        <label for="rememberMe">Remember me</label>
+                    </div>
+
                     <% if (messages.error) { %>
                         <p class="alert alert-danger"><%= messages.error %></p>
                     <% } %>

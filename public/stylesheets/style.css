@@ -67,6 +67,8 @@ html {
 
 .login-img {
     width: 100%;
+    position: relative;
+    bottom: -70px;
 }
 
 .login-form {
@@ -100,6 +102,7 @@ html {
     border-bottom: 1px solid #000;
     font-size: 1.6rem;
     font-weight: 500;
+    text-shadow: 1px 3px 5px rgba(0, 0, 0, 0.16);
 }
 
 .form-label::after {
@@ -131,12 +134,22 @@ html {
     color: #1dbfaf;
 }
 
+#rememberMe {
+    position: relative;
+    top: 1.5px;
+    margin-right: 4px;
+}
+
+#rememberMe + label {
+    font-size: 1.2rem;
+}
+
 .login-btn {
     cursor: pointer;
     width: 100%;
     padding: 12px;
     font-size: 1.4rem;
-    margin-top: 24px;
+    margin-top: 12px;
     border: none;
     border-radius: 4px;
     outline: none;
@@ -150,7 +163,7 @@ html {
 .separate {
     position: relative;
     border-bottom: 1px solid #ccc;
-    margin: 32px 0 8px;
+    margin: 30px 0 16px;
 }
 
 .separate-or {
@@ -188,7 +201,7 @@ html {
     align-items: center;
     height: 48px;
     padding: 0 24px 0 10px;
-    background-color: #000;
+    background-color: #333;
     color: #fff;
 }
 
@@ -209,6 +222,43 @@ html {
     top: 1px;
 }
 
+.header__nav-user-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 13px);
+    list-style: none;
+    background-color: #fff;
+    padding: 12px 0;
+    min-width: 150px;
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    transform-origin: top right;
+    transform: scale(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+.header__nav-user-link {
+    text-decoration: none;
+    display: block;
+    color: #333;
+    padding: 8px 16px;
+}
+
+.header__nav-user-link:hover {
+    cursor: pointer;
+    background-color: #f1f1f1;
+}
+
+.overlay-transparent {
+    position: fixed;
+    top: 48px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    display: none;
+}
+
 .header__nav-icon {
     font-size: 1.6rem;
 }
@@ -221,6 +271,31 @@ html {
 .header__nav-icon.ti-menu:hover {
     cursor: pointer;
     color: rgba(255, 255, 255, 0.8);
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: none;
+    z-index: 1;
+}
+
+.header__navigation {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 360px;
+    background-color: #fff;
+    box-shadow: 1px 0 5px rgba(0, 0, 0, 0.5);
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: all 0.3s linear;
+    z-index: 1;
 }
 
 .header__nav-icon.ti-angle-down {
@@ -242,5 +317,5 @@ html {
     width: 23px;
     height: 23px;
     border-radius: 50%;
-    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }

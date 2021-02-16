@@ -10,14 +10,6 @@ class AuthController {
             message: message || null,
         });
     }
-
-    // [POST] /auth/login
-    loginToHomePage(req, res, next) {
-        res.render('home', {
-            title: 'Home',
-            user: req.user,
-        });
-    }
 }
 
 module.exports = new AuthController();

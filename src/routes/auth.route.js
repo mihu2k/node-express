@@ -10,7 +10,12 @@ const checkEmail = (req, res, next) => {
     else next();
 }
 
-router.get('/login', authController.showLoginPage);
+const checkNotAuth = (req, res, next) => {
+    if (req.isAuthenticated()) return res.redirect('/');
+    next();
+}
+
+router.get('/login', checkNotAuth, authController.showLoginPage);
 router.post('/login', passport.authenticate('local',
     { successRedirect: '/', failureRedirect: '/auth/login', failureFlash: true }));
 
