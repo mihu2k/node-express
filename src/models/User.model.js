@@ -10,7 +10,7 @@ const User = new Schema(
         email: { type: String, default: null },
         group: { type: String, default: '18050202' },
         faculty: { type: String, default: 'Information Technology' },
-        avatar: { type: String, default: '/images/avt-default.jpg' },
+        avatar: { type: String, default: '/images/default-avt.jpg' },
         userType: { type: String, default: 'student' },
         department: { type: Array, default: [] },
     },

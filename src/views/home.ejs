@@ -3,47 +3,7 @@
 <%- include('./partials/head.ejs') %>
 <body>
     <div class="main-app">
-        <header class="header">
-            <ul class="header__nav-list">
-                <li class="header__nav-item">
-                    <i class="header__nav-icon ti-menu"></i>
-
-                    <div class="overlay"></div>
-
-                    <nav class="header__navigation">
-
-                    </nav>
-                </li>
-            </ul>
-
-            <ul class="header__nav-list">
-                <li class="header__nav-item mr-16">
-                    <i class="header__nav-icon ti-bell"></i>
-                    <span class="header__nav-text">Thông báo</span>
-                </li>
-                <li class="header__nav-item mr-4">
-                    <img src="<%= user.avatar %>" alt="" class="header__nav-avt">
-                    <span class="header__nav-text"><%= user.name %></span>
-                </li>
-                <li class="header__nav-item header__nav-icon-down">
-                    <i class="header__nav-icon ti-angle-down"></i>
-
-                    <div class="overlay-transparent"></div>
-
-                    <ul class="header__nav-user-menu">
-                        <li class="header__nav-user-item">
-                            <a href="#" class="header__nav-user-link">See your profile</a>
-                        </li>
-                        <li class="header__nav-user-item">
-                            <a href="#" class="header__nav-user-link">My post</a>
-                        </li>
-                        <li class="header__nav-user-item">
-                            <a href="/logout" class="header__nav-user-link">Log out</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </header>
+        <%- include('./partials/header.ejs') %>
     </div>
 
     <script src="/javascripts/main.js"></script>

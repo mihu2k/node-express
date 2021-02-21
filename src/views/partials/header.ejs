@@ -1,0 +1,90 @@
+<header class="header">
+    <ul class="header__nav-list">
+        <li class="header__nav-item">
+            <i class="header__nav-icon ti-menu"></i>
+
+            <div class="overlay"></div>
+
+            <nav class="header__navigation">
+                <span class="navigation-close">&times;</span>
+                <a class="header__navigation-heading" href="#">
+                    <img src="<%= user.avatar %>" alt="" class="header__nav-avt header__navigation-avt">
+                    <div class="heading__navigation-info-user">
+                        <h3 class="heading__navigation-user-name"><%= user.name %></h3>
+                        <p class="heading__navigation-prof">See your profile</p>
+                    </div>
+                </a>
+                <div class="header__navigation-seperate">
+                    <hr>
+                </div>
+                <ul class="navigation-list">
+                    <a href="/" class="navigation-link navigation-item">
+                        <i class="ti-home navigation-icon"></i>
+                        <span class="navigation-content">Home page</span>
+                    </a>
+                    <% if (user.userType === 'admin') { %>
+                        <a href="/user" class="navigation-link navigation-item">
+                            <i class="far fa-user navigation-icon"></i>
+                            <span class="navigation-content">Account management</span>
+                        </a>
+                    <% } %>
+                    <li class="navigation-item navigation-wrap-sub-item">
+                        <i class="fas fa-list navigation-icon"></i>
+                        <span class="navigation-content">Classification of notification</span>
+
+                        <i class="ti-angle-left sub-item-icon"></i>
+                        <i class="ti-angle-down sub-item-icon"></i>
+                    </li>
+
+                    <!-- Sub-item -->
+                    <li class="navigation-sub-item">
+                        <i class="fas fa-users navigation-icon"></i>
+                        <span class="navigation-content">Department</span>
+                    </li>
+                    <li class="navigation-sub-item">
+                        <i class="far fa-image navigation-icon"></i>
+                        <span class="navigation-content">Subject</span>
+                    </li>
+                    <li class="navigation-sub-item">
+                        <i class="fas fa-list navigation-icon"></i>
+                        <span class="navigation-content">All notifications</span>
+                    </li>
+                    <!-- End sub-item -->
+
+                    <a href="/logout" class="navigation-link navigation-item navigation-logout">
+                        <i class="fas fa-sign-out-alt navigation-icon"></i>
+                        <span class="navigation-content">Log out</span>
+                    </a>
+                </ul>
+            </nav>
+        </li>
+    </ul>
+
+    <ul class="header__nav-list">
+        <li class="header__nav-item mr-16">
+            <i class="header__nav-icon ti-bell"></i>
+            <span class="header__nav-text">Thông báo</span>
+        </li>
+        <li class="header__nav-item mr-4">
+            <img src="<%= user.avatar %>" alt="" class="header__nav-avt">
+            <span class="header__nav-text"><%= user.name %></span>
+        </li>
+        <li class="header__nav-item header__nav-icon-down">
+            <i class="header__nav-icon ti-angle-down"></i>
+
+            <div class="overlay-transparent"></div>
+
+            <ul class="header__nav-user-menu">
+                <li class="header__nav-user-item">
+                    <a href="#" class="header__nav-user-link">See your profile</a>
+                </li>
+                <li class="header__nav-user-item">
+                    <a href="#" class="header__nav-user-link">My post</a>
+                </li>
+                <li class="header__nav-user-item">
+                    <a href="/logout" class="header__nav-user-link">Log out</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</header>

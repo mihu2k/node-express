@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head.ejs') %>
+<body>
+    <div class="main-app">
+        <!-- Header -->
+        <%- include('../partials/header.ejs') %>
+        
+        <!-- Body -->
+        <div class="container mt-48">
+            <br><br>
+            <h1 class="manage-user-heading">Manage department accounts</h1>
+            <button class="btn btn-create-account">Create account</button>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Username</th>
+                        <th>Department name</th>
+                        <th>Management scope</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% departments.forEach((department, index) => {
+                        var manageScope = department.department.join(', '); %>
+                        <tr>
+                            <th><%= index + 1 %></th>
+                            <td><%= department.username %></td>
+                            <td><%= department.name %></td>
+                            <td><%= manageScope %></td>
+                            <th>
+                                <a class="btn btn-authorized" href="/user/<%= department._id %>/authorized">Authorize</a>
+                            </th>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/javascripts/main.js"></script>
+</body>
+</html>

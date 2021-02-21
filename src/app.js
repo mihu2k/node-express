@@ -9,6 +9,7 @@ const route = require('./routes/index.route');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const flash = require('express-flash');
+const methodOverride = require('method-override');
 
 // Connecting to MongoDB
 db.connect();
@@ -37,9 +38,22 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Override method
+app.use(methodOverride('_method'));
+
 // Def routes
 route(app);
 
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}/auth/login`);
 });
+
+const User = require('./models/User.model');
+
+// User.create({
+//     username: 'phongban1',
+//     password: '123456',
+//     name: 'Phòng Công tác học sinh sinh viên',
+//     userType: 'department',
+//     department: ["Phòng Công tác học sinh sinh viên", "Phòng Đại học", "Phòng Sau đại học"],
+// });

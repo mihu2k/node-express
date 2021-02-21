@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head.ejs') %>
+<body>
+    <div class="main-app">
+        <%- include('../partials/header.ejs') %>
+
+        <div class="container container-wrap-form-create">
+            <div class="wrap-form-authorized-account">
+                <h2 class="form-create-heading">Management scope</h2>
+                <form method="POST" action="/user/<%= department._id %>?_method=PUT">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="checkboxPCTHSSV" value="Phòng Công tác học sinh sinh viên" name="department[]">
+                        <label class="form-check-label" for="checkboxPCTHSSV">Phòng Công tác học sinh sinh viên</label>
+
+                        <input class="form-check-input" type="checkbox" id="checkboxPDH" value="Phòng Đại học" name="department[]">
+                        <label class="form-check-label" for="checkboxPDH">Phòng Đại học</label>
+
+                        <input class="form-check-input" type="checkbox" id="checkboxPSDH" value="Phòng Sau đại học" name="department[]">
+                        <label class="form-check-label" for="checkboxPSDH">Phòng Sau đại học</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="checkboxPDTVMT" value="Phòng điện toán và máy tính" name="department[]">
+                        <label class="form-check-label" for="checkboxPDTVMT">Phòng điện toán và máy tính</label>
+
+                        <input class="form-check-input" type="checkbox" id="checkboxPKTVKDCL" value="Phòng khảo thí và kiểm định chất lượng" name="department[]">
+                        <label class="form-check-label" for="checkboxPKTVKDCL">Phòng khảo thí và kiểm định chất lượng</label>
+
+                        <input class="form-check-input" type="checkbox" id="checkboxPTC" value="Phòng tài chính" name="department[]">
+                        <label class="form-check-label" for="checkboxPTC">Phòng tài chính</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="checkboxTDTCLC" value="TDT Creative Language Center" name="department[]">
+                        <label class="form-check-label" for="checkboxTDTCLC">TDT Creative Language Center</label>
+
+                        <input class="form-check-input" type="checkbox" id="checkboxTTTH" value="Trung tâm tin học" name="department[]">
+                        <label class="form-check-label" for="checkboxTTTH">Trung tâm tin học</label>
+
+                        <input class="form-check-input" type="checkbox" id="checkboxTTDTPTXH" value="Trung tâm đào tạo phát triển xã hội" name="department[]">
+                        <label class="form-check-label" for="checkboxTTDTPTXH">Trung tâm đào tạo phát triển xã hội</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="checkboxKL" value="Khoa Luật" name="department[]">
+                        <label class="form-check-label" for="checkboxKL">Khoa Luật</label>
+                        
+                        <input class="form-check-input" type="checkbox" id="checkboxTTHTDNVCSV" value="Trung tâm hợp tác doanh nghiệp và cựu sinh viên" name="department[]">
+                        <label class="form-check-label" for="checkboxTTHTDNVCSV">Trung tâm hợp tác doanh nghiệp và cựu sinh viên</label>
+                        
+                        <input class="form-check-input" type="checkbox" id="checkboxTTPTKHQLVUDCN" value="Trung tâm phát triển Khoa học quản lý và Ứng dụng công nghệ" name="department[]">
+                        <label class="form-check-label" for="checkboxTTPTKHQLVUDCN">Trung tâm phát triển Khoa học quản lý và Ứng dụng công nghệ</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="checkboxTTNNTHBDVH" value="Trung tâm ngoại ngữ - tin học – bồi dưỡng văn hóa" name="department[]">
+                        <label class="form-check-label" for="checkboxTTNNTHBDVH">Trung tâm ngoại ngữ - tin học – bồi dưỡng văn hóa</label>
+
+                        <input class="form-check-input" type="checkbox" id="checkboxVCSKTVKD" value="Viện chính sách kinh tế và kinh doanh" name="department[]">
+                        <label class="form-check-label" for="checkboxVCSKTVKD">Viện chính sách kinh tế và kinh doanh</label>
+
+                        <input class="form-check-input" type="checkbox" id="checkboxKMTCN" value="Khoa Mỹ thuật công nghiệp" name="department[]">
+                        <label class="form-check-label" for="checkboxKMTCN">Khoa Mỹ thuật công nghiệp</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="checkboxKDDT" value="Khoa Điện – Điện tử" name="department[]">
+                        <label class="form-check-label" for="checkboxKDDT">Khoa Điện – Điện tử</label>
+
+                        <input class="form-check-input" type="checkbox" id="checkboxKCNTT" value="Khoa Công nghệ thông tin" name="department[]">
+                        <label class="form-check-label" for="checkboxKCNTT">Khoa Công nghệ thông tin</label>
+
+                        <input class="form-check-input" type="checkbox" id="checkboxKQTKD" value="Khoa Quản trị kinh doanh" name="department[]">
+                        <label class="form-check-label" for="checkboxKQTKD">Khoa Quản trị kinh doanh</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="checkboxKMTVBHLD" value="Khoa Môi trường và bảo hộ lao động" name="department[]">
+                        <label class="form-check-label" for="checkboxKMTVBHLD">Khoa Môi trường và bảo hộ lao động</label>
+
+                        <input class="form-check-input" type="checkbox" id="checkboxKLDCD" value="Khoa Lao động công đoàn" name="department[]">
+                        <label class="form-check-label" for="checkboxKLDCD">Khoa Lao động công đoàn</label>
+
+                        <input class="form-check-input" type="checkbox" id="checkboxKTCNH" value="Khoa Tài chính ngân hàng" name="department[]">
+                        <label class="form-check-label" for="checkboxKTCNH">Khoa Tài chính ngân hàng</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="checkboxKGDQT" value="Khoa giáo dục quốc tế" name="department[]">
+                        <label class="form-check-label" for="checkboxKGDQT">Khoa giáo dục quốc tế</label>
+                    </div>
+                    <div class="wrap-btn-update-scope">
+                        <button class="btn-submit-update-scope" type="submit">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var checkboxList = document.querySelectorAll('input[type = checkbox]');
+        var departmentUser = JSON.parse('<%- departmentUser %>');
+
+        departmentUser.department.forEach(item => {
+            checkboxList.forEach(checkbox => {;
+                if (item === checkbox.value) {
+                    checkbox.checked = true;
+                }
+            })
+        });
+    </script>
+
+    <script src="/javascripts/main.js"></script>
+</body>
+</html>

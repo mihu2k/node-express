@@ -10,15 +10,15 @@
             <div class="login-form">
                 <form action="/auth/login" method="POST">
                     <h2 class="login-form-heading">Sign in</h2>
-                    <div class="form-group">
-                        <input type="text" class="form-control" required name="username" id="username">
-                        <label for="username" class="form-label">Username</label>
+                    <div class="form-group-login">
+                        <input type="text" class="form-control-login" required name="username" id="username">
+                        <label for="username" class="form-label-login">Username</label>
                     </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" required minlength="6" name="password" id="password">
-                        <label for="password" class="form-label">Password</label>
+                    <div class="form-group-login">
+                        <input type="password" class="form-control-login" required minlength="6" name="password" id="password">
+                        <label for="password" class="form-label-login">Password</label>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group-login">
                         <input type="checkbox" name="rememberMe" id="rememberMe">
                         <label for="rememberMe">Remember me</label>
                     </div>
@@ -26,7 +26,7 @@
                     <% if (messages.error) { %>
                         <p class="alert alert-danger"><%= messages.error %></p>
                     <% } %>
-                    <button class="login-btn login-submit-btn" type="submit">Sign in</button>
+                    <button class="login-btn login-submit-btn" type="submit">SIGN IN</button>
                 </form>
                 <div class="separate">
                     <span class="separate-or">OR</span>

@@ -17,6 +17,18 @@ html {
     color: #333;
 }
 
+.mt-8 {
+    margin-top: 8px !important;
+}
+
+.mt-48 {
+    margin-top: 48px !important;
+}
+
+.mb-8 {
+    margin-bottom: 8px !important;
+}
+
 .mr-16 {
     margin-right: 16px !important;
 }
@@ -39,6 +51,12 @@ html {
     color: #721c24;
     background-color: #f8d7da;
     border-color: #f5c6cb;
+}
+
+hr {
+    background-color: #ced0d4;
+    height: 1.2px;
+    border-width: 0;
 }
 
 /* Login */
@@ -87,12 +105,12 @@ html {
     letter-spacing: 4px;
 }
 
-.form-group {
+.form-group-login {
     position: relative;
     margin: 24px 0;
 }
 
-.form-label {
+.form-label-login {
     position: absolute;
     bottom: -2px;
     left: 0%;
@@ -105,7 +123,7 @@ html {
     text-shadow: 1px 3px 5px rgba(0, 0, 0, 0.16);
 }
 
-.form-label::after {
+.form-label-login::after {
     content: "";
     position: absolute;
     height: 100%;
@@ -117,7 +135,7 @@ html {
     transition: transform 0.3s linear;
 }
 
-.form-control {
+.form-control-login {
     width: 100%;
     padding-top: 8px;
     margin-top: 28px;
@@ -126,11 +144,11 @@ html {
     font-size: 1.4rem;
 }
 
-.form-control:focus + .form-label::after {
+.form-control-login:focus + .form-label-login::after {
     transform: translateX(0);
 }
 
-.form-control:focus + .form-label {
+.form-control-login:focus + .form-label-login {
     color: #1dbfaf;
 }
 
@@ -153,17 +171,20 @@ html {
     border: none;
     border-radius: 4px;
     outline: none;
-    color: #fff;
-    text-shadow: 1px 3px 5px rgba(0, 0, 0, 0.6);
     font-weight: 600;
-    background-image: var(--gradient-color-btn);
     font-family: 'Roboto', sans-serif;
+}
+
+.login-btn.login-submit-btn {
+    color: #fff;
+    border: 1px solid;
+    background-image: var(--gradient-color-btn);
 }
 
 .separate {
     position: relative;
     border-bottom: 1px solid #ccc;
-    margin: 30px 0 16px;
+    margin: 30px 0 18px;
 }
 
 .separate-or {
@@ -177,7 +198,14 @@ html {
 }
 
 .login-btn.btn-login-with-gg {
+    color: #333;
     padding-left: 28px;
+    background-color: #f1f1f1;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.login-btn.btn-login-with-gg:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .login-with-gg {
@@ -187,15 +215,19 @@ html {
 .login-with-gg::before {
     content: "";
     position: absolute;
-    top: -1px;
+    top: -0.5px;
     left: -28px;
-    background-image: url(../images/google-border.svg);
+    background-image: url(../images/google.svg);
     width: 20px;
     height: 20px;
 }
 
 /* Header */
 .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -234,7 +266,7 @@ html {
     border-radius: 4px;
     transform-origin: top right;
     transform: scale(0);
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.3s linear;
 }
 
 .header__nav-user-link {
@@ -290,12 +322,90 @@ html {
     bottom: 0;
     left: 0;
     width: 360px;
+    color: #333;
+    padding: 24px 8px 0;
     background-color: #fff;
     box-shadow: 1px 0 5px rgba(0, 0, 0, 0.5);
     transform: translateX(-100%);
     opacity: 0;
     transition: all 0.3s linear;
     z-index: 1;
+}
+
+.navigation-close {
+    cursor: pointer;
+    position: absolute;
+    top: -3px;
+    right: 0px;
+    font-size: 2.2rem;
+    padding: 0 8px;
+    color: #fff;
+    border-bottom-left-radius: 8px;
+    background-color: #db2020;
+}
+
+.header__navigation-heading {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    z-index: 2;
+    background-color: #fff;
+    position: relative;
+}
+
+.header__navigation-heading:hover {
+    background-color: #f1f1f1;
+}
+
+.header__nav-avt.header__navigation-avt {
+    width: 60px;
+    height: 60px;
+    margin-right: 16px;
+}
+
+.heading__navigation-user-name {
+    margin-bottom: 10px;
+}
+
+.heading__navigation-prof {
+    color: #65676b;
+}
+
+.navigation-list {
+    list-style: none;
+}
+
+.navigation-item,
+.navigation-sub-item {
+    padding: 16px 8px;
+    border-radius: 8px;
+    z-index: 2;
+    background-color: #fff;
+}
+
+.navigation-item:hover,
+.navigation-sub-item:hover {
+    cursor: pointer;
+    background-color: #f1f1f1;
+}
+
+.navigation-link {
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+.navigation-icon {
+    font-size: 1.8rem;
+    padding-right: 8px;
+    color: #000;
+}
+
+.navigation-content {
+    font-size: 1.5rem;
 }
 
 .header__nav-icon.ti-angle-down {
@@ -317,5 +427,227 @@ html {
     width: 23px;
     height: 23px;
     border-radius: 50%;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/* Sub-item */
+.ti-angle-down.sub-item-icon {
+    display: none;
+}
+
+.navigation-item {
+    position: relative;
+}
+
+.sub-item-icon {
+    position: absolute;
+    top: 22px;
+    right: 16px;
+    font-size: 1rem;
+}
+
+.navigation-logout,
+.navigation-sub-item {
+    transform: translateY(-300%);
+    transition: transform 0.3s linear;
+}
+
+.navigation-sub-item {
+    padding-left: 36px;
+    z-index: 1;
+}
+
+.header__navigation-seperate {
+    padding: 8px 0;
+    background-color: #fff;
+    z-index: 2;
+    position: relative;
+}
+
+/* Manage */
+.table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    font-size: 1.8rem;
+    background-color: #e9ecef;
+}
+
+thead th {
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table td, .table th {
+    padding: 12px;
+    border-top: 1px solid #dee2e6;
+    text-align: left;
+}
+
+tbody {
+    font-size: 1.4rem;
+    line-height: 1.5;
+}
+
+td {
+    width: 33.33%;
+}
+
+tr th:first-child {
+    padding: 0 40px;
+    text-align: center;
+}
+
+.manage-user-heading {
+    text-align: center;
+    font-size: 2.8rem;
+    margin-bottom: 12px;
+}
+
+.btn {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    color: #fff;
+    border-radius: 4px;
+}
+
+.btn-create-account {
+    background-color: #28a745;
+    padding: 10px 16px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    display: flex;
+    margin: 0 0 16px auto;
+}
+
+.btn-create-account:hover {
+    background-color: #2a9743;
+}
+
+.btn-authorized {
+    text-decoration: none;
+    display: block;
+    padding: 6px 8px;
+    background-color: #007bff;
+}
+
+.btn-authorized:hover {
+    background-color: #0c6dd4;
+}
+
+/* Form create account */
+.container-wrap-form-create {
+    display: flex;
+    justify-content: center;
+}
+
+.wrap-form-create-account {
+    margin-top: 160px;
+    width: 400px;
+    padding: 32px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.form-create-heading {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 28px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.form-control {
+    font-size: 1.4rem;
+    margin: 12px 0;
+    padding: 8px 12px;
+    height: 40px;
+    border: 1px solid #b3b3b3;
+    border-radius: 4px;
+    outline: none;
+}
+
+.form-control:focus {
+    border-color: #1dbfaf;
+}
+
+.form-message {
+    display: none;
+}
+
+.btn-submit-create-account {
+    width: 100%;
+    height: 40px;
+    margin-top: 20px;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 1.5rem;
+    border-radius: 4px;
+    background-color: #1dbfaf;
+}
+
+.btn-submit-create-account:hover,
+.btn-submit-update-scope:hover {
+    cursor: pointer;
+    background-color: #21b1a2;
+}
+
+/* Form authorized */
+.wrap-form-authorized-account {
+    margin-top: 140px;
+    padding: 32px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.form-check-input {
+    height: 1.6rem;
+}
+
+.form-check-label {
+    min-width: 310px;
+    padding-left: 6px;
+    font-size: 1.3rem;
+}
+
+.wrap-btn-update-scope {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-submit-update-scope {
+    width: 50%;
+    height: 40px;
+    margin-top: 16px;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 1.5rem;
+    border-radius: 4px;
+    background-color: #1dbfaf;
+}
+
+/* Container */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
