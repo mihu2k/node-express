@@ -197,4 +197,148 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
+
+    // Check input value in form change password
+    var currentPassword = document.getElementById('input-current-password');
+    var newPassword = document.getElementById('input-new-password');
+    var confirmPassword = document.getElementById('input-confirm-password');
+    var messageErrorChangePassword = document.querySelector('.form-message-change-password');
+    var btnChangePassword = document.querySelector('.btn-change-password');
+    var formChangePassword = document.querySelector('.form-change-password');
+    
+    if (btnChangePassword) {
+        btnChangePassword.onclick = function() {
+            var error;
+    
+            if (currentPassword.value === '') {
+                error = 'Please enter your current password';
+                currentPassword.focus();
+            } else if (currentPassword.value !== password) {
+                error = 'Current password does not match';
+                currentPassword.focus();
+            } else if (newPassword.value === '') {
+                error = 'Please enter your new password';
+                newPassword.focus();
+            } else if (newPassword.value.length < 6) {
+                error = 'Password must be at least 6 characters';
+                newPassword.focus();
+            } else if (confirmPassword.value === '') {
+                error = 'Please enter your confirm password';
+                confirmPassword.focus();
+            } else if (confirmPassword.value !== newPassword.value) {
+                error = 'Confirm password does not match';
+                confirmPassword.focus();
+            } else {
+                error = '';
+            }
+    
+            if (error) {
+                messageErrorChangePassword.style.display = 'block';
+                messageErrorChangePassword.innerHTML = error;
+            } else {
+                messageErrorChangePassword.style.display = 'none';
+                formChangePassword.submit();
+            }
+    
+            currentPassword.addEventListener('keydown', function () {
+                messageErrorChangePassword.style.display = 'none';
+            });
+    
+            newPassword.addEventListener('keydown', function () {
+                messageErrorChangePassword.style.display = 'none';
+            });
+            
+            confirmPassword.addEventListener('keydown', function () {
+                messageErrorChangePassword.style.display = 'none';
+            });
+        }
+    }
+
+    // Handle checked = true for form management scope
+    var checkboxList = document.querySelectorAll('.form-authorized-account input[type = checkbox]');
+    var formAuthorized = document.querySelector('.form-authorized-account');
+    
+    if (formAuthorized) {
+        departmentUser.department.forEach(item => {
+            checkboxList.forEach(checkbox => {;
+                if (item === checkbox.value) {
+                    checkbox.checked = true;
+                }
+            })
+        });
+    }
+
+    // When click btn edit profile, will show modal
+    var btnEditProfile = document.querySelector('.btn-edit-prof');
+    var modal = document.querySelector('.modal');
+    var btnCloseEditProf = document.querySelector('.btn-close-edit-prof');
+
+    if (btnEditProfile) {
+        btnEditProfile.onclick = function() {
+            modal.style.display = 'flex';
+        }
+    }
+
+    if (btnCloseEditProf) {
+        btnCloseEditProf.onclick = function() {
+            modal.style.display = 'none';
+        }
+    }
+
+    // Handler edit profile using AJAX
+    if (btnEditProfile) {
+        $('.form-edit-prof').on('submit', function(e) {
+            var userId = e.target.dataset.id;
+            var profileInfo = $('.profile-info');
+            e.preventDefault();
+            var formData = new FormData(this);
+    
+            $.ajax({
+                url: '/profile/' + userId + '/edit',
+                type: 'PUT',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    var profile = `
+                            <ul class="profile-info-list">
+                                <li class="profile-info-item">
+                                    <span class="profile-info-title">Username: </span>${profileWorkFlow.username}
+                                </li>
+                                <li class="profile-info-item">
+                                    <span class="profile-info-title">Name: </span>${data.data.name}
+                                </li>
+                                <li class="profile-info-item">
+                                    <span class="profile-info-title">Email: </span>${profileWorkFlow.email}
+                                </li>
+                            </ul>
+                            <ul class="profile-info-list">
+                                <li class="profile-info-item">
+                                    <span class="profile-info-title">Group: </span>${data.data.group}
+                                </li>
+                                <li class="profile-info-item">
+                                    <span class="profile-info-title">Faculty: </span>${data.data.faculty}
+                                </li>
+                            </ul>`;
+            
+                    // Update all name in page
+                    $('.heading__navigation-user-name').html(data.data.name);
+                    $('.header__nav-text-name').html(data.data.name);
+                    $('.profile-name-heading').html(data.data.name);
+
+                    // Update all avatar in page
+                    $('.header__nav-avt.header__navigation-avt').attr('src', data.data.avatar);
+                    $('.header__nav-avt').attr('src', data.data.avatar);
+                    $('.profile-image').attr('src', data.data.avatar);
+        
+                    profileInfo.html(profile);
+                    $('.modal').hide();
+                },
+                error: function(error) {
+                    console.log('error', error);
+                }
+            })
+        });
+    }
 });

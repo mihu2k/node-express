@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+<body>
+    <div class="main-app">
+        <%- include('./partials/header.ejs') %>
+
+        <div class="container">
+            <div class="gradient-bg"></div>
+            <div class="wrap-profile">
+                <img src="<%= infoProfile.avatar %>" alt="" class="profile-image">
+                <h2 class="profile-name-heading"><%= infoProfile.name %></h2>
+                
+                <% if (infoProfile.id === user.id) { %>
+                    <div class="wrap-btn-edit-prof">
+                        <button class="btn-edit-prof">
+                            <i class="fas fa-pencil-alt profile-icon-btn-edit"></i> Edit Profile
+                        </button>
+                    </div>
+                <% } %>
+
+                <div class="separate-prof"></div>
+
+                <div class="profile-info">
+                    <ul class="profile-info-list">
+                        <li class="profile-info-item">
+                            <span class="profile-info-title">Username: </span><%= infoProfile.username %>
+                        </li>
+                        <li class="profile-info-item">
+                            <span class="profile-info-title">Name: </span><%= infoProfile.name %>
+                        </li>
+                        <li class="profile-info-item">
+                            <span class="profile-info-title">Email: </span><%= infoProfile.email %>
+                        </li>
+                    </ul>
+                    <ul class="profile-info-list">
+                        <li class="profile-info-item">
+                            <span class="profile-info-title">Group: </span><%= infoProfile.group %>
+                        </li>
+                        <li class="profile-info-item">
+                            <span class="profile-info-title">Faculty: </span><%= infoProfile.faculty %>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal">
+        <div class="modal__overlay"></div>
+        <div class="modal__body">
+            <div class="wrap-form-edit-prof">
+                <div class="form-edit-prof__container">
+                    <h2 class="form-edit-prof-heading">Edit Profile</h2>
+                    <div class="btn-close-edit-prof">&times;</div>
+                    <br><br>
+                    <form action="" method="POST" class="form-edit-prof" enctype="multipart/form-data" data-id="<%= user._id %>">
+                        <div class="form-group">
+                            <label for="input-edit-name-prof" class="form-label">Your name</label>
+                            <input type="text" class="form-control" id="input-edit-name-prof" name="editNameProf" value="<%= user.name %>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-edit-group-prof" class="form-label">Group</label>
+                            <input type="text" class="form-control" id="input-edit-group-prof" name="editGroupProf" value="<%= user.group %>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-edit-faculty-prof" class="form-label">Faculty</label>
+                            <input type="text" class="form-control" id="input-edit-faculty-prof" name="editFacultyProf" value="<%= user.faculty %>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-edit-avt-prof" class="form-label">Avatar</label>
+                            <input type="file" class="form-control" id="input-edit-avt-prof" name="editAvtProf" accept="image/*">
+                        </div>
+                        <p class="alert alert-danger mt-8 form-message"></p>
+                        <button class="btn btn-submit-edit-prof" type="submit">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        var profileWorkFlow = JSON.parse('<%- infoProfileWorkFlow %>');
+    </script>
+    <script src="/javascripts/main.js"></script>
+</body>
+</html>

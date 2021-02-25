@@ -47,13 +47,3 @@ route(app);
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}/auth/login`);
 });
-
-const User = require('./models/User.model');
-
-// User.create({
-//     username: 'phongban1',
-//     password: '123456',
-//     name: 'Phòng Công tác học sinh sinh viên',
-//     userType: 'department',
-//     department: ["Phòng Công tác học sinh sinh viên", "Phòng Đại học", "Phòng Sau đại học"],
-// });

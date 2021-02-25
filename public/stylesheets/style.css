@@ -235,6 +235,7 @@ hr {
     padding: 0 24px 0 10px;
     background-color: #333;
     color: #fff;
+    z-index: 1;
 }
 
 .header__nav-list {
@@ -399,6 +400,8 @@ hr {
 }
 
 .navigation-icon {
+    position: relative;
+    top: 1px;
     font-size: 1.8rem;
     padding-right: 8px;
     color: #000;
@@ -645,9 +648,188 @@ tr th:first-child {
     background-color: #1dbfaf;
 }
 
+/* Form change password */
+.star-red {
+    color: rgb(233, 10, 10);
+}
+
+/* Profile */
+.gradient-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 60%;
+    width: 100%;
+    background-image: linear-gradient(0deg, rgba(255, 255, 255, 1), rgba(0, 0, 0, 0.4));
+    z-index: 0;
+}
+
+.wrap-profile {
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    margin-top: 180px;
+    padding: 48px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    position: relative;
+    top: -48px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.profile-name-heading {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-top: -116px;
+}
+
+.wrap-btn-edit-prof {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 12px;
+}
+
+.btn-edit-prof {
+    cursor: pointer;
+    padding: 8px 12px;
+    border: none;
+    outline: none;
+    color: #fff;
+    border-radius: 4px;
+    background-color: #28a745;
+}
+
+.profile-icon-btn-edit {
+    font-size: 1.2rem;
+    padding-right: 2px;
+}
+
+.separate-prof {
+    margin-top: 12px;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.profile-info {
+    display: flex;
+    margin: 16px 48px;
+}
+
+.profile-info-list {
+    flex: 1;
+    list-style: none;
+}
+
+.profile-info-item {
+    font-size: 1.4rem;
+    margin-bottom: 16px;
+}
+
+.profile-info-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-style: italic;
+}
+
 /* Container */
 .container {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    animation: fadeIn linear 0.2s;
+    display: none;
+}
+
+.modal__overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal__body {
+    margin: auto;
+    z-index: 1;
+    --growth-from: 0.7;
+    --growth-to: 1;
+    animation: growth linear 0.2s;
+}
+
+.wrap-form-edit-prof {
+    position: relative;
+    background-color: #fff;
+    width: 420px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.form-edit-prof__container {
+    padding: 16px 32px;
+}
+
+.form-edit-prof-heading {
+    text-align: center;
+    font-size: 2.4rem;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.btn-close-edit-prof {
+    cursor: pointer;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 3rem;
+    padding: 0 10px;
+    background-color: #ccc;
+    border-radius: 50%;
+}
+
+.form-edit-prof {
+    width: 100%;
+}
+
+.btn-submit-edit-prof {
+    width: 100%;
+    margin-top: 16px;
+    padding: 12px 0;
+    font-size: 1.4rem;
+    background-color: #1dbfaf;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes growth {
+    from {
+        transform: scale(var(--growth-from));
+    }
+    to {
+        transform: scale(var(--growth-to));
+    }
 }

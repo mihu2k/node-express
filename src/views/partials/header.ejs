@@ -7,7 +7,7 @@
 
             <nav class="header__navigation">
                 <span class="navigation-close">&times;</span>
-                <a class="header__navigation-heading" href="#">
+                <a class="header__navigation-heading" href="/profile/<%= user._id %>">
                     <img src="<%= user.avatar %>" alt="" class="header__nav-avt header__navigation-avt">
                     <div class="heading__navigation-info-user">
                         <h3 class="heading__navigation-user-name"><%= user.name %></h3>
@@ -22,6 +22,12 @@
                         <i class="ti-home navigation-icon"></i>
                         <span class="navigation-content">Home page</span>
                     </a>
+                    <% if (user.userType === 'department') { %>
+                        <a href="/department/change-password" class="navigation-link navigation-item">
+                            <i class="fas fa-key navigation-icon"></i>
+                            <span class="navigation-content">Change password</span>
+                        </a>
+                    <% } %>
                     <% if (user.userType === 'admin') { %>
                         <a href="/user" class="navigation-link navigation-item">
                             <i class="far fa-user navigation-icon"></i>
@@ -67,7 +73,7 @@
         </li>
         <li class="header__nav-item mr-4">
             <img src="<%= user.avatar %>" alt="" class="header__nav-avt">
-            <span class="header__nav-text"><%= user.name %></span>
+            <span class="header__nav-text header__nav-text-name"><%= user.name %></span>
         </li>
         <li class="header__nav-item header__nav-icon-down">
             <i class="header__nav-icon ti-angle-down"></i>
@@ -76,7 +82,7 @@
 
             <ul class="header__nav-user-menu">
                 <li class="header__nav-user-item">
-                    <a href="#" class="header__nav-user-link">See your profile</a>
+                    <a href="/profile/<%= user._id %>" class="header__nav-user-link">See your profile</a>
                 </li>
                 <li class="header__nav-user-item">
                     <a href="#" class="header__nav-user-link">My post</a>

@@ -8,7 +8,7 @@
         <div class="container container-wrap-form-create">
             <div class="wrap-form-authorized-account">
                 <h2 class="form-create-heading">Management scope</h2>
-                <form method="POST" action="/user/<%= department._id %>?_method=PUT">
+                <form method="POST" action="/user/<%= department._id %>?_method=PUT" class="form-authorized-account">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="checkboxPCTHSSV" value="Phòng Công tác học sinh sinh viên" name="department[]">
                         <label class="form-check-label" for="checkboxPCTHSSV">Phòng Công tác học sinh sinh viên</label>
@@ -92,16 +92,7 @@
     </div>
 
     <script>
-        var checkboxList = document.querySelectorAll('input[type = checkbox]');
         var departmentUser = JSON.parse('<%- departmentUser %>');
-
-        departmentUser.department.forEach(item => {
-            checkboxList.forEach(checkbox => {;
-                if (item === checkbox.value) {
-                    checkbox.checked = true;
-                }
-            })
-        });
     </script>
 
     <script src="/javascripts/main.js"></script>
