@@ -341,17 +341,55 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Handle show input video link in form post news
     var btnShowVideoLink = document.querySelector('.fab.fa-youtube.form-post-news-icon');
-    var inputVideoLink = document.querySelector('.form-group-video-link');
+    var wrapInputVideoLink = document.querySelector('.form-group-video-link');
     
     if (btnShowVideoLink) {
-        inputVideoLink.style.display = 'none';
-        btnShowVideoLink.onclick = function() {
+        wrapInputVideoLink.style.display = 'none';
+        $('#form-post-news-input-link-video').attr('required', false);
 
-            if (inputVideoLink.style.display === 'none') {
-                inputVideoLink.style.display = 'flex';
+        btnShowVideoLink.onclick = function() {
+            if (wrapInputVideoLink.style.display === 'none') {
+                wrapInputVideoLink.style.display = 'flex';
+                $('#form-post-news-input-link-video').attr('required', true);
             } else {
-                inputVideoLink.style.display = 'none';
+                wrapInputVideoLink.style.display = 'none';
+                $('#form-post-news-input-link-video').removeAttr('required');
             }
         }
+    }
+
+    // Function show img before upload in db
+    function showImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('.textarea__img-form-post-news').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    var btnCloseImageFormPost = $('.btn-close-image-form-post-news');
+
+    $('#form-post-news-upload-img').change(function() {
+        $('.wrap-show-img__input-img').css({
+            'height': '200px',
+            'display': 'block',
+            'margin-top': '8px',
+        });
+
+        btnCloseImageFormPost.css('display', 'block');
+        showImage(this);
+    });
+
+    // Handle btn close image
+    if (btnCloseImageFormPost) {
+        btnCloseImageFormPost.click(function() {
+            btnCloseImageFormPost.css('display', 'none');
+            $('.wrap-show-img__input-img').css('display', 'none');
+            $('#form-post-news-upload-img').val('');
+        });
     }
 });

@@ -75,6 +75,10 @@ hr {
     border: 1px solid rgba(0, 0, 0, 0.18) !important;
 }
 
+input::placeholder {
+    font-size: 1.3rem;
+}
+
 /* Grid system */
 .grid {
     width: 100%;
@@ -1003,7 +1007,7 @@ tr th:first-child {
     height: 41px;
     border-radius: 50%;
     border: 1px solid rgba(0, 0, 0, 0.2);
-    margin-right: 8px;
+    margin-right: 10px;
 }
 
 .wrap-form-post-name {
@@ -1024,6 +1028,35 @@ tr th:first-child {
     padding: 8px 12px;
 }
 
+.display-img-form-post-news {
+    position: relative;
+}
+
+.wrap-show-img__input-img {
+    margin-top: 0;
+    height: 0;
+    display: none;
+    overflow-y: auto;
+}
+
+.btn-close-image-form-post-news {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 16px;
+    color: #fff;
+    font-size: 2.2rem;
+    padding: 0 8px;
+    background-color: #dc3545;
+    border-bottom-left-radius: 4px;
+    display: none;
+}
+
+.textarea__img-form-post-news {
+    width: 100%;
+    height: auto;
+}
+
 .form-group-video-link {
     display: none;
     animation: fadeIn 0.2s linear;
@@ -1039,7 +1072,7 @@ tr th:first-child {
     margin: 16px 0;
 }
 
-.form-post-wrap-icon-text {
+.form-post-wrap-icon__text {
     font-size: 1.4rem;
     font-weight: 500;
 }
@@ -1055,6 +1088,7 @@ tr th:first-child {
 
 .btn-submit-form-post-news {
     width: 100%;
+    font-size: 1.5rem;
     padding: 12px 0;
     background-color: #1dbfaf;
 }

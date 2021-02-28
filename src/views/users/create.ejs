@@ -11,15 +11,15 @@
                 <form action="/user/storage" method="POST" class="form-create-account">
                     <div class="form-group">
                         <label for="input-create-username" class="form-label">Username <span class="star-red">*</span></label>
-                        <input type="text" class="form-control" id="input-create-username" name="username">
+                        <input type="text" class="form-control" id="input-create-username" name="username" placeholder="Please enter username...">
                     </div>
                     <div class="form-group">
                         <label for="input-create-password" class="form-label">Password <span class="star-red">*</span></label>
-                        <input type="password" class="form-control" id="input-create-password" name="password">
+                        <input type="password" class="form-control" id="input-create-password" name="password" placeholder="Please enter password...">
                     </div>
                     <div class="form-group">
-                        <label for="input-create-name" class="form-label">Name Department <span class="star-red">*</span></label>
-                        <input type="text" class="form-control" id="input-create-name" name="name">
+                        <label for="input-create-name" class="form-label">Department Name <span class="star-red">*</span></label>
+                        <input type="text" class="form-control" id="input-create-name" name="name" placeholder="Please enter department name...">
                     </div>
                     <p class="alert alert-danger mt-8 form-message"></p>
                     <button class="btn-submit-create-account" type="button">Create</button>
@@ -28,6 +28,7 @@
         </div>
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/javascripts/main.js"></script>
 </body>
 </html>

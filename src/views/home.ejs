@@ -14,8 +14,8 @@
                             <!-- Start form post -->
                             <div class="timeline__form-post">
                                 <div class="timeline__wrap-input">
-                                    <img src="/images/default-avt.jpg" alt="" class="timeline__wrap-input-avt">
-                                    <span class="timeline__wrap-input-open">What's on your mind, name?</span>
+                                    <img src="<%= user.avatar %>" alt="" class="timeline__wrap-input-avt">
+                                    <span class="timeline__wrap-input-open">What's on your mind, <%= user.name %>?</span>
                                 </div>
                                 <ul class="timeline__options-list">
                                     <li class="timeline__options-item">
@@ -47,30 +47,39 @@
                     <h2 class="form-edit-prof-heading">Create Post</h2>
                     <div class="btn-close-edit-prof">&times;</div>
                     <div class="form-post-news__heading">
-                        <img src="/images/default-avt.jpg" alt="" class="wrap-user-status-avt">
+                        <img src="<%= user.avatar %>" alt="" class="wrap-user-status-avt">
                         <div class="wrap-form-post-name-and-status">
-                            <p class="wrap-form-post-name">Minh Hưng</p>
+                            <p class="wrap-form-post-name"><%= user.name %></p>
                             <div class="wrap-form-post-status">
                                 <i class="fas fa-globe-americas"></i> Public
                             </div>
                         </div>
                     </div>
-                    <textarea name="" id="" cols="30" rows="10" placeholder="What's on your mind, name?" class="form-post-news-textarea"></textarea>
-                    <div class="form-group mt-16 form-group-video-link">
-                        <label for="form-post-news-input-link-video" class="form-label">Video link</label>
-                        <input type="text " class="form-control border-color-gray mt-4" id="form-post-news-input-link-video">
-                    </div>
-                    <div class="form-post-wrap-icon">
-                        <p class="form-post-wrap-icon-text">Add to Your Post</p>
-                        <div>
-                            <!-- Upload image -->
-                            <label for="form-post-news-upload-img" class="fas fa-images form-post-news-icon color-green mr-16"></label>
-                            <input type="file" accept="image/*" name="" id="form-post-news-upload-img" hidden>
-
-                            <i class="fab fa-youtube form-post-news-icon color-red"></i>
+                    <form action="" method="POST">
+                        <textarea name="" id="" cols="30" rows="10" placeholder="What's on your mind, <%= user.name%>?" class="form-post-news-textarea" required></textarea>
+                        <div class="display-img-form-post-news">
+                            <div class="wrap-show-img__input-img">
+                                <img src="" alt="" class="textarea__img-form-post-news">
+                            </div>
+                            <div class="btn-close-image-form-post-news">&times;</div>
                         </div>
-                    </div>
-                    <button class="btn btn-submit-form-post-news"><strong>Post</strong></button>
+
+                        <div class="form-group mt-16 form-group-video-link">
+                            <label for="form-post-news-input-link-video" class="form-label">Video link</label>
+                            <input type="text " class="form-control border-color-gray mt-4" id="form-post-news-input-link-video" placeholder="Please enter video link...">
+                        </div>
+                        <div class="form-post-wrap-icon">
+                            <p class="form-post-wrap-icon__text">Add to Your Post</p>
+                            <div>
+                                <!-- Upload image -->
+                                <label for="form-post-news-upload-img" class="fas fa-images form-post-news-icon color-green mr-16"></label>
+                                <input type="file" accept="image/*" name="imageUpload" id="form-post-news-upload-img" hidden>
+
+                                <i class="fab fa-youtube form-post-news-icon color-red"></i>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-submit-form-post-news"><strong>Post</strong></button>
+                    </form>
                 </div>
             </div>
         </div>
