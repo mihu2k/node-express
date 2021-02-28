@@ -17,8 +17,16 @@ html {
     color: #333;
 }
 
+.mt-4 {
+    margin-top: 4px !important;
+}
+
 .mt-8 {
     margin-top: 8px !important;
+}
+
+.mt-16 {
+    margin-top: 16px !important;
 }
 
 .mt-48 {
@@ -53,10 +61,40 @@ html {
     border-color: #f5c6cb;
 }
 
+.text-danger {
+    color: #dc3545!important;
+}
+
 hr {
     background-color: #ced0d4;
     height: 1.2px;
     border-width: 0;
+}
+
+.border-color-gray {
+    border: 1px solid rgba(0, 0, 0, 0.18) !important;
+}
+
+/* Grid system */
+.grid {
+    width: 100%;
+    display: block;
+    padding: 0;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col-lg-3 {
+    max-width: 25%;
+    flex: 0 0 25%;
+}
+
+.col-lg-6 {
+    max-width: 50%;
+    flex: 0 0 50%;
 }
 
 /* Login */
@@ -475,7 +513,7 @@ hr {
 }
 
 thead {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     background-color: #e9ecef;
 }
 
@@ -505,8 +543,17 @@ tr th:first-child {
 
 .manage-user-heading {
     text-align: center;
+    text-transform: uppercase;
     font-size: 2.8rem;
     margin-bottom: 12px;
+}
+
+.wrap-total-accounts {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 0 12px 12px;
 }
 
 .btn {
@@ -517,23 +564,28 @@ tr th:first-child {
     border-radius: 4px;
 }
 
-.btn-create-account {
+.btn-create-account-link {
     background-color: #28a745;
     padding: 10px 16px;
     font-size: 1.4rem;
-    font-weight: 600;
-    display: flex;
-    margin: 0 0 16px auto;
+    font-weight: 300;
+    text-decoration: none;
 }
 
-.btn-create-account:hover {
+.btn-create-account-link:hover {
     background-color: #2a9743;
+}
+
+.total-accounts-text {
+    font-size: 1.5rem;
+    font-weight: 700;
 }
 
 .btn-authorized {
     text-decoration: none;
     display: block;
     padding: 6px 8px;
+    font-weight: 300;
     background-color: #007bff;
 }
 
@@ -755,7 +807,7 @@ tr th:first-child {
     bottom: 0;
     z-index: 1;
     animation: fadeIn linear 0.2s;
-    display: none;
+    display: none; /* display: flex */
 }
 
 .modal__overlay {
@@ -832,4 +884,181 @@ tr th:first-child {
     to {
         transform: scale(var(--growth-to));
     }
+}
+
+/* App container (home page) */
+.app__container {
+    margin-top: 48px;
+    background-color: #f0f2f5;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+}
+
+.app__container-timeline {
+    padding: 32px 84px 0;
+}
+
+.timeline__form-post {
+    padding: 12px 16px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.timeline__wrap-input {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.timeline__wrap-input-avt {
+    cursor: pointer;
+    width: 41px;
+    height: 41px;
+    margin-right: 8px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.timeline__wrap-input-open {
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.6rem;
+    color: rgb(128, 124, 124);
+    padding: 10px 20px;
+    border-radius: 999px;
+    background-color: #f1f1f1;
+}
+
+.timeline__wrap-input-open:hover {
+    background-color: #e9e5e5;
+}
+
+.timeline__options-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    list-style: none;
+    padding: 8px 0 0;
+    border-top: 1px solid #dee2e6;
+}
+
+.timeline__options-item {
+    font-size: 1.5rem;
+    flex: 1;
+    text-align: center;
+    padding: 10px 0;
+    border-radius: 8px;
+    color: rgb(80, 78, 78);
+}
+
+.timeline__options-item:hover {
+    cursor: pointer;
+    background-color: #f1f1f1;
+}
+
+.timeline__options-icon {
+    font-size: 2rem;
+    position: relative;
+    top: 1.2px;
+    padding-right: 4px;
+}
+
+.color-red {
+    color: rgb(240, 40, 73);
+}
+
+.color-green {
+    color: rgb(69, 189, 98);
+}
+
+.color-yellow {
+    color: rgb(247, 185, 40);
+}
+
+.wrap-form-post-news {
+    position: relative;
+    background-color: #fff;
+    width: 500px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.form-post-news__container {
+    padding: 16px;
+}
+
+.form-post-news__heading {
+    display: flex;
+    align-items: center;
+    margin: 16px 0;
+}
+
+.wrap-user-status-avt {
+    width: 41px;
+    height: 41px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    margin-right: 8px;
+}
+
+.wrap-form-post-name {
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.wrap-form-post-status {
+    font-size: 1.2rem;
+}
+
+.form-post-news-textarea {
+    width: 100%;
+    border-color: #d8d6d6;
+    border-radius: 4px;
+    outline-color: #1dbfaf;
+    padding: 8px 12px;
+}
+
+.form-group-video-link {
+    display: none;
+    animation: fadeIn 0.2s linear;
+}
+
+.form-post-wrap-icon {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    margin: 16px 0;
+}
+
+.form-post-wrap-icon-text {
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.form-post-news-icon {
+    cursor: pointer;
+    font-size: 2rem;
+}
+
+.form-post-news-icon:hover {
+    filter: opacity(80%);
+}
+
+.btn-submit-form-post-news {
+    width: 100%;
+    padding: 12px 0;
+    background-color: #1dbfaf;
+}
+
+.btn-submit-form-post-news:hover {
+    background-color: #21b1a2;
 }

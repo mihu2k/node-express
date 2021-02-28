@@ -10,7 +10,10 @@
         <div class="container mt-48">
             <br><br>
             <h1 class="manage-user-heading">Manage department accounts</h1>
-            <button class="btn btn-create-account">Create account</button>
+            <div class="wrap-total-accounts">
+                <a href="/user/create" class="btn btn-create-account-link">Create account</a>
+                <p class="total-accounts-text">Total number of accounts: <strong class="text-danger"><%= departments.length %></strong></p>
+            </div>
             <table class="table">
                 <thead>
                     <tr>

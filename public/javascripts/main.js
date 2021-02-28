@@ -139,15 +139,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // When click btn create account, app redirect /user/create
-    var btnCreateAccount = document.querySelector('.btn-create-account');
-
-    if (btnCreateAccount) {
-        btnCreateAccount.onclick = function() {
-            window.location.href = '/user/create';
-        }
-    }
-
     // Check input value in form create account
     var usernameFormCreateAccount = document.getElementById('input-create-username');
     var passwordFormCreateAccount = document.getElementById('input-create-password');
@@ -304,9 +295,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     var profile = `
                             <ul class="profile-info-list">
                                 <li class="profile-info-item">
-                                    <span class="profile-info-title">Username: </span>${profileWorkFlow.username}
-                                </li>
-                                <li class="profile-info-item">
                                     <span class="profile-info-title">Name: </span>${data.data.name}
                                 </li>
                                 <li class="profile-info-item">
@@ -340,5 +328,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
         });
+    }
+
+    // Handle show form post news
+    var showFormPostNews = document.querySelector('.timeline__wrap-input-open');
+
+    if (showFormPostNews) {
+        showFormPostNews.onclick = function() {
+            modal.style.display = 'flex';
+        }
+    }
+
+    // Handle show input video link in form post news
+    var btnShowVideoLink = document.querySelector('.fab.fa-youtube.form-post-news-icon');
+    var inputVideoLink = document.querySelector('.form-group-video-link');
+    
+    if (btnShowVideoLink) {
+        inputVideoLink.style.display = 'none';
+        btnShowVideoLink.onclick = function() {
+
+            if (inputVideoLink.style.display === 'none') {
+                inputVideoLink.style.display = 'flex';
+            } else {
+                inputVideoLink.style.display = 'none';
+            }
+        }
     }
 });
