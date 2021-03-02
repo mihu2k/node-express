@@ -43,7 +43,7 @@ class ProfileController {
             }
     
             User.updateOne({ _id: req.params.id }, formData)
-                .then(() => res.json({ code: 0, message: 'Update successfully!', data: formData }))
+                .then(() => res.json({ code: 200, message: 'Update successfully!', data: formData }))
                 .catch(next)
         })
     }

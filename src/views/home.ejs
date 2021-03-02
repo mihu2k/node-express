@@ -12,7 +12,7 @@
                     <div class="col-lg-6">
                         <div class="app__container-timeline">
                             <!-- Start form post -->
-                            <div class="timeline__form-post">
+                            <div class="timeline__form-post mb-16">
                                 <div class="timeline__wrap-input">
                                     <img src="<%= user.avatar %>" alt="" class="timeline__wrap-input-avt">
                                     <span class="timeline__wrap-input-open">What's on your mind, <%= user.name %>?</span>
@@ -30,6 +30,74 @@
                                 </ul>
                             </div>
                             <!-- End form post -->
+
+                            <!-- Start the news -->
+                            <% posts.forEach(post => { %>
+                            <div class="timeline-news mb-16 timeline-news<%= post._id %>">
+                                <div class="timeline-news__heading">
+                                    <div class="timeline-news__heading-author">
+                                        <img src="<%= post.authorId.avatar %>" alt="" class="timeline-news__heading-author-img">
+                                        <div class="timeline-news__heading-author-wrap">
+                                            <a href="" class="timeline-news__heading-author-name"><%= post.authorId.name %></a>
+                                            <span class="timeline-news__heading-time">
+                                                <%= new Date(post.createdAt).toLocaleString() %><i class="fas fa-globe-americas timeline-news__heading-icon"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-news__heading-options">
+                                        <i class="fas fa-ellipsis-h"></i>
+
+                                        <div class="overlay-transparent-post"></div>
+                                        <ul class="timeline-news__options-list">
+                                            <li class="timeline-news__options-item timeline-news__options-item-edit" data-id="<%= post._id %>">
+                                                <i class="fas fa-edit timeline-news__options-icon"></i>Edit post
+                                            </li>
+                                            <li class="timeline-news__options-item timeline-news__options-item-delete" data-id="<%= post._id %>">
+                                                <i class="fas fa-trash-alt timeline-news__options-icon"></i>Delete post
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <p class="timeline-news__content-text"><%= post.content %></p>
+
+                                <% if (post.video) { %>
+                                <iframe class="timeline-news__content-video" width="560" height="315" src="https://www.youtube.com/embed/<%= post.video %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <% } %>
+
+                                <% if (post.image) { %>
+                                <img src="<%= post.image %>" alt="" class="timeline-news__content-img">
+                                <% } %>
+
+                                <div class="timeline-news__wrap-quantity-cmt">
+                                    <span class="timeline-news__show-react">
+                                        <i class="fab fa-gratipay timeline-news__icon-show-react color-red"></i> 100
+                                    </span>
+                                    <p class="timeline-news__quantity-cmt">
+                                        <strong class="timeline-news__quantity">100</strong> <span>Comments</span>
+                                    </p>
+                                </div>
+                                <div class="separate-timeline-news"></div>
+                                <div class="timeline-news__show-activity">
+                                    <span class="timeline-news__activity-liked">
+                                        <i class="far fa-thumbs-up timeline-news__activity-icon"></i> Liked
+                                    </span>
+                                    <span class="timeline-news__activity-comment">
+                                        <i class="far fa-comment-alt timeline-news__activity-icon timeline-news__cmt-icon"></i> Comment
+                                    </span>
+                                </div>
+                                <div class="separate-timeline-news"></div>
+                                <form action="" class="timeline-news__form-cmt">
+                                    <div class="form-group-cmt">
+                                        <label for="input-comment" class="form-label-cmt">
+                                            <img src="/uploads/corgi.jpg" alt="" class="timeline-news__footer-cmt-img">
+                                        </label>
+                                        <input type="text" class="form-control-cmt" id="input-comment" placeholder="Write a comment...">
+                                        <button class="btn-submit-cmt"><i class="fas fa-paper-plane"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+                            <% }) %>
+                            <!-- End the news -->
                         </div>
                     </div>
                     <div class="col-lg-3" style="background-color: #ccc;"></div>
@@ -55,8 +123,8 @@
                             </div>
                         </div>
                     </div>
-                    <form action="" method="POST">
-                        <textarea name="" id="" cols="30" rows="10" placeholder="What's on your mind, <%= user.name%>?" class="form-post-news-textarea" required></textarea>
+                    <form action="" method="POST" enctype="multipart/form-data" class="form-post-news" data-id="<%= user._id %>">
+                        <textarea name="textarea" id="" cols="30" rows="10" placeholder="What's on your mind, <%= user.name%>?" class="form-post-news-textarea" required></textarea>
                         <div class="display-img-form-post-news">
                             <div class="wrap-show-img__input-img">
                                 <img src="" alt="" class="textarea__img-form-post-news">
@@ -66,14 +134,14 @@
 
                         <div class="form-group mt-16 form-group-video-link">
                             <label for="form-post-news-input-link-video" class="form-label">Video link</label>
-                            <input type="text " class="form-control border-color-gray mt-4" id="form-post-news-input-link-video" placeholder="Please enter video link...">
+                            <input type="text " class="form-control border-color-gray mt-4" name="video" id="form-post-news-input-link-video" placeholder="Please enter video link...">
                         </div>
                         <div class="form-post-wrap-icon">
                             <p class="form-post-wrap-icon__text">Add to Your Post</p>
                             <div>
                                 <!-- Upload image -->
                                 <label for="form-post-news-upload-img" class="fas fa-images form-post-news-icon color-green mr-16"></label>
-                                <input type="file" accept="image/*" name="imageUpload" id="form-post-news-upload-img" hidden>
+                                <input type="file" accept="image/*" name="image" id="form-post-news-upload-img" hidden>
 
                                 <i class="fab fa-youtube form-post-news-icon color-red"></i>
                             </div>
