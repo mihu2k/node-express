@@ -852,7 +852,8 @@ tr th:first-child {
     border-bottom: 1px solid #dee2e6;
 }
 
-.btn-close-edit-prof {
+.btn-close-edit-prof,
+.btn-close-edit-form-post {
     cursor: pointer;
     position: absolute;
     top: 12px;
@@ -989,7 +990,8 @@ tr th:first-child {
     color: rgb(247, 185, 40);
 }
 
-.wrap-form-post-news {
+.wrap-form-post-news,
+.wrap-form-edit-post-news {
     position: relative;
     background-color: #fff;
     width: 500px;
@@ -1025,7 +1027,8 @@ tr th:first-child {
     font-size: 1.2rem;
 }
 
-.form-post-news-textarea {
+.form-post-news-textarea,
+.form-edit-post-news-textarea {
     width: 100%;
     border-color: #d8d6d6;
     border-radius: 4px;
@@ -1033,18 +1036,21 @@ tr th:first-child {
     padding: 8px 12px;
 }
 
-.display-img-form-post-news {
+.display-img-form-post-news,
+.display-img-form-post-edit {
     position: relative;
 }
 
-.wrap-show-img__input-img {
+.wrap-show-img__input-img,
+.wrap-show-img__input-img-edit {
     margin-top: 0;
     height: 0;
     display: none;
     overflow-y: auto;
 }
 
-.btn-close-image-form-post-news {
+.btn-close-image-form-post-news,
+.btn-close-image-form-post-edit {
     cursor: pointer;
     position: absolute;
     top: 0;
@@ -1057,7 +1063,8 @@ tr th:first-child {
     display: none;
 }
 
-.textarea__img-form-post-news {
+.textarea__img-form-post-news,
+.textarea__img-form-post-edit {
     width: 100%;
     height: auto;
 }
@@ -1082,12 +1089,14 @@ tr th:first-child {
     font-weight: 500;
 }
 
-.form-post-news-icon {
+.form-post-news-icon,
+.form-edit-post-news-icon {
     cursor: pointer;
     font-size: 2rem;
 }
 
-.form-post-news-icon:hover {
+.form-post-news-icon:hover,
+.form-edit-post-news-icon:hover {
     filter: opacity(80%);
 }
 
@@ -1174,7 +1183,9 @@ tr th:first-child {
     padding: 8px 0;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    z-index: 2;
     display: none;
+    animation: fadeIn ease-in-out 0.3s;
 }
 
 .timeline-news__options-item {
@@ -1323,4 +1334,5 @@ tr th:first-child {
     bottom: 0;
     background-color: transparent;
     display: none;
+    z-index: 1;
 }

@@ -336,6 +336,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (showFormPostNews) {
         showFormPostNews.onclick = function() {
             modal.style.display = 'flex';
+            $('.wrap-form-edit-post-news').css('display', 'none');
         }
     }
 
@@ -359,12 +360,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Function show img before upload in db
-    function showImage(input) {
+    function showImage(input, imgElement) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
             reader.onload = function(e) {
-                $('.textarea__img-form-post-news').attr('src', e.target.result);
+                $(imgElement).attr('src', e.target.result);
             }
 
             reader.readAsDataURL(input.files[0]);
@@ -381,7 +382,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         btnCloseImageFormPost.css('display', 'block');
-        showImage(this);
+        showImage(this, '.textarea__img-form-post-news');
     });
 
     // Handle btn close image
@@ -425,10 +426,11 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </div>
                                 <div class="timeline-news__heading-options">
                                     <i class="fas fa-ellipsis-h"></i>
-
+                                    
                                     <div class="overlay-transparent-post"></div>
                                     <ul class="timeline-news__options-list">
-                                        <li class="timeline-news__options-item timeline-news__options-item-edit" data-id="${data.dataPost._id}">
+                                        <li class="timeline-news__options-item timeline-news__options-item-edit" data-id="${data.dataPost._id}"
+                                            data-content="${data.dataPost.content}" data-image="${data.dataPost.image}" data-video="${data.dataPost.video}">
                                             <i class="fas fa-edit timeline-news__options-icon"></i>Edit post
                                         </li>
                                         <li class="timeline-news__options-item timeline-news__options-item-delete" data-id="${data.dataPost._id}">
@@ -491,11 +493,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     $('#form-post-news-input-link-video').val('');
                     btnCloseImageFormPost.css('display', 'none');
                     $('.wrap-show-img__input-img').css('display', 'none');
-                    $('.form-post-news-upload-img').val('');
+                    $('#form-post-news-upload-img').val('');
                     $('.modal').hide();
 
-                    // Khi vừa tạo post thì không chọn xóa, sửa được nên phải gọi hàm showOptions trong đây
-                    showOptions();
+                    $('.timeline-news__options-list').css('display', 'none');
                 },
                 error: function(error) {
                     console.log(error);
@@ -504,48 +505,208 @@ document.addEventListener('DOMContentLoaded', function() {
         })
     }
 
-    // Show options: edit, delete post
-    const showOptions = function() {
-        var btnOptions = document.querySelectorAll('.timeline-news__heading-options');
-
-        if (btnOptions) {
-            btnOptions.forEach(btnOption => {
-                btnOption.lastElementChild.style.display = 'none';
-                btnOption.onclick = function() {
-                    if (this.lastElementChild.style.display === 'none') {
-                        this.lastElementChild.style.display = 'block';
-                        this.firstElementChild.nextElementSibling.style.display = 'block';
-
-                        this.lastElementChild.firstElementChild.onclick = function(e) {
-                            console.log(e.target.dataset.id);
-                        }
-
-                        this.lastElementChild.lastElementChild.onclick = function(e) {
-                            var postId = e.target.dataset.id;
-
-                            $.ajax({
-                                url: '/post/' + postId + '/delete',
-                                type: 'DELETE',
-                                cache: false,
-                                contentType: false,
-                                processData: false,
-                                success: function(data) {
-                                    $('.timeline-news' + postId).remove();
-                                },
-                                error: function(error) {
-                                    console.log(error);
-                                }
-                            })
-                        }
-                    }
-                    else {
-                        this.lastElementChild.style.display = 'none';
-                        this.firstElementChild.nextElementSibling.style.display = 'none';
-                    }
-                };
-            })
-        }
+    // Function delete a post
+    function deletePost(id) {
+        $.ajax({
+            url: '/post/' + id + '/delete',
+            type: 'DELETE',
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                $('.timeline-news' + id).remove();
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        })
     }
 
-    showOptions();
+    // Function edit a post
+    function editPost(id, formData) {
+        $.ajax({
+            url: '/post/' + id + '/edit',
+            type: 'PUT',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                console.log(data);
+                var timePost = new Date(data.data.createdAt).toLocaleString();
+                var aPost1 = `
+                    <div class="timeline-news__heading">
+                        <div class="timeline-news__heading-author">
+                            <img src="${data.data.authorId.avatar}" alt="" class="timeline-news__heading-author-img">
+                            <div class="timeline-news__heading-author-wrap">
+                                <a href="" class="timeline-news__heading-author-name">${data.data.authorId.name}</a>
+                                <span class="timeline-news__heading-time">
+                                    ${timePost}<i class="fas fa-globe-americas timeline-news__heading-icon"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="timeline-news__heading-options">
+                            <i class="fas fa-ellipsis-h"></i>
+                        
+                            <div class="overlay-transparent-post"></div>
+                            <ul class="timeline-news__options-list">
+                                <li class="timeline-news__options-item timeline-news__options-item-edit" data-id="${data.data._id}"
+                                    data-content="${data.data.content}" data-image="${data.data.image}" data-video="${data.data.video}">
+                                    <i class="fas fa-edit timeline-news__options-icon"></i>Edit post
+                                </li>
+                                <li class="timeline-news__options-item timeline-news__options-item-delete" data-id="${data.data._id}">
+                                    <i class="fas fa-trash-alt timeline-news__options-icon"></i>Delete post
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="timeline-news__content-text">${data.data.content}</p>`;
+                
+                var aPost2;
+                if (data.data.video) {
+                    aPost2 = `<iframe class="timeline-news__content-video" width="560" height="315" src="https://www.youtube.com/embed/${data.data.video}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                } else {
+                    aPost2 = '';
+                }
+
+                var aPost3;
+                if (data.data.image) {
+                    aPost3 = `<img src="${data.data.image}" alt="" class="timeline-news__content-img">`;
+                } else {
+                    aPost3 = '';
+                }
+
+                var aPost4 = `
+                    <div class="timeline-news__wrap-quantity-cmt">
+                        <span class="timeline-news__show-react">
+                            <i class="fab fa-gratipay timeline-news__icon-show-react color-red"></i> 100
+                        </span>
+                        <p class="timeline-news__quantity-cmt">
+                            <strong class="timeline-news__quantity">100</strong> <span>Comments</span>
+                        </p>
+                    </div>
+                    <div class="separate-timeline-news"></div>
+                    <div class="timeline-news__show-activity">
+                        <span class="timeline-news__activity-liked">
+                            <i class="far fa-thumbs-up timeline-news__activity-icon"></i> Liked
+                        </span>
+                        <span class="timeline-news__activity-comment">
+                            <i class="far fa-comment-alt timeline-news__activity-icon timeline-news__cmt-icon"></i> Comment
+                        </span>
+                    </div>
+                    <div class="separate-timeline-news"></div>
+                    <form action="" class="timeline-news__form-cmt">
+                        <div class="form-group-cmt">
+                            <label for="input-comment" class="form-label-cmt">
+                                <img src="/uploads/corgi.jpg" alt="" class="timeline-news__footer-cmt-img">
+                            </label>
+                            <input type="text" class="form-control-cmt" id="input-comment" placeholder="Write a comment...">
+                            <button class="btn-submit-cmt"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </form>`;
+
+                var aPost = aPost1 + aPost2 + aPost3 + aPost4;
+                
+
+                $('.form-edit-post-news-textarea').val('');
+                $('#form-edit-post-input-link-video').val('');
+                $('.wrap-show-img__input-img-edit').css('display', 'none');
+                $('#form-edit-post-upload-img').val('');
+
+                $('.modal').css('display', 'none');
+                $('.wrap-form-post-news').css('display', 'block');
+                $('.wrap-form-edit-post-news').css('display', 'none');
+
+                $('.timeline-news' + data.data._id).html(aPost);
+                $('.timeline-news__options-list').css('display', 'none');
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    }
+
+    // Handle show/hide ellipsis horizontal
+    $('.timeline-news__options-list').css('display', 'none');
+    $(document).on('click', '.timeline-news__heading-options', function() {
+        if (this.lastElementChild.style.display === 'none') {
+            $(this).children('.overlay-transparent-post').css('display', 'block');
+            $(this).children('.timeline-news__options-list').css('display', 'block');
+        } else {
+            $(this).children('.overlay-transparent-post').css('display', 'none');
+            $(this).children('.timeline-news__options-list').css('display', 'none');
+        }
+    });
+
+    // Handle click edit post
+    var postId;
+    $(document).on('click', '.timeline-news__options-item-edit', function(e) {
+        postId = $(this).data('id');
+        var content = $(this).data('content');
+        var video = $(this).data('video');
+        var image = $(this).data('image');
+
+        $('.modal').css('display', 'flex');
+        $('.wrap-form-post-news').css('display', 'none');
+        $('.wrap-form-edit-post-news').css('display', 'block');
+
+        if (image) {
+            $('.wrap-show-img__input-img-edit').css({
+                'height': '200px',
+                'display': 'block',
+                'margin-top': '8px',
+            });
+            $('.btn-close-image-form-post-edit').css('display', 'block');
+            $('.textarea__img-form-post-edit').attr('src', image);
+        } else {
+            $('.wrap-show-img__input-img-edit').css({
+                'height': '0px',
+                'display': 'none',
+                'margin-top': '0px',
+            });
+            $('.btn-close-image-form-post-edit').css('display', 'none');
+            $('.textarea__img-form-post-edit').attr('src', '');
+        }
+
+        // Handle image before upload
+        $('#form-edit-post-upload-img').change(function() {
+            $('.wrap-show-img__input-img-edit').css({
+                'height': '200px',
+                'display': 'block',
+                'margin-top': '8px',
+            });
+    
+            $('.btn-close-image-form-post-edit').css('display', 'block');
+            showImage(this, '.textarea__img-form-post-edit');
+        });
+        
+        $('.btn-close-image-form-post-edit').click(function() {
+            $('.btn-close-image-form-post-edit').css('display', 'none');
+            $('.wrap-show-img__input-img-edit').css('display', 'none');
+            $('#form-edit-post-upload-img').val('');
+        });
+        
+        // Close form edit post
+        $('.btn-close-edit-form-post').click(function() {
+            $('.modal').css('display', 'none');
+            $('.wrap-form-post-news').css('display', 'block');
+            $('.wrap-form-edit-post-news').css('display', 'none');
+        });
+        
+        $('.form-edit-post-news-textarea').val(content);
+        $('#form-edit-post-input-link-video').val(video);
+    })
+
+    // Call API edit post when submit form edit post
+    $('.form-edit-post-news').on('submit', function(event) {
+        var formData = new FormData(this);
+        event.preventDefault();
+        editPost(postId, formData);
+    })
+
+    // Handle click delete post and call API
+    $(document).on('click', '.timeline-news__options-item-delete', function(event) {
+        postId = event.target.dataset.id;
+        deletePost(postId);
+    })
 });
