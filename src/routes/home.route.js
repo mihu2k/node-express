@@ -10,6 +10,7 @@ const checkAuth = (req, res, next) => {
 router.post('/post/author/:id', homeController.post);
 router.put('/post/:id/edit', homeController.editPost);
 router.delete('/post/:id/delete', homeController.deletePost);
+router.get('/post', homeController.showPaginatedPosts);
 router.get('/logout', homeController.logout);
 router.get('/', checkAuth, homeController.show);
 

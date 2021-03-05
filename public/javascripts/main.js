@@ -477,7 +477,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <form action="" class="timeline-news__form-cmt">
                                 <div class="form-group-cmt">
                                     <label for="input-comment" class="form-label-cmt">
-                                        <img src="/uploads/corgi.jpg" alt="" class="timeline-news__footer-cmt-img">
+                                        <img src="${data.dataAuthor.avatar}" alt="" class="timeline-news__footer-cmt-img">
                                     </label>
                                     <input type="text" class="form-control-cmt" id="input-comment" placeholder="Write a comment...">
                                     <button class="btn-submit-cmt"><i class="fas fa-paper-plane"></i></button>
@@ -598,7 +598,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <form action="" class="timeline-news__form-cmt">
                         <div class="form-group-cmt">
                             <label for="input-comment" class="form-label-cmt">
-                                <img src="/uploads/corgi.jpg" alt="" class="timeline-news__footer-cmt-img">
+                                <img src="${data.data.authorId.avatar}" alt="" class="timeline-news__footer-cmt-img">
                             </label>
                             <input type="text" class="form-control-cmt" id="input-comment" placeholder="Write a comment...">
                             <button class="btn-submit-cmt"><i class="fas fa-paper-plane"></i></button>
@@ -710,3 +710,126 @@ document.addEventListener('DOMContentLoaded', function() {
         deletePost(postId);
     })
 });
+
+// Load more 10 posts
+var postsPage = 1;
+var postsFetching = false;
+var loadMore = false;
+var userLogin = {...userLogin} // define
+
+$(document).ready(function() {
+    getPosts();
+});
+
+$('.app__container').scroll(function() {
+    var scrollTop = $(this).scrollTop(); //5816.7998046875
+    var heightAppContainer = $(this).height(); // 706.4
+    var heightTimeline = $('.app__container-timeline').height(); // 6459.4
+
+    if ((scrollTop + heightAppContainer) >= (heightTimeline + 40)) {
+        !loadMore && nextPosts();
+    }
+});
+
+function nextPosts() {
+    if (postsFetching) return;
+
+    postsPage++;
+    getPosts(postsPage);
+}
+
+function getPosts(page = 1) {
+    postsFetching = true;
+    $('.loading').css('display', 'block');
+
+    $.ajax({
+        url: '/post?page=' + page,
+        type: 'GET',
+        success: function(posts) {
+            // console.log(posts);
+            if (posts.length === 0) {loadMore = true}
+
+            appendPosts(posts);
+            $('.loading').css('display', 'none');
+            postsFetching = false;
+            $('.timeline-news__options-list').css('display', 'none');
+        }
+    });
+}
+
+function appendPosts(posts) {
+    let html = '';
+    $.each(posts, function(index, post) {
+        html += `
+            <div class="timeline-news mb-16 timeline-news${post._id}">
+                <div class="timeline-news__heading">
+                    <div class="timeline-news__heading-author">
+                        <img src="${post.authorId.avatar}" alt="" class="timeline-news__heading-author-img">
+                        <div class="timeline-news__heading-author-wrap">
+                            <a href="" class="timeline-news__heading-author-name">${post.authorId.name}</a>
+                            <span class="timeline-news__heading-time">
+                                ${new Date(post.createdAt).toLocaleString()}<i class="fas fa-globe-americas timeline-news__heading-icon"></i>
+                            </span>
+                        </div>
+                    </div>`;
+        if (userLogin._id === post.authorId._id) {
+            html += `<div class="timeline-news__heading-options">
+                        <i class="fas fa-ellipsis-h"></i>
+                        
+                        <div class="overlay-transparent-post"></div>
+                        <ul class="timeline-news__options-list">
+                            <li class="timeline-news__options-item timeline-news__options-item-edit" data-id="${post._id}"
+                                    data-content="${post.content}" data-image="${post.image}" data-video="${post.video}">
+                                <i class="fas fa-edit timeline-news__options-icon"></i>Edit post
+                            </li>
+                            <li class="timeline-news__options-item timeline-news__options-item-delete" data-id="${post._id}">
+                                <i class="fas fa-trash-alt timeline-news__options-icon"></i>Delete post
+                            </li>
+                        </ul>
+                    </div>`;
+        }
+            html +=
+                `</div>
+                <p class="timeline-news__content-text">${post.content}</p>`;
+        
+            if (post.video) {
+                html += `<iframe class="timeline-news__content-video" width="560" height="315" src="https://www.youtube.com/embed/${post.video}" 
+                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            }
+            if (post.image) {
+                html += `<img src="${post.image}" alt="" class="timeline-news__content-img">`;
+            }
+
+            html += `
+                <div class="timeline-news__wrap-quantity-cmt">
+                    <span class="timeline-news__show-react">
+                        <i class="fab fa-gratipay timeline-news__icon-show-react color-red"></i> 100
+                    </span>
+                    <p class="timeline-news__quantity-cmt">
+                        <strong class="timeline-news__quantity">100</strong> <span>Comments</span>
+                    </p>
+                </div>
+                <div class="separate-timeline-news"></div>
+                <div class="timeline-news__show-activity">
+                    <span class="timeline-news__activity-liked">
+                        <i class="far fa-thumbs-up timeline-news__activity-icon"></i> Liked
+                    </span>
+                    <span class="timeline-news__activity-comment">
+                        <i class="far fa-comment-alt timeline-news__activity-icon timeline-news__cmt-icon"></i> Comment
+                    </span>
+                </div>
+                <div class="separate-timeline-news"></div>
+                <form action="" class="timeline-news__form-cmt">
+                    <div class="form-group-cmt">
+                        <label for="input-comment" class="form-label-cmt">
+                            <img src="${userLogin.avatar}" alt="" class="timeline-news__footer-cmt-img">
+                        </label>
+                        <input type="text" class="form-control-cmt" id="input-comment" placeholder="Write a comment...">
+                        <button class="btn-submit-cmt"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </form>
+            </div> `;
+    });
+
+    $('.app__container-timeline').append(html);
+}

@@ -5,13 +5,21 @@ const fs = require('fs');
 
 class HomeController {
     // [GET] /
-    async show(req, res, next) {
-        const posts = await Post.find({}, null, {populate: {path: 'authorId', select: 'avatar name'}}).sort({createdAt: -1});
-            res.render('home', {
-                title: 'Home',
-                user: req.user,
-                posts,
-            });
+    show(req, res, next) {
+        res.render('home', {
+            title: 'Home',
+            user: req.user,
+            userLogin: JSON.stringify(req.user),
+        });
+    }
+
+    // [GET] /post?page=x
+    async showPaginatedPosts(req, res, next) {
+        const page = req.query.page;
+        const posts = await Post.find({}, null, {populate: {path: 'authorId', select: 'avatar name'}})
+                                .sort({createdAt: -1})
+                                .limit(10).skip((page - 1) * 10);
+        return res.json(posts);
     }
 
     // [POST] /post/author/:id

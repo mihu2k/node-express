@@ -1319,6 +1319,7 @@ tr th:first-child {
     padding: 0 16px 0 12px;
     border-bottom-right-radius: 999px;
     border-top-right-radius: 999px;
+    transition: 0.4s;
 }
 
 .btn-submit-cmt:hover {
@@ -1335,4 +1336,15 @@ tr th:first-child {
     background-color: transparent;
     display: none;
     z-index: 1;
+}
+
+/* Loading */
+.loading {
+    position: fixed;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 600;
+    font-size: 1.2rem;
+    background-color: #fff;
 }
