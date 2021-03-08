@@ -7,6 +7,8 @@ const checkAuth = (req, res, next) => {
     res.redirect('/auth/login');
 }
 
+router.post('/comment/post/:postid/author/:id', homeController.postComment);
+router.delete('/comment/:id/delete', homeController.deleteComment);
 router.post('/post/author/:id', homeController.post);
 router.put('/post/:id/edit', homeController.editPost);
 router.delete('/post/:id/delete', homeController.deletePost);

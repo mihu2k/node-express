@@ -1,3 +1,6 @@
+var optionsTime = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' };
+var userLogin = {...userLogin} // define
+
 document.addEventListener('DOMContentLoaded', function() {
     // When click btn login GG, app redirect /auth/google
     var btnLoginWithGoogle = document.querySelector('.btn-login-with-gg');
@@ -411,7 +414,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 contentType: false,
                 processData: false,
                 success: function(data) {
-                    var timePost = new Date(data.dataPost.createdAt).toLocaleString();
+                    var timePost = new Date(data.dataPost.createdAt).toLocaleString('en-US', optionsTime);
                     var aPost1 = `
                         <div class="timeline-news mb-16 timeline-news${data.dataPost._id}">
                             <div class="timeline-news__heading">
@@ -461,7 +464,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <i class="fab fa-gratipay timeline-news__icon-show-react color-red"></i> 100
                                 </span>
                                 <p class="timeline-news__quantity-cmt">
-                                    <strong class="timeline-news__quantity">100</strong> <span>Comments</span>
+                                    <strong class="timeline-news__quantity">${data.dataPost.comments.length}</strong> <span>Comments</span>
                                 </p>
                             </div>
                             <div class="separate-timeline-news"></div>
@@ -474,12 +477,13 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </span>
                             </div>
                             <div class="separate-timeline-news"></div>
-                            <form action="" class="timeline-news__form-cmt">
+                            <form class="timeline-news__form-cmt${data.dataPost._id} timeline-news__form-cmt" enctype="multipart/form-data" 
+                                data-id="${data.dataAuthor._id}" data-postid="${data.dataPost._id}">
                                 <div class="form-group-cmt">
                                     <label for="input-comment" class="form-label-cmt">
                                         <img src="${data.dataAuthor.avatar}" alt="" class="timeline-news__footer-cmt-img">
                                     </label>
-                                    <input type="text" class="form-control-cmt" id="input-comment" placeholder="Write a comment...">
+                                    <input type="text" class="form-control-cmt" id="input-comment" name="contentCmt" placeholder="Write a comment..." required>
                                     <button class="btn-submit-cmt"><i class="fas fa-paper-plane"></i></button>
                                 </div>
                             </form>
@@ -532,8 +536,7 @@ document.addEventListener('DOMContentLoaded', function() {
             contentType: false,
             processData: false,
             success: function(data) {
-                console.log(data);
-                var timePost = new Date(data.data.createdAt).toLocaleString();
+                var timePost = new Date(data.data.createdAt).toLocaleString('en-US', optionsTime);
                 var aPost1 = `
                     <div class="timeline-news__heading">
                         <div class="timeline-news__heading-author">
@@ -582,7 +585,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <i class="fab fa-gratipay timeline-news__icon-show-react color-red"></i> 100
                         </span>
                         <p class="timeline-news__quantity-cmt">
-                            <strong class="timeline-news__quantity">100</strong> <span>Comments</span>
+                            <strong class="timeline-news__quantity">${data.data.comments.length}</strong> <span>Comments</span>
                         </p>
                     </div>
                     <div class="separate-timeline-news"></div>
@@ -595,12 +598,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         </span>
                     </div>
                     <div class="separate-timeline-news"></div>
-                    <form action="" class="timeline-news__form-cmt">
+                    <form class="timeline-news__form-cmt${data.data._id} timeline-news__form-cmt" enctype="multipart/form-data" 
+                        data-id="${data.data.authorId._id}" data-postid="${data.data._id}">
                         <div class="form-group-cmt">
                             <label for="input-comment" class="form-label-cmt">
-                                <img src="${data.data.authorId.avatar}" alt="" class="timeline-news__footer-cmt-img">
+                                <img src="${userLogin.avatar}" alt="" class="timeline-news__footer-cmt-img">
                             </label>
-                            <input type="text" class="form-control-cmt" id="input-comment" placeholder="Write a comment...">
+                            <input type="text" class="form-control-cmt" id="input-comment" name="contentCmt" placeholder="Write a comment..." required>
                             <button class="btn-submit-cmt"><i class="fas fa-paper-plane"></i></button>
                         </div>
                     </form>`;
@@ -617,7 +621,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 $('.wrap-form-post-news').css('display', 'block');
                 $('.wrap-form-edit-post-news').css('display', 'none');
 
-                $('.timeline-news' + data.data._id).html(aPost);
+                $('.timeline-news' + data.data._id ).children(
+                    '.timeline-news__heading, .timeline-news__content-text, .timeline-news__content-video, .timeline-news__content-img, .timeline-news__wrap-quantity-cmt, .separate-timeline-news, .timeline-news__show-activity, .timeline-news__form-cmt'
+                ).remove();
+                $('.timeline-news' + data.data._id).prepend(aPost);
                 $('.timeline-news__options-list').css('display', 'none');
             },
             error: function(error) {
@@ -715,7 +722,6 @@ document.addEventListener('DOMContentLoaded', function() {
 var postsPage = 1;
 var postsFetching = false;
 var loadMore = false;
-var userLogin = {...userLogin} // define
 
 $(document).ready(function() {
     getPosts();
@@ -746,7 +752,7 @@ function getPosts(page = 1) {
         url: '/post?page=' + page,
         type: 'GET',
         success: function(posts) {
-            // console.log(posts);
+            console.log(posts);
             if (posts.length === 0) {loadMore = true}
 
             appendPosts(posts);
@@ -768,11 +774,11 @@ function appendPosts(posts) {
                         <div class="timeline-news__heading-author-wrap">
                             <a href="" class="timeline-news__heading-author-name">${post.authorId.name}</a>
                             <span class="timeline-news__heading-time">
-                                ${new Date(post.createdAt).toLocaleString()}<i class="fas fa-globe-americas timeline-news__heading-icon"></i>
+                                ${new Date(post.createdAt).toLocaleString('en-US', optionsTime)}<i class="fas fa-globe-americas timeline-news__heading-icon"></i>
                             </span>
                         </div>
                     </div>`;
-        if (userLogin._id === post.authorId._id) {
+        if (userLogin._id === post.authorId._id || userLogin.userType === 'admin') {
             html += `<div class="timeline-news__heading-options">
                         <i class="fas fa-ellipsis-h"></i>
                         
@@ -806,7 +812,7 @@ function appendPosts(posts) {
                         <i class="fab fa-gratipay timeline-news__icon-show-react color-red"></i> 100
                     </span>
                     <p class="timeline-news__quantity-cmt">
-                        <strong class="timeline-news__quantity">100</strong> <span>Comments</span>
+                        <strong class="timeline-news__quantity">${post.comments.length}</strong> <span>Comments</span>
                     </p>
                 </div>
                 <div class="separate-timeline-news"></div>
@@ -819,17 +825,131 @@ function appendPosts(posts) {
                     </span>
                 </div>
                 <div class="separate-timeline-news"></div>
-                <form action="" class="timeline-news__form-cmt">
+                <form class="timeline-news__form-cmt${post._id} timeline-news__form-cmt" enctype="multipart/form-data" 
+                    data-id="${userLogin._id}" data-postid="${post._id}">
                     <div class="form-group-cmt">
                         <label for="input-comment" class="form-label-cmt">
                             <img src="${userLogin.avatar}" alt="" class="timeline-news__footer-cmt-img">
                         </label>
-                        <input type="text" class="form-control-cmt" id="input-comment" placeholder="Write a comment...">
+                        <input type="text" class="form-control-cmt" id="input-comment" name="contentCmt" placeholder="Write a comment..." required>
                         <button class="btn-submit-cmt"><i class="fas fa-paper-plane"></i></button>
                     </div>
-                </form>
-            </div> `;
+                </form>`;
+        if (post.comments.length > 0) {
+            (post.comments.reverse()).forEach((comment) => {
+                html += `
+                <ul class="timeline-news__cmt-list">
+                    <li class="timeline-news__cmt-item timeline-news__cmt-item${comment._id}">
+                        <a href="#" class="avt-user-comment-link">
+                            <img src="${comment.userCommentId.avatar}" alt="" class="avt-user-comment-img">
+                        </a>
+                        <div class="timeline-news__cmt-body">
+                            <a href="#" class="name-user-comment">${comment.userCommentId.name}</a>
+                            <p class="timeline-news__cmt-content">${comment.contentComment}</p>
+                        </div>`;
+                if (userLogin._id === comment.userCommentId._id || userLogin.userType === 'admin') {
+                    html +=
+                        `<div class="timeline-news__btn-options-cmt">
+                            <i class="fas fa-ellipsis-h"></i>
+                            <ul class="timeline-news__options-cmt-list">
+                                <li class="timeline-news__options-cmt-item timeline-news__options-cmt-remove" data-cmtid="${comment._id} data-postid="${comment.postId}">
+                                    <i class="fas fa-trash-alt timeline-news__options-icon"></i><span>Remove</span>
+                                </li>
+                            </ul>
+                        </div>`;
+                }
+
+                html += `    
+                    </li>
+                </ul>`;
+            })
+        }
+
+        html += `
+            </div>`;
     });
 
     $('.app__container-timeline').append(html);
 }
+
+// Handle options comments
+$(document).on('click', '.timeline-news__btn-options-cmt', function() {
+    $(this).children('.timeline-news__options-cmt-list').toggle('fast');
+});
+
+// Call API comment, handle post comment
+$(document).on('submit', '.timeline-news__form-cmt', function(e) {
+    e.preventDefault();
+    var formData = new FormData(this);
+    var authorId = e.target.dataset.id;
+    var postId = e.target.dataset.postid;
+    postComment(formData, authorId, postId);
+
+    // Clear input
+    $(this).find('#input-comment').val('');
+});
+
+function postComment(data, authorId, postId) {
+    let quantityCmt = $('.timeline-news' + postId).find('.timeline-news__quantity').text();
+    $.ajax({
+        url: '/comment/post/' + postId + '/author/' + authorId,
+        type: 'POST',
+        data: data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(comment) {
+            // console.log(comment);
+            var html = `<ul class="timeline-news__cmt-list">
+                            <li class="timeline-news__cmt-item timeline-news__cmt-item${comment._id}">
+                                <a href="#" class="avt-user-comment-link">
+                                    <img src="${comment.userCommentId.avatar}" alt="" class="avt-user-comment-img">
+                                </a>
+                                <div class="timeline-news__cmt-body">
+                                    <a href="#" class="name-user-comment">${comment.userCommentId.name}</a>
+                                    <p class="timeline-news__cmt-content">${comment.contentComment}</p>
+                                </div>
+                                <div class="timeline-news__btn-options-cmt">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                    <ul class="timeline-news__options-cmt-list">
+                                        <li class="timeline-news__options-cmt-item timeline-news__options-cmt-remove" data-cmtid="${comment._id}" data-postid="${comment.postId}">
+                                            <i class="fas fa-trash-alt timeline-news__options-icon"></i><span>Remove</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>`;
+            $('.timeline-news__form-cmt' + postId).after(html);
+
+            // Update quantity comments
+            $('.timeline-news' + postId).find('.timeline-news__quantity').text(++quantityCmt);
+        }
+    });
+}
+
+// Handle delete comment
+function deleteComment(id, postId) {
+    let quantityCmt = $('.timeline-news' + postId).find('.timeline-news__quantity').text();
+    $.ajax({
+        url: '/comment/' + id + '/delete',
+        type: 'DELETE',
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+            $('.timeline-news__cmt-item' + id).remove();
+
+            // Update quantity comments
+            $('.timeline-news' + postId).find('.timeline-news__quantity').text(--quantityCmt);
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    })
+}
+
+$(document).on('click', '.timeline-news__options-cmt-remove', function() {
+    var commentId = $(this).data('cmtid');
+    var postId = $(this).data('postid');
+    deleteComment(commentId, postId);
+});

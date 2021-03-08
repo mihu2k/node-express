@@ -7,6 +7,7 @@ const Post = new Schema(
         content: { type: String, default: null },
         video: { type: String, default: null },
         image: { type: String, default: '' },
+        comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
         createdAt: Number,
         updatedAt: Number,
     },

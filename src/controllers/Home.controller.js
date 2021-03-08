@@ -1,5 +1,6 @@
 const User = require('../models/User.model');
 const Post = require('../models/Post.model');
+const Comment = require('../models/Comment.model');
 const multiparty = require('multiparty');
 const fs = require('fs');
 
@@ -16,7 +17,7 @@ class HomeController {
     // [GET] /post?page=x
     async showPaginatedPosts(req, res, next) {
         const page = req.query.page;
-        const posts = await Post.find({}, null, {populate: {path: 'authorId', select: 'avatar name'}})
+        const posts = await Post.find({}, null, {populate: [{path: 'authorId', select: 'avatar name'}, {path: 'comments', populate: {path: 'userCommentId', select: 'avatar name'}}] })
                                 .sort({createdAt: -1})
                                 .limit(10).skip((page - 1) * 10);
         return res.json(posts);
@@ -104,6 +105,38 @@ class HomeController {
             Post.findById(req.params.id).populate({path: 'authorId', select: 'avatar name'})
                 .then(newPost => res.json({ code: 200, message: 'Edit successfully!', data: newPost }))
         });
+    }
+
+    // [POST] /comment/post/:postid/author/:id
+    postComment(req, res, next) {
+        const userCommentId = req.params.id;
+        const postId = req.params.postid;
+        const form = new multiparty.Form();
+        form.parse(req, async (err, fields, files) => {
+            if (err) return res.status(500).send({ error: err.message });
+
+            var data = {
+                userCommentId: userCommentId,
+                postId: postId,
+                contentComment: fields.contentCmt[0],
+            };
+
+            const comment = await Comment.create(data)
+            Post.updateOne({ _id: req.params.postid }, { $push: { comments: comment._id } })
+                .then(() => {})
+            Comment.findById(comment._id).populate({ path: 'userCommentId', select: 'avatar name' })
+                .then((comment) => res.json(comment))
+        });
+    }
+
+    // [DELETE] /comment/:id/delete
+    async deleteComment(req, res, next) {
+        if (req.params.id) {
+            const cmt = await Comment.findById(req.params.id);
+            await Post.updateOne({ _id: cmt.postId }, { $pull: { comments: req.params.id } });
+            await Comment.deleteOne({ _id: req.params.id });
+            return res.json({ code: 200, message: 'Comment deleted!' });
+        }
     }
 
     // [GET] /logout
