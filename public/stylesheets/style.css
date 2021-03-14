@@ -870,11 +870,7 @@ tr th:first-child {
 }
 
 .prof__timeline-wrap-content {
-    /* height: 2000px; */
-    /* background-color: #fff; */
-    /* box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.4); */
     position: relative;
-    /*  */
     margin-top: 16px;
 }
 
@@ -1459,12 +1455,16 @@ tr th:first-child {
 /* Loading */
 .loading {
     position: fixed;
-    bottom: 4px;
+    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     font-weight: 600;
     font-size: 1.2rem;
-    background-color: #fff;
+    padding: 4px 8px 2px;
+    background-color: #f3b416;
+    border: 3px solid #f86e12;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
 /* Comment */

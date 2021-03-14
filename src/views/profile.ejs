@@ -18,7 +18,7 @@
                         <li class="edit-prof__option-item edit-prof__option-item--active">Posts</li>
                         <li class="edit-prof__option-item edit-prof__option-item--not-active">About</li>
                     </ul>
-                    <% if (infoProfile.id === user.id) { %>
+                    <% if (infoProfile.id === user.id || user.userType === 'admin') { %>
                     <button class="btn-edit-prof">
                         <i class="fas fa-pencil-alt profile-icon-btn-edit"></i> Edit Profile
                     </button>
@@ -74,18 +74,18 @@
                     <h2 class="form-edit-prof-heading">Edit Profile</h2>
                     <div class="btn-close-edit-prof">&times;</div>
                     <br><br>
-                    <form action="" method="POST" class="form-edit-prof" enctype="multipart/form-data" data-id="<%= user._id %>">
+                    <form action="" method="POST" class="form-edit-prof" enctype="multipart/form-data" data-id="<%= infoProfile._id %>">
                         <div class="form-group">
                             <label for="input-edit-name-prof" class="form-label">Your name</label>
-                            <input type="text" class="form-control" id="input-edit-name-prof" name="editNameProf" value="<%= user.name %>" required>
+                            <input type="text" class="form-control" id="input-edit-name-prof" name="editNameProf" value="<%= infoProfile.name %>" required>
                         </div>
                         <div class="form-group">
                             <label for="input-edit-group-prof" class="form-label">Group</label>
-                            <input type="text" class="form-control" id="input-edit-group-prof" name="editGroupProf" value="<%= user.group %>" required>
+                            <input type="text" class="form-control" id="input-edit-group-prof" name="editGroupProf" value="<%= infoProfile.group %>" required>
                         </div>
                         <div class="form-group">
                             <label for="input-edit-faculty-prof" class="form-label">Faculty</label>
-                            <input type="text" class="form-control" id="input-edit-faculty-prof" name="editFacultyProf" value="<%= user.faculty %>" required>
+                            <input type="text" class="form-control" id="input-edit-faculty-prof" name="editFacultyProf" value="<%= infoProfile.faculty %>" required>
                         </div>
                         <div class="form-group">
                             <label for="input-edit-avt-prof" class="form-label">Avatar</label>

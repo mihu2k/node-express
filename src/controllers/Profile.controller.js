@@ -38,7 +38,7 @@ class ProfileController {
             var avatar;
             files.editAvtProf.forEach(file => {
                 if (!file.originalFilename) {
-                    avatar = req.user.avatar;
+                    avatar = '';
                 } else {
                     fs.rename(file.path, './public/uploads/' + file.originalFilename, err => {
                         if (err) console.log(err)
@@ -52,6 +52,10 @@ class ProfileController {
                 group: fields.editGroupProf[0],
                 faculty: fields.editFacultyProf[0],
                 avatar: avatar,
+            }
+
+            if (!avatar) {
+                delete formData.avatar;
             }
     
             await User.updateOne({ _id: req.params.id }, formData);

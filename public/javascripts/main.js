@@ -319,16 +319,21 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
             
                     // Update all name in page
-                    $('.heading__navigation-user-name').html(data.data.name);
-                    $('.header__nav-text-name').html(data.data.name);
+                    if (userLogin.userType !== 'admin') {
+                        $('.heading__navigation-user-name').html(data.data.name);
+                        $('.header__nav-text-name').html(data.data.name);
+                    }
                     $('.profile-name-heading').html(data.data.name);
 
                     // Update all avatar in page
-                    $('.header__nav-avt.header__navigation-avt').attr('src', data.data.avatar);
-                    $('.header__nav-avt').attr('src', data.data.avatar);
+                    if (userLogin.userType !== 'admin') {
+                        $('.header__nav-avt.header__navigation-avt').attr('src', data.data.avatar);
+                        $('.header__nav-avt').attr('src', data.data.avatar);
+                    }
                     $('.profile-image').attr('src', data.data.avatar);
         
                     $('.prof__timeline-info-list').html(profile);
+                    window.location.href = window.location.href;
                     $('.modal').hide();
                 },
                 error: function(error) {
