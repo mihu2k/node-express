@@ -6,11 +6,13 @@ const fs = require('fs');
 
 class HomeController {
     // [GET] /
-    show(req, res, next) {
+    async show(req, res, next) {
+        const students = await User.find({ $or: [{userType: 'student'}, {userType: 'admin'}] });
         res.render('home', {
             title: 'Home',
             user: req.user,
             userLogin: JSON.stringify(req.user),
+            students: students,
         });
     }
 

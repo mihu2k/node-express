@@ -5,39 +5,61 @@
     <div class="main-app">
         <%- include('./partials/header.ejs') %>
 
-        <div class="container">
-            <div class="gradient-bg"></div>
+        <div class="container-medium">
+            <div class="profile-background"></div>
             <div class="wrap-profile">
                 <img src="<%= infoProfile.avatar %>" alt="" class="profile-image">
                 <h2 class="profile-name-heading"><%= infoProfile.name %></h2>
-                
-                <% if (infoProfile.id === user.id) { %>
-                    <div class="wrap-btn-edit-prof">
-                        <button class="btn-edit-prof">
-                            <i class="fas fa-pencil-alt profile-icon-btn-edit"></i> Edit Profile
-                        </button>
-                    </div>
-                <% } %>
 
                 <div class="separate-prof"></div>
 
-                <div class="profile-info">
-                    <ul class="profile-info-list">
-                        <li class="profile-info-item">
-                            <span class="profile-info-title">Name: </span><%= infoProfile.name %>
-                        </li>
-                        <li class="profile-info-item">
-                            <span class="profile-info-title">Email: </span><%= infoProfile.email %>
-                        </li>
+                <div class="wrap-btn-edit-prof">
+                    <ul class="edit-prof__option-list">
+                        <li class="edit-prof__option-item edit-prof__option-item--active">Posts</li>
+                        <li class="edit-prof__option-item edit-prof__option-item--not-active">About</li>
                     </ul>
-                    <ul class="profile-info-list">
-                        <li class="profile-info-item">
-                            <span class="profile-info-title">Group: </span><%= infoProfile.group %>
-                        </li>
-                        <li class="profile-info-item">
-                            <span class="profile-info-title">Faculty: </span><%= infoProfile.faculty %>
-                        </li>
-                    </ul>
+                    <% if (infoProfile.id === user.id) { %>
+                    <button class="btn-edit-prof">
+                        <i class="fas fa-pencil-alt profile-icon-btn-edit"></i> Edit Profile
+                    </button>
+                    <% } %>
+                </div>
+            </div>
+            <div class="prof__timeline-wrap-content">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="prof__timeline-info-detail">
+                            <h2 class="prof__timeline-info-heading">Intro</h2>
+                            <ul class="prof__timeline-info-list">
+                                <li class="prof__timeline-info-item">
+                                    <i class="fas fa-user-graduate prof__timeline-info-icon"></i>
+                                    <span><strong>Name:</strong> <%= infoProfile.name %></span>
+                                </li>
+                                <li class="prof__timeline-info-item">
+                                    <i class="fas fa-user-friends prof__timeline-info-icon"></i>
+                                    <span><strong>Group:</strong> <%= infoProfile.group %></span>
+                                </li>
+                                <li class="prof__timeline-info-item">
+                                    <i class="fas fa-graduation-cap prof__timeline-info-icon"></i>
+                                    <span><strong>Faculty:</strong> <%= infoProfile.faculty %></span>
+                                </li>
+
+                                <% if (infoProfile.email) { %>
+                                <li class="prof__timeline-info-item">
+                                    <i class="fas fa-envelope prof__timeline-info-icon"></i>
+                                    <span><strong>E-mail:</strong> <%= infoProfile.email %></span>
+                                </li>
+                                <% } %>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="prof-timeline__container">
+                            <!-- Start the news -->
+                            
+                            <!-- End the news -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -74,12 +96,60 @@
                     </form>
                 </div>
             </div>
+
+            <!-- Start form edit post -->
+            <div class="wrap-form-edit-post-news">
+                <div class="form-post-news__container">
+                    <h2 class="form-edit-prof-heading">Edit Post</h2>
+                    <div class="btn-close-edit-form-post">&times;</div>
+                    <div class="form-post-news__heading">
+                        <img src="<%= user.avatar %>" alt="" class="wrap-user-status-avt">
+                        <div class="wrap-form-post-name-and-status">
+                            <p class="wrap-form-post-name"><%= user.name %></p>
+                            <div class="wrap-form-post-status">
+                                <i class="fas fa-globe-americas"></i> Public
+                            </div>
+                        </div>
+                    </div>
+                    <form enctype="multipart/form-data" class="form-edit-post-news" data-postid="" data-id="<%= user._id %>">
+                        <textarea name="textareaEdit" id="textareaEdit" cols="30" rows="10" placeholder="What's on your mind, <%= user.name%>?" 
+                            class="form-edit-post-news-textarea" required></textarea>
+                        <div class="display-img-form-post-edit">
+                            <div class="wrap-show-img__input-img-edit">
+                                <img src="" alt="" class="textarea__img-form-post-edit">
+                            </div>
+                            <div class="btn-close-image-form-post-edit">&times;</div>
+                        </div>
+
+                        <div class="form-group mt-16 form-group-video-link-edit">
+                            <label for="form-post-news-input-link-video" class="form-label">Video link</label>
+                            <input type="text " class="form-control border-color-gray mt-4" name="videoEdit" id="form-edit-post-input-link-video" placeholder="Please enter video link...">
+                        </div>
+                        <div class="form-post-wrap-icon">
+                            <p class="form-post-wrap-icon__text">Add to Your Post</p>
+                            <div>
+                                <!-- Upload image -->
+                                <label for="form-edit-post-upload-img" class="fas fa-images form-post-news-icon color-green mr-16"></label>
+                                <input type="file" accept="image/*" name="imageEdit" id="form-edit-post-upload-img" hidden>
+
+                                <i class="fab fa-youtube form-edit-post-news-icon color-red"></i>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-submit-form-post-news"><strong>Edit</strong></button>
+                    </form>
+                </div>
+            </div>
+            <!-- End form edit post -->
         </div>
     </div>
+
+    <!-- Loading -->
+    <div class="loading">Loading...</div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         var profileWorkFlow = JSON.parse('<%- infoProfileWorkFlow %>');
+        var userLogin = JSON.parse('<%- userLogin %>');
     </script>
     <script src="/javascripts/main.js"></script>
 </body>

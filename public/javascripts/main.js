@@ -270,6 +270,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (btnEditProfile) {
         btnEditProfile.onclick = function() {
             modal.style.display = 'flex';
+            $('.wrap-form-edit-prof').css('display', 'block');
+            $('.wrap-form-edit-post-news').css('display', 'none');
         }
     }
 
@@ -283,9 +285,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (btnEditProfile) {
         $('.form-edit-prof').on('submit', function(e) {
             var userId = e.target.dataset.id;
-            var profileInfo = $('.profile-info');
             e.preventDefault();
             var formData = new FormData(this);
+            let profile = '';
     
             $.ajax({
                 url: '/profile/' + userId + '/edit',
@@ -295,23 +297,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 contentType: false,
                 processData: false,
                 success: function(data) {
-                    var profile = `
-                            <ul class="profile-info-list">
-                                <li class="profile-info-item">
-                                    <span class="profile-info-title">Name: </span>${data.data.name}
-                                </li>
-                                <li class="profile-info-item">
-                                    <span class="profile-info-title">Email: </span>${profileWorkFlow.email}
-                                </li>
-                            </ul>
-                            <ul class="profile-info-list">
-                                <li class="profile-info-item">
-                                    <span class="profile-info-title">Group: </span>${data.data.group}
-                                </li>
-                                <li class="profile-info-item">
-                                    <span class="profile-info-title">Faculty: </span>${data.data.faculty}
-                                </li>
-                            </ul>`;
+                    profile += `
+                        <li class="prof__timeline-info-item">
+                            <i class="fas fa-user-graduate prof__timeline-info-icon"></i>
+                            <span><strong>Name:</strong> ${data.data.name}</span>
+                        </li>
+                        <li class="prof__timeline-info-item">
+                            <i class="fas fa-user-friends prof__timeline-info-icon"></i>
+                            <span><strong>Group:</strong> ${data.data.group}</span>
+                        </li>
+                        <li class="prof__timeline-info-item">
+                            <i class="fas fa-graduation-cap prof__timeline-info-icon"></i>
+                            <span><strong>Faculty:</strong> ${data.data.faculty}</span>
+                        </li>`
+                    if (data.data.email) {
+                        profile +=`
+                            <li class="prof__timeline-info-item">
+                                <i class="fas fa-envelope prof__timeline-info-icon"></i>
+                                <span><strong>E-mail:</strong> ${data.data.email}</span>
+                            </li>`;
+                    }
             
                     // Update all name in page
                     $('.heading__navigation-user-name').html(data.data.name);
@@ -323,7 +328,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     $('.header__nav-avt').attr('src', data.data.avatar);
                     $('.profile-image').attr('src', data.data.avatar);
         
-                    profileInfo.html(profile);
+                    $('.prof__timeline-info-list').html(profile);
                     $('.modal').hide();
                 },
                 error: function(error) {
@@ -421,7 +426,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <div class="timeline-news__heading-author">
                                     <img src="${data.dataAuthor.avatar}" alt="" class="timeline-news__heading-author-img">
                                     <div class="timeline-news__heading-author-wrap">
-                                        <a href="" class="timeline-news__heading-author-name">${data.dataAuthor.name}</a>
+                                        <a href="/profile/${data.dataAuthor._id}" class="timeline-news__heading-author-name">${data.dataAuthor.name}</a>
                                         <span class="timeline-news__heading-time">
                                             ${timePost}<i class="fas fa-globe-americas timeline-news__heading-icon"></i>
                                         </span>
@@ -480,10 +485,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             <form class="timeline-news__form-cmt${data.dataPost._id} timeline-news__form-cmt" enctype="multipart/form-data" 
                                 data-id="${data.dataAuthor._id}" data-postid="${data.dataPost._id}">
                                 <div class="form-group-cmt">
-                                    <label for="input-comment" class="form-label-cmt">
+                                    <label for="input-comment${data.dataPost._id}" class="form-label-cmt">
                                         <img src="${data.dataAuthor.avatar}" alt="" class="timeline-news__footer-cmt-img">
                                     </label>
-                                    <input type="text" class="form-control-cmt" id="input-comment" name="contentCmt" placeholder="Write a comment..." required>
+                                    <input type="text" class="form-control-cmt" id="input-comment${data.dataPost._id}" name="contentCmt" placeholder="Write a comment..." required>
                                     <button class="btn-submit-cmt"><i class="fas fa-paper-plane"></i></button>
                                 </div>
                             </form>
@@ -542,7 +547,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="timeline-news__heading-author">
                             <img src="${data.data.authorId.avatar}" alt="" class="timeline-news__heading-author-img">
                             <div class="timeline-news__heading-author-wrap">
-                                <a href="" class="timeline-news__heading-author-name">${data.data.authorId.name}</a>
+                                <a href="/profile/${data.data.authorId._id}" class="timeline-news__heading-author-name">${data.data.authorId.name}</a>
                                 <span class="timeline-news__heading-time">
                                     ${timePost}<i class="fas fa-globe-americas timeline-news__heading-icon"></i>
                                 </span>
@@ -601,10 +606,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     <form class="timeline-news__form-cmt${data.data._id} timeline-news__form-cmt" enctype="multipart/form-data" 
                         data-id="${data.data.authorId._id}" data-postid="${data.data._id}">
                         <div class="form-group-cmt">
-                            <label for="input-comment" class="form-label-cmt">
+                            <label for="input-comment${data.data._id}" class="form-label-cmt">
                                 <img src="${userLogin.avatar}" alt="" class="timeline-news__footer-cmt-img">
                             </label>
-                            <input type="text" class="form-control-cmt" id="input-comment" name="contentCmt" placeholder="Write a comment..." required>
+                            <input type="text" class="form-control-cmt" id="input-comment${data.data._id}" name="contentCmt" placeholder="Write a comment..." required>
                             <button class="btn-submit-cmt"><i class="fas fa-paper-plane"></i></button>
                         </div>
                     </form>`;
@@ -656,6 +661,11 @@ document.addEventListener('DOMContentLoaded', function() {
         $('.modal').css('display', 'flex');
         $('.wrap-form-post-news').css('display', 'none');
         $('.wrap-form-edit-post-news').css('display', 'block');
+
+        // Hide form edit profile
+        if (window.location.href.includes('/profile')) {
+            $('.wrap-form-edit-prof').css('display', 'none');
+        }
 
         if (image) {
             $('.wrap-show-img__input-img-edit').css({
@@ -723,20 +733,6 @@ var postsPage = 1;
 var postsFetching = false;
 var loadMore = false;
 
-$(document).ready(function() {
-    getPosts();
-});
-
-$('.app__container').scroll(function() {
-    var scrollTop = $(this).scrollTop(); //5816.7998046875
-    var heightAppContainer = $(this).height(); // 706.4
-    var heightTimeline = $('.app__container-timeline').height(); // 6459.4
-
-    if ((scrollTop + heightAppContainer) >= (heightTimeline + 40)) {
-        !loadMore && nextPosts();
-    }
-});
-
 function nextPosts() {
     if (postsFetching) return;
 
@@ -755,7 +751,7 @@ function getPosts(page = 1) {
             console.log(posts);
             if (posts.length === 0) {loadMore = true}
 
-            appendPosts(posts);
+            appendPosts(posts, '.app__container-timeline');
             $('.loading').css('display', 'none');
             postsFetching = false;
             $('.timeline-news__options-list').css('display', 'none');
@@ -763,7 +759,7 @@ function getPosts(page = 1) {
     });
 }
 
-function appendPosts(posts) {
+function appendPosts(posts, selector) {
     let html = '';
     $.each(posts, function(index, post) {
         html += `
@@ -772,7 +768,7 @@ function appendPosts(posts) {
                     <div class="timeline-news__heading-author">
                         <img src="${post.authorId.avatar}" alt="" class="timeline-news__heading-author-img">
                         <div class="timeline-news__heading-author-wrap">
-                            <a href="" class="timeline-news__heading-author-name">${post.authorId.name}</a>
+                            <a href="/profile/${post.authorId._id}" class="timeline-news__heading-author-name">${post.authorId.name}</a>
                             <span class="timeline-news__heading-time">
                                 ${new Date(post.createdAt).toLocaleString('en-US', optionsTime)}<i class="fas fa-globe-americas timeline-news__heading-icon"></i>
                             </span>
@@ -828,10 +824,10 @@ function appendPosts(posts) {
                 <form class="timeline-news__form-cmt${post._id} timeline-news__form-cmt" enctype="multipart/form-data" 
                     data-id="${userLogin._id}" data-postid="${post._id}">
                     <div class="form-group-cmt">
-                        <label for="input-comment" class="form-label-cmt">
+                        <label for="input-comment${post._id}" class="form-label-cmt">
                             <img src="${userLogin.avatar}" alt="" class="timeline-news__footer-cmt-img">
                         </label>
-                        <input type="text" class="form-control-cmt" id="input-comment" name="contentCmt" placeholder="Write a comment..." required>
+                        <input type="text" class="form-control-cmt" id="input-comment${post._id}" name="contentCmt" placeholder="Write a comment..." required>
                         <button class="btn-submit-cmt"><i class="fas fa-paper-plane"></i></button>
                     </div>
                 </form>`;
@@ -840,11 +836,11 @@ function appendPosts(posts) {
                 html += `
                 <ul class="timeline-news__cmt-list">
                     <li class="timeline-news__cmt-item timeline-news__cmt-item${comment._id}">
-                        <a href="#" class="avt-user-comment-link">
+                        <a href="/profile/${comment.userCommentId._id}" class="avt-user-comment-link">
                             <img src="${comment.userCommentId.avatar}" alt="" class="avt-user-comment-img">
                         </a>
                         <div class="timeline-news__cmt-body">
-                            <a href="#" class="name-user-comment">${comment.userCommentId.name}</a>
+                            <a href="/profile/${comment.userCommentId._id}" class="name-user-comment">${comment.userCommentId.name}</a>
                             <p class="timeline-news__cmt-content">${comment.contentComment}</p>
                         </div>`;
                 if (userLogin._id === comment.userCommentId._id || userLogin.userType === 'admin') {
@@ -869,7 +865,8 @@ function appendPosts(posts) {
             </div>`;
     });
 
-    $('.app__container-timeline').append(html);
+    // $('.app__container-timeline').append(html);
+    $(selector).append(html);
 }
 
 // Handle options comments
@@ -886,7 +883,7 @@ $(document).on('submit', '.timeline-news__form-cmt', function(e) {
     postComment(formData, authorId, postId);
 
     // Clear input
-    $(this).find('#input-comment').val('');
+    $(this).find('.form-control-cmt').val('');
 });
 
 function postComment(data, authorId, postId) {
@@ -902,11 +899,11 @@ function postComment(data, authorId, postId) {
             // console.log(comment);
             var html = `<ul class="timeline-news__cmt-list">
                             <li class="timeline-news__cmt-item timeline-news__cmt-item${comment._id}">
-                                <a href="#" class="avt-user-comment-link">
+                                <a href="/profile/${comment.userCommentId._id}" class="avt-user-comment-link">
                                     <img src="${comment.userCommentId.avatar}" alt="" class="avt-user-comment-img">
                                 </a>
                                 <div class="timeline-news__cmt-body">
-                                    <a href="#" class="name-user-comment">${comment.userCommentId.name}</a>
+                                    <a href="/profile/${comment.userCommentId._id}" class="name-user-comment">${comment.userCommentId.name}</a>
                                     <p class="timeline-news__cmt-content">${comment.contentComment}</p>
                                 </div>
                                 <div class="timeline-news__btn-options-cmt">
@@ -952,4 +949,87 @@ $(document).on('click', '.timeline-news__options-cmt-remove', function() {
     var commentId = $(this).data('cmtid');
     var postId = $(this).data('postid');
     deleteComment(commentId, postId);
+});
+
+// Show posts in profile page
+var postsPageProf = 1;
+var postsFetchingProf = false;
+var loadMoreProf = false;
+var url = window.location.pathname;
+var profileId = url.substring(url.lastIndexOf('/') + 1); // get id profile in url
+
+function nextPostsProfile() {
+    if (postsFetchingProf) return;
+
+    postsPageProf++;
+    getPostsProfile(postsPageProf);
+}
+
+function getPostsProfile(page = 1) {
+    postsFetchingProf = true;
+    $('.loading').css('display', 'block');
+
+    $.ajax({
+        url: '/profile/' + profileId + '/post?page=' + page,
+        type: 'GET',
+        success: function(posts) {
+            console.log(posts);
+            if (posts.length === 0) {loadMoreProf = true}
+
+            appendPosts(posts, '.prof-timeline__container');
+            $('.loading').css('display', 'none');
+            postsFetchingProf = false;
+            $('.timeline-news__options-list').css('display', 'none');
+        }
+    });
+}
+
+$(document).ready(function() {
+    if (window.location.href.includes('/profile')) {
+        getPostsProfile();
+
+        $(window).scroll(function() {
+            var scrollTopProf = $(this).scrollTop();
+            var heightViewPort = $(this).height();
+            var heightTimelineProf = $(document).height();
+        
+            if ((scrollTopProf + heightViewPort) >= (heightTimelineProf - 40)) {
+                !loadMoreProf && nextPostsProfile();
+            }
+        });
+    }
+    else {
+        getPosts();
+
+        $(window).scroll(function() {
+            var scrollTop = $(this).scrollTop(); //5816.7998046875
+            var heightAppContainer = $(this).height(); // 706.4
+            var heightTimeline = $(document).height(); // 6459.4
+        
+            if ((scrollTop + heightAppContainer) >= (heightTimeline - 40)) {
+                !loadMore && nextPosts();
+            }
+        });
+    }
+});
+
+// Handle event show/hide input search
+$('.list-students__heading-wrap-icon').click(function () {
+    $('.list-students__search').toggle('400');
+});
+
+// Handle search name student
+$('.list-students__search-input').keyup(function() {
+    let filter = $(this).val().toUpperCase();
+    let name;
+    var items = $('.list-students__body-item');
+
+    for(let i = 0; i < items.length; i++) {
+        name = items[i].querySelector('.list-students__body-item-name');
+        if (name.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            items[i].style.display = '';
+        } else {
+            items[i].style.display = 'none';
+        }
+    }
 });
