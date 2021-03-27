@@ -321,8 +321,8 @@ input::placeholder {
 }
 
 .header__nav-item-logo {
-    height: 32px;
-    width: 52px;
+    height: 30px;
+    width: 60px;
 }
 
 .header__nav-item.header__nav-icon-down {
@@ -1461,8 +1461,8 @@ tr th:first-child {
     font-weight: 600;
     font-size: 1.2rem;
     padding: 4px 8px 2px;
-    background-color: #f3b416;
-    border: 3px solid #f86e12;
+    background-color: #efce7e;
+    border: 3px solid #f3a977;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
@@ -1654,4 +1654,110 @@ tr th:first-child {
     color: #050505;
     font-size: 1.4rem;
     font-weight: 500;
+}
+
+/* Notification Box */
+.app__container-notification {
+    position: fixed;
+    top: 20%;
+    left: 0;
+    width: 360px;
+    max-width: 25%;
+}
+
+.app__container-box-notification {
+    width: 100%;
+    background-color: #fff;
+    padding-bottom: 12px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.box-notification__wrap-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0 8px;
+    margin: 0 12px;
+    border-bottom: 1px solid #ccc;
+}
+
+.box-notification__heading-left {
+    display: flex;
+    align-items: center;
+}
+
+.box-notification__heading-img {
+    width: 24px;
+    height: 24px;
+    margin-right: 6px;
+    transition: 0.8s;
+}
+
+.box-notification__heading-title {
+    font-size: 1.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.box-notification__heading-link {
+    color: #0c6dd4;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.box-notification__heading-link:hover {
+    color: #095fbb;
+}
+
+.box-notification__list {
+    list-style: none;
+    height: auto;
+    max-height: 440px;
+    overflow-y: auto;
+}
+
+.box-notification__list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.box-notification__list::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: #ccc;
+}
+
+.box-notification__item {
+    margin: 12px 12px 0;
+    padding: 8px 0 8px 8px;
+    line-height: 1.4;
+    border-left: 3px solid rgb(102, 101, 101);
+}
+
+.box-notification__item:nth-child(odd) {
+    background-color: #cae8ff;
+    border-left: 3px solid #03a9f4;
+}
+
+.box-notification__department-name {
+    font-size: 1.2rem;
+    font-style: italic;
+}
+
+.box-notification__body-title {
+    color: #000;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 8px 0;
+    text-decoration: none;
+    display: block;
+    transition: 0.2s;
+}
+
+.box-notification__body-title:hover {
+    color: rgb(231, 2, 2);
+    font-size: 1.4rem;
+}
+
+.box-notification__body-content {
+    font-size: 1.2rem;
 }

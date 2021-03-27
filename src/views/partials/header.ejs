@@ -19,7 +19,7 @@
                 </div>
                 <ul class="navigation-list">
                     <a href="/" class="navigation-link navigation-item">
-                        <i class="ti-home navigation-icon"></i>
+                        <i class="fas fa-home navigation-icon"></i>
                         <span class="navigation-content">Home page</span>
                     </a>
                     <% if (user.userType === 'department') { %>
@@ -30,7 +30,7 @@
                     <% } %>
                     <% if (user.userType === 'admin') { %>
                         <a href="/user" class="navigation-link navigation-item">
-                            <i class="far fa-user navigation-icon"></i>
+                            <i class="fas fa-user navigation-icon"></i>
                             <span class="navigation-content">Account management</span>
                         </a>
                     <% } %>
@@ -48,7 +48,7 @@
                         <span class="navigation-content">Department</span>
                     </li>
                     <li class="navigation-sub-item">
-                        <i class="far fa-image navigation-icon"></i>
+                        <i class="fas fa-image navigation-icon"></i>
                         <span class="navigation-content">Subject</span>
                     </li>
                     <li class="navigation-sub-item">
@@ -59,7 +59,7 @@
 
                     <a href="/logout" class="navigation-link navigation-item navigation-logout">
                         <i class="fas fa-sign-out-alt navigation-icon"></i>
-                        <span class="navigation-content">Log out</span>
+                        <span class="navigation-content">Sign out</span>
                     </a>
                 </ul>
             </nav>
@@ -74,7 +74,7 @@
     <ul class="header__nav-list">
         <li class="header__nav-item mr-16">
             <i class="header__nav-icon ti-bell"></i>
-            <span class="header__nav-text">Thông báo</span>
+            <span class="header__nav-text">Notifications</span>
         </li>
         <li class="header__nav-item mr-4">
             <img src="<%= user.avatar %>" alt="" class="header__nav-avt">
@@ -87,13 +87,10 @@
 
             <ul class="header__nav-user-menu">
                 <li class="header__nav-user-item">
-                    <a href="/profile/<%= user._id %>" class="header__nav-user-link">See your profile</a>
+                    <a href="/profile/<%= user._id %>" class="header__nav-user-link">Your profile</a>
                 </li>
                 <li class="header__nav-user-item">
-                    <a href="#" class="header__nav-user-link">Your post</a>
-                </li>
-                <li class="header__nav-user-item">
-                    <a href="/logout" class="header__nav-user-link">Log out</a>
+                    <a href="/logout" class="header__nav-user-link">Sign out</a>
                 </li>
             </ul>
         </li>

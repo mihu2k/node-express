@@ -1038,3 +1038,21 @@ $('.list-students__search-input').keyup(function() {
         }
     }
 });
+
+// Auto show/hide icon new notification
+const iconNew = document.querySelector('.box-notification__heading-img');
+
+if (iconNew) {
+    iconNew.style.visibility = 'visible';
+    iconNew.style.opacity = '1';
+    
+    setInterval(() => {
+        if (iconNew.style.visibility === 'visible') {
+            iconNew.style.visibility = 'hidden';
+            iconNew.style.opacity = '0';
+        } else {
+            iconNew.style.visibility = 'visible';
+            iconNew.style.opacity = '1';
+        }
+    }, 600);
+}
