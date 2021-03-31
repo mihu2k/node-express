@@ -43,18 +43,18 @@
                     </li>
 
                     <!-- Sub-item -->
-                    <li class="navigation-sub-item">
+                    <a href="#" class="navigation-link navigation-item navigation-sub-item">
                         <i class="fas fa-users navigation-icon"></i>
                         <span class="navigation-content">Department</span>
-                    </li>
-                    <li class="navigation-sub-item">
+                    </a>
+                    <a href="#" class="navigation-link navigation-item navigation-sub-item">
                         <i class="fas fa-image navigation-icon"></i>
                         <span class="navigation-content">Subject</span>
-                    </li>
-                    <li class="navigation-sub-item">
+                    </a>
+                    <a href="/notification" class="navigation-link navigation-item navigation-sub-item">
                         <i class="fas fa-list navigation-icon"></i>
                         <span class="navigation-content">All notifications</span>
-                    </li>
+                    </a>
                     <!-- End sub-item -->
 
                     <a href="/logout" class="navigation-link navigation-item navigation-logout">
@@ -89,6 +89,11 @@
                 <li class="header__nav-user-item">
                     <a href="/profile/<%= user._id %>" class="header__nav-user-link">Your profile</a>
                 </li>
+                <% if (user.userType != 'student') { %>
+                <li class="header__nav-user-item">
+                    <a href="/notification/post" class="header__nav-user-link">Post a notice</a>
+                </li>
+                <% } %>
                 <li class="header__nav-user-item">
                     <a href="/logout" class="header__nav-user-link">Sign out</a>
                 </li>

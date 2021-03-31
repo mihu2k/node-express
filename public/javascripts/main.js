@@ -978,7 +978,6 @@ function getPostsProfile(page = 1) {
         url: '/profile/' + profileId + '/post?page=' + page,
         type: 'GET',
         success: function(posts) {
-            console.log(posts);
             if (posts.length === 0) {loadMoreProf = true}
 
             appendPosts(posts, '.prof-timeline__container');
@@ -1003,7 +1002,7 @@ $(document).ready(function() {
             }
         });
     }
-    else {
+    else if (new URL(window.location.href).pathname === '/') {
         getPosts();
 
         $(window).scroll(function() {
@@ -1056,3 +1055,88 @@ if (iconNew) {
         }
     }, 600);
 }
+
+// Notification page
+if (new URL(window.location.href).pathname === '/notification') {
+    // Pagination
+    $('#pagination-container').pagination({
+        className: 'paginationjs-theme-blue',
+        pageSize: 10,
+        showGoInput: true,
+        showGoButton: true,
+        autoHidePrevious: true,
+        autoHideNext: true,
+        dataSource: function(done) {
+            $.ajax({
+                url: '/notification/display',
+                success: (notifications) => done(notifications),
+            })
+        },
+        callback: function(notifications, pagination) {
+            renderNotifications(notifications);
+        }
+    });
+}
+
+function renderNotifications(data) {
+    if (data.length == 0) {
+        $('.container__notify-list').html('<p class="not-found-notification">Không có thông báo nào được tìm thấy!!!</p>');
+    } else {
+        var html = data.map((current, index) => {
+            var timePost = new Date(current.createdAt).toLocaleDateString('en-US');
+            let ofDepartment = '';
+            let description;
+    
+            // Check author có chọn chuyên mục mình phụ trách hay không? Nếu không chọn thì lấy name của author
+            if (!current.ofDepartment) {
+                ofDepartment = current.authorId.name;
+            } else {
+                ofDepartment = current.ofDepartment;
+            }
+    
+            // Check nếu author có upload file thì thay đổi description
+            if (current.files.length > 0) {
+                description = 'Xem chi tiết trong các file đính kèm';
+            } else {
+                description = current.title;
+            }
+    
+            return `<li class="container__notify-item">
+                        <p class="container__notify-item-title">${current.title}</p>
+                        <p class="container__notify-item-desc">${description}</p>
+                        <div class="container__notify-item-foot">
+                            <a href="/notification/detail/${current._id}" class="container__notify-link-detail">Chi tiết thông báo</a>
+                            <span class="container__notify-department-name">
+                                <i>${ofDepartment}</i><span class="container__notify-item-time"> | Ngày đăng ${timePost}</span>
+                            </span>
+                        </div>
+                    </li>`;
+        });
+    
+        $('.container__notify-list').html(html.join(''));
+    }
+}
+
+// Handle filter department
+$('#form-filter-department').submit((e) => {
+    e.preventDefault();
+
+    $('#pagination-container').pagination({
+        className: 'paginationjs-theme-blue',
+        pageSize: 10,
+        showGoInput: true,
+        showGoButton: true,
+        autoHidePrevious: true,
+        autoHideNext: true,
+        dataSource: function(done) {
+            $.ajax({
+                type: 'GET',
+                url: '/notification/display?filterDepartment=' + $('#filter-department').val(),
+                success: (notifications) => done(notifications),
+            })
+        },
+        callback: function(notifications, pagination) {
+            renderNotifications(notifications);
+        }
+    });
+});

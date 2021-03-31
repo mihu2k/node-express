@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head.ejs') %>
+<body>
+    <div class="main-app">
+        <%- include('../partials/header.ejs')%>
+
+        <div class="notification-container">
+            <div class="profile-background"></div>
+            <div class="notification-container__body">
+                <nav class="breadcrumb mt-72">
+                    <ol class="breadcrumb-list">
+                        <li class="breadcrumb-item active"><a href="/"><i class="fas fa-home breadcrumb-icon"></i>Home</a></li>
+                        <li class="breadcrumb-item">Post a notice</li>
+                    </ol>
+                </nav>
+    
+                <div class="wrap-form-post-notify">
+                    <h4 class="form-post-notify__heading">Form Notification</h4>
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        <div class="body-notify-select-form-post">
+                            <select name="ofDepartment" id="ofDepartment" required>
+                                <option value="">Select Faculty/Department</option>
+                                <% user.department.forEach(item => { %>
+                                    <option value="<%= item %>"><%= item %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="notify-input-text" class="form-label-notify">Title <span class="star-red">*</span></label>
+                            <input type="text" class="form-control-notify" id="notify-input-text" name="title">
+                        </div>
+                        <div class="form-group">
+                            <label for="textarea-notify" class="form-label-notify">Content <span class="star-red">*</span></label>
+                            <textarea name="content" id="textarea-notify" cols="30" rows="10"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="notify-input-file" class="form-label-notify">Files</label>
+                            <input type="file" class="form-control-notify" id="notify-input-file" name="files" multiple>
+                        </div>
+                        <button class="btn btn-submit-form-notify">Post</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/javascripts/main.js"></script>
+</body>
+</html>

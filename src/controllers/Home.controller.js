@@ -1,6 +1,7 @@
 const User = require('../models/User.model');
 const Post = require('../models/Post.model');
 const Comment = require('../models/Comment.model');
+const Notification = require('../models/Notification.model');
 const multiparty = require('multiparty');
 const fs = require('fs');
 
@@ -8,11 +9,16 @@ class HomeController {
     // [GET] /
     async show(req, res, next) {
         const students = await User.find({ $or: [{userType: 'student'}, {userType: 'admin'}] });
+        const getFourNotify = await Notification.find()
+                                                .populate({ path: 'authorId', select: 'name' })
+                                                .sort({ createdAt: -1 })
+                                                .limit(4);
         res.render('home', {
             title: 'Home',
             user: req.user,
             userLogin: JSON.stringify(req.user),
             students: students,
+            fourNotify: getFourNotify,
         });
     }
 

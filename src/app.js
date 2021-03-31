@@ -44,6 +44,6 @@ app.use(methodOverride('_method'));
 // Def routes
 route(app);
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}/auth/login`);
 });

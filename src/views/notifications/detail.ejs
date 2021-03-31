@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head.ejs') %>
+<body>
+    <div class="main-app">
+        <%- include('../partials/header.ejs')%>
+
+        <div class="notification-container">
+            <div class="profile-background"></div>
+            <div class="notification-container__body">
+                <nav class="breadcrumb mt-72">
+                    <ol class="breadcrumb-list">
+                        <li class="breadcrumb-item active"><a href="/"><i class="fas fa-home breadcrumb-icon"></i>Home</a></li>
+                        <li class="breadcrumb-item active"><a href="/notification">List of notifications</a></li>
+                        <li class="breadcrumb-item">Notification Details</li>
+                    </ol>
+                </nav>
+    
+                <div class="wrap-details-notification">
+                    <h2 class="details-notification__heading"><%= notification.title %></h2>
+                    <p class="details-notification__department">
+                        <% if (!notification.ofDepartment) { %>
+                            <%= notification.authorId.name %>
+                        <% } else { %>
+                            <%= notification.ofDepartment %>
+                        <% } %>
+                         | Date Created <%= new Date(notification.createdAt).toLocaleDateString('en-US') %>
+                    </p>
+                    <p class="details-notification__content"><%= notification.content %></p>
+                    <% if (notification.files.length > 0) { %>
+                    <div class="details-notification__display-file">
+                        <h5 class="display-file-heading">List of file attachment:</h5>
+                        <ol class="display-file-list">
+                            <% notification.files.forEach(file => { %>
+                            <li class="display-file-item">
+                                <a href="<%= file %>" class="display-file-item-link" download><%= file.split('/')[file.split('/').length - 1] %></a>
+                            </li>
+                            <% }) %>
+                        </ol>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/javascripts/main.js"></script>
+</body>
+</html>

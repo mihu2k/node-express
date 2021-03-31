@@ -17,57 +17,31 @@
                                         <img src="/images/icon-new.png" alt="" class="box-notification__heading-img">
                                         <p class="box-notification__heading-title">New notifications</p>
                                     </div>
-                                    <a href="#" class="box-notification__heading-link">All notifications</a>
+                                    <a href="/notification" class="box-notification__heading-link">All notifications</a>
                                 </div>
                                 <ul class="box-notification__list">
-                                    <li class="box-notification__item">
-                                        <p class="box-notification__department-name">
-                                            [Center For Applied Information Technology] -
-                                            <span class="box-notification__item-time"> 15/03/2021</span>
-                                        </p>
-                                        <a href="#" class="box-notification__body-title">
-                                            Expertise courses and exam services for MOS 2016 certification in March 2021
-                                        </a>
-                                        <p class="box-notification__body-content">
-                                            Expertise courses and exam services for MOS 2016 certification in March 2021
-                                        </p>
-                                    </li>
-                                    <li class="box-notification__item">
-                                        <p class="box-notification__department-name">
-                                            [Center For Applied Information Technology] -
-                                            <span class="box-notification__item-time"> 15/03/2021</span>
-                                        </p>
-                                        <a href="#" class="box-notification__body-title">
-                                            Expertise courses and exam services for MOS 2016 certification in March 2021
-                                        </a>
-                                        <p class="box-notification__body-content">
-                                            Expertise courses and exam services for MOS 2016 certification in March 2021
-                                        </p>
-                                    </li>
-                                    <li class="box-notification__item">
-                                        <p class="box-notification__department-name">
-                                            [Center For Applied Information Technology] -
-                                            <span class="box-notification__item-time"> 15/03/2021</span>
-                                        </p>
-                                        <a href="#" class="box-notification__body-title">
-                                            Expertise courses and exam services for MOS 2016 certification in March 2021
-                                        </a>
-                                        <p class="box-notification__body-content">
-                                            Expertise courses and exam services for MOS 2016 certification in March 2021
-                                        </p>
-                                    </li>
-                                    <li class="box-notification__item">
-                                        <p class="box-notification__department-name">
-                                            [Center For Applied Information Technology] -
-                                            <span class="box-notification__item-time"> 15/03/2021</span>
-                                        </p>
-                                        <a href="#" class="box-notification__body-title">
-                                            Expertise courses and exam services for MOS 2016 certification in March 2021
-                                        </a>
-                                        <p class="box-notification__body-content">
-                                            Expertise courses and exam services for MOS 2016 certification in March 2021
-                                        </p>
-                                    </li>
+                                    <% fourNotify.forEach(notify => { %>
+                                        <li class="box-notification__item">
+                                            <p class="box-notification__department-name">
+                                                <% if (!notify.ofDepartment) { %>
+                                                    <%= notify.authorId.name %> -
+                                                <% } else { %>
+                                                    <%= notify.ofDepartment %> -
+                                                <% } %>
+                                                <span class="box-notification__item-time"> <%= new Date(notify.createdAt).toLocaleDateString('en-US') %></span>
+                                            </p>
+                                            <a href="/notification/detail/<%= notify._id %>" class="box-notification__body-title">
+                                                <%= notify.title %>
+                                            </a>
+                                            <p class="box-notification__body-content">
+                                                <% if (notify.files.length > 0) { %>
+                                                    Xem chi tiết trong các file đính kèm
+                                                <% } else { %>
+                                                    <%= notify.title %>
+                                                <% } %>
+                                            </p>
+                                        </li>
+                                    <% }) %>
                                 </ul>
                             </div>
                         </div>
@@ -107,7 +81,7 @@
                                 </label>
                             </div>
                             <div class="list-students__search">
-                                <input type="text" class="list-students__search-input" id="search" placeholder="Search...">
+                                <input type="text" class="list-students__search-input" id="search" placeholder="Type to search...">
                             </div>
                             <ul class="list-students__body-list">
                                 <% students.forEach(student => { %>

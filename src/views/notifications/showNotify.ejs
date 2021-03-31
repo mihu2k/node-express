@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head.ejs')%>
+
+<body>
+    <div class="main-app">
+        <%- include('../partials/header.ejs')%>
+
+        <div class="notification-container">
+            <div class="profile-background"></div>
+            <div class="notification-container__body">
+                <nav class="breadcrumb mt-72">
+                    <ol class="breadcrumb-list">
+                        <li class="breadcrumb-item active"><a href="/"><i class="fas fa-home breadcrumb-icon"></i>Home</a></li>
+                        <li class="breadcrumb-item">List of notifications</li>
+                    </ol>
+                </nav>
+    
+                <div class="container__body-notify">
+                    <div class="container__body-notify-input">
+                        <input type="text" class="body-notify-input-search" placeholder="Search by notification subject...">
+                        <form id="form-filter-department">
+                            <div class="body-notify-select">
+                                <select name="filter-department" id="filter-department" required>
+                                    <option value="">Select Faculty/Department</option>
+                                    <option value="Phòng Công tác học sinh sinh viên">Phòng Công tác học sinh sinh viên</option>
+                                    <option value="Phòng Đại học">Phòng Đại học</option>
+                                    <option value="Phòng Sau đại học">Phòng Sau đại học</option>
+                                    <option value="Phòng điện toán và máy tính">Phòng điện toán và máy tính</option>
+                                    <option value="Phòng khảo thí và kiểm định chất lượng">Phòng khảo thí và kiểm định chất lượng</option>
+                                    <option value="Phòng tài chính">Phòng tài chính</option>
+                                    <option value="TDT Creative Language Center">TDT Creative Language Center</option>
+                                    <option value="Trung tâm tin học">Trung tâm tin học</option>
+                                    <option value="Trung tâm đào tạo phát triển xã hội">Trung tâm đào tạo phát triển xã hội</option>
+                                    <option value="Trung tâm phát triển Khoa học quản lý và Ứng dụng công nghệ">Trung tâm phát triển Khoa học quản lý và Ứng dụng công nghệ</option>
+                                    <option value="Trung tâm hợp tác doanh nghiệp và cựu sinh viên">Trung tâm hợp tác doanh nghiệp và cựu sinh viên</option>
+                                    <option value="Khoa Luật">Khoa Luật</option>
+                                    <option value="Trung tâm ngoại ngữ - tin học – bồi dưỡng văn hóa">Trung tâm ngoại ngữ - tin học – bồi dưỡng văn hóa</option>
+                                    <option value="Viện chính sách kinh tế và kinh doanh">Viện chính sách kinh tế và kinh doanh</option>
+                                    <option value="Khoa Mỹ thuật công nghiệp">Khoa Mỹ thuật công nghiệp</option>
+                                    <option value="Khoa Điện – Điện tử">Khoa Điện – Điện tử</option>
+                                    <option value="Khoa Công nghệ thông tin">Khoa Công nghệ thông tin</option>
+                                    <option value="Khoa Quản trị kinh doanh">Khoa Quản trị kinh doanh</option>
+                                    <option value="Khoa Môi trường và bảo hộ lao động">Khoa Môi trường và bảo hộ lao động</option>
+                                    <option value="Khoa Lao động công đoàn">Khoa Lao động công đoàn</option>
+                                    <option value="Khoa Tài chính ngân hàng">Khoa Tài chính ngân hàng</option>
+                                    <option value="Khoa giáo dục quốc tế">Khoa giáo dục quốc tế</option>
+                                </select>
+                            </div>
+                            <button class="btn-submit-form-filter-department"><i class="fas fa-search"></i></button>
+                        </form>
+                    </div>
+                    <ul class="container__notify-list">
+                        <!-- Start item notification -->
+                        <!-- End Item notification -->
+                    </ul>
+                    <div id="pagination-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js"></script>
+    <script src="/javascripts/main.js"></script>
+</body>
+</html>
