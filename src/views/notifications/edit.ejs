@@ -12,15 +12,15 @@
                     <ol class="breadcrumb-list">
                         <li class="breadcrumb-item active"><a href="/"><i class="fas fa-home breadcrumb-icon"></i>Home</a></li>
                         <li class="breadcrumb-item active"><a href="/notification/me">Your notification</a></li>
-                        <li class="breadcrumb-item">Post a notice</li>
+                        <li class="breadcrumb-item">Edit notification</li>
                     </ol>
                 </nav>
     
                 <div class="wrap-form-post-notify">
-                    <h4 class="form-post-notify__heading">Form Notification</h4>
+                    <h4 class="form-post-notify__heading">Edit Notification</h4>
                     <form action="" method="POST" enctype="multipart/form-data">
                         <div class="body-notify-select-form-post">
-                            <select name="ofDepartment" id="ofDepartment" required>
+                            <select name="ofDepartmentEdit" id="ofDepartmentEdit" required>
                                 <option value="">Select Faculty/Department</option>
                                 <% user.department.forEach(item => { %>
                                     <option value="<%= item %>"><%= item %></option>
@@ -28,19 +28,20 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="notify-input-text" class="form-label-notify">Title <span class="star-red">*</span></label>
-                            <input type="text" class="form-control-notify" id="notify-input-text" name="title">
+                            <label for="notify-input-text-edit" class="form-label-notify">Title <span class="star-red">*</span></label>
+                            <input type="text" class="form-control-notify" id="notify-input-text-edit" name="titleEdit">
                         </div>
                         <div class="form-group">
-                            <label for="textarea-notify" class="form-label-notify">Content <span class="star-red">*</span></label>
-                            <textarea name="content" id="textarea-notify" cols="30" rows="10"></textarea>
+                            <label for="textarea-notify-edit" class="form-label-notify">Content <span class="star-red">*</span></label>
+                            <textarea name="contentEdit" id="textarea-notify-edit" cols="30" rows="10"></textarea>
                         </div>
+                        <div class="wrap-form-group-edit-notification"></div>
                         <div class="form-group">
-                            <label for="notify-input-file" class="form-label-notify">Files</label>
-                            <input type="file" class="form-control-notify" id="notify-input-file" name="files" multiple>
+                            <label for="notify-input-file-edit" class="form-label-notify">Files</label>
+                            <input type="file" class="form-control-notify" id="notify-input-file-edit" name="filesEdit" multiple>
                         </div>
-                        <ul class="list-file-upload"></ul>
-                        <button class="btn btn-submit-form-notify">Post</button>
+                        <ul class="list-file-upload-edit"></ul>
+                        <button class="btn btn-submit-form-notify">Edit</button>
                     </form>
                 </div>
             </div>

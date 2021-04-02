@@ -1140,3 +1140,110 @@ $('#form-filter-department').submit((e) => {
         }
     });
 });
+
+// Show file name when choose file
+var inputFileNotification = document.getElementById('notify-input-file');
+
+if (inputFileNotification) {
+    inputFileNotification.onchange = function() {
+        let html = '';
+        const n = this.files.length;
+        if (n > 1) {
+            for (let i = 0; i < n; i++) {
+                html += `<li class="item-file-upload">${this.files[i].name}</li>`;
+            }
+        } else {
+            html = '';
+        }
+
+        $('.list-file-upload').html(html);
+    }
+}
+
+// Delete notification
+$('.btn.btn-delete-notification').click(e => {
+    e.preventDefault();
+    const id = e.target.id; // get value in attr id
+
+    if (confirm('Are you sure you want to delete this notification?')) {
+        $.ajax({
+            type: 'DELETE',
+            url: '/notification/me/delete/' + id,
+            success: function(response) {
+                $('#' + id).parent().parent().remove();
+            }
+        })
+    }
+})
+
+// Đổ data cũ vào input trước khi edit
+if (window.location.href.includes('/notification/me/edit/')) {
+    const id = new URL(window.location.href).pathname.split('/')[new URL(window.location.href).pathname.split('/').length - 1];
+    $(document).ready(() => {
+        $.ajax({
+            type: 'GET',
+            url: '/notification/me/edit/ajax/' + id,
+            success: function(data) {
+                $('#ofDepartmentEdit option').each((index, element) => {
+                    if (element.value === data.ofDepartment) {
+                        element.selected = true;
+                    }
+                })
+                
+                $('#notify-input-text-edit').val(data.title);
+                $('#textarea-notify-edit').val(data.content);
+                console.log(data);
+
+                if (data.files.length > 0) {
+                    appendRadiobtn();
+                    $('#notify-input-file-edit').prop('required', true);
+                }
+
+                $('input[type=radio][name=radioEdit]').change(function() {
+
+                    if (this.value === 'upload') {
+                        $('#notify-input-file-edit').attr('disabled', false);
+                        $('#notify-input-file-edit').prop('required', true);
+                    } else {
+                        $('#notify-input-file-edit').attr('disabled', true);
+                    }
+                });
+            }
+        })
+    });
+
+    function appendRadiobtn() {
+        var html = `<div class="form-group-edit-notification">
+                        <input type="radio" class="form-control-notify" id="notify-radio-edit" name="radioEdit" value="upload" required checked>
+                        <label for="notify-radio-edit" class="form-label-notify-edit">Upload files</label>
+                    </div>
+                    <div class="form-group-edit-notification">
+                        <input type="radio" class="form-control-notify" id="notify-radio-edit-1" name="radioEdit" value="unchange">
+                        <label for="notify-radio-edit-1" class="form-label-notify-edit">Giữ nguyên</label>
+                    </div>
+                    <div class="form-group-edit-notification">
+                        <input type="radio" class="form-control-notify" id="notify-radio-edit-2" name="radioEdit" value="deleteAll">
+                        <label for="notify-radio-edit-2" class="form-label-notify-edit">Xóa tất cả</label>
+                    </div>`;
+        $('.wrap-form-group-edit-notification').html(html);
+    }
+
+    // Show file name when choose file in edit notification page
+    var editFileNotification = document.getElementById('notify-input-file-edit');
+
+    if (editFileNotification) {
+        editFileNotification.onchange = function() {
+            let html = '';
+            const n = this.files.length;
+            if (n > 1) {
+                for (let i = 0; i < n; i++) {
+                    html += `<li class="item-file-upload-edit">${this.files[i].name}</li>`;
+                }
+            } else {
+                html = '';
+            }
+
+            $('.list-file-upload-edit').html(html);
+        }
+    }
+}

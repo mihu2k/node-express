@@ -84,6 +84,10 @@ hr {
     border: 1px solid rgba(0, 0, 0, 0.18) !important;
 }
 
+.border-bottom-gray {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
 input::placeholder {
     font-size: 1.3rem;
 }
@@ -373,7 +377,7 @@ input::placeholder {
     list-style: none;
     background-color: #fff;
     padding: 12px 0;
-    min-width: 120px;
+    min-width: 164px;
     box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.2);
     border-radius: 4px;
     transform-origin: top right;
@@ -605,7 +609,7 @@ tbody {
     line-height: 1.5;
 }
 
-td {
+.manage-user td {
     width: 33.33%;
 }
 
@@ -641,8 +645,10 @@ tr th:first-child {
     background-color: #28a745;
     padding: 10px 16px;
     font-size: 1.4rem;
-    font-weight: 300;
+    font-weight: 400;
     text-decoration: none;
+    position: relative;
+    top: 2px;
 }
 
 .btn-create-account-link:hover {
@@ -656,9 +662,9 @@ tr th:first-child {
 
 .btn-authorized {
     text-decoration: none;
-    display: block;
+    display: inline-block;
     padding: 6px 8px;
-    font-weight: 300;
+    font-weight: 400;
     background-color: #007bff;
 }
 
@@ -1974,6 +1980,33 @@ label[for="notify-input-file"].form-label-notify {
     display: block;
 }
 
+.item-file-upload,
+.item-file-upload-edit {
+    list-style: none;
+    font-size: 1.4rem;
+    padding: 4px 8px 0;
+}
+
+/* Form edit notification */
+.wrap-form-group-edit-notification {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.form-group-edit-notification {
+    display: flex;
+    align-items: center;
+    margin-right: 24px;
+}
+
+.form-label-notify-edit {
+    font-size: 1.4rem;
+    margin: 4px 0 6px;
+    padding-left: 6px;
+    font-weight: 700;
+}
+
 /* Notification Details  */
 .wrap-details-notification {
     padding: 16px;
@@ -2028,4 +2061,38 @@ label[for="notify-input-file"].form-label-notify {
 .display-file-item-link:hover {
     color: #0061AD;
     text-decoration: underline;
+}
+
+/* Your notification page */
+.manage-notification tbody tr td:nth-child(2) {
+    width: 400px;
+}
+
+.manage-notification tbody tr td:last-child {
+    width: 180px;
+}
+
+.manage-notification-link-detail {
+    color: #333;
+    text-decoration: none;
+}
+
+.manage-notification-link-detail:hover {
+    color: #0061AD;
+    text-decoration: underline;
+}
+
+.manage-notification a.btn {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.btn.btn-delete-notification {
+    background-color: #dc1515;
+    padding: 6px 14px;
+}
+
+.btn.btn-edit-notification {
+    background-color: dodgerblue;
+    padding: 6px 22px;
 }

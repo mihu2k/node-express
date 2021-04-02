@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head.ejs') %>
+<body>
+    <div class="main-app">
+        <%- include('../partials/header.ejs')%>
+
+        <div class="notification-container">
+            <div class="profile-background"></div>
+            <div class="notification-container__body">
+                <nav class="breadcrumb mt-72">
+                    <ol class="breadcrumb-list">
+                        <li class="breadcrumb-item active"><a href="/"><i class="fas fa-home breadcrumb-icon"></i>Home</a></li>
+                        <li class="breadcrumb-item">Your notification</li>
+                    </ol>
+                </nav>
+    
+                <!-- Body -->
+                <div class="container mt-16">
+                    <br><br>
+                    <h1 class="manage-user-heading">Your notifications</h1>
+                    <div class="wrap-total-accounts">
+                        <a href="/notification/post" class="btn btn-create-account-link">Post a notice</a>
+                        <p class="total-accounts-text">Total number of notifications: <strong class="text-danger"><%= yourNotification.length %></strong></p>
+                    </div>
+                    <table class="table manage-notification">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Belong To Unit </th>
+                                <th>Date Created</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% yourNotification.forEach((item, index) => { %>
+                            <tr>
+                                <th><%= index + 1 %></th>
+                                <td>
+                                    <a href="/notification/detail/<%= item._id %>" class="manage-notification-link-detail"><%= item.title %></a>
+                                </td>
+                                <td><%= item.ofDepartment %></td>
+                                <% optionsTime = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' } %>
+                                <td><%= new Date(item.createdAt).toLocaleString('en-US', optionsTime) %></td>
+                                <td>
+                                    <a class="btn btn-delete-notification" id="<%= item._id %>" href="">Delete</a>
+                                    <a class="btn btn-edit-notification" href="/notification/me/edit/<%= item._id %>">Edit</a>
+                                </td>
+                            </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End body -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/javascripts/main.js"></script>
+</body>
+</html>

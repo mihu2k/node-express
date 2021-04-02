@@ -86,11 +86,21 @@
             <div class="overlay-transparent"></div>
 
             <ul class="header__nav-user-menu">
-                <li class="header__nav-user-item">
+                <li class="header__nav-user-item border-bottom-gray">
                     <a href="/profile/<%= user._id %>" class="header__nav-user-link">Your profile</a>
                 </li>
-                <% if (user.userType != 'student') { %>
+                <% if (user.userType == 'department') { %>
                 <li class="header__nav-user-item">
+                    <a href="/notification/me" class="header__nav-user-link">Your notification</a>
+                </li>
+                <% } %>
+                <% if (user.userType == 'admin') { %>
+                <li class="header__nav-user-item">
+                    <a href="/notification/me" class="header__nav-user-link">Manage notifications</a>
+                </li>
+                <% } %>
+                <% if (user.userType != 'student') { %>
+                <li class="header__nav-user-item border-bottom-gray">
                     <a href="/notification/post" class="header__nav-user-link">Post a notice</a>
                 </li>
                 <% } %>
