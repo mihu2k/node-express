@@ -854,7 +854,7 @@ function appendPosts(posts, selector) {
                             <i class="fas fa-ellipsis-h"></i>
                             <ul class="timeline-news__options-cmt-list">
                                 <li class="timeline-news__options-cmt-item timeline-news__options-cmt-remove" data-cmtid="${comment._id} data-postid="${comment.postId}">
-                                    <i class="fas fa-trash-alt timeline-news__options-icon"></i><span>Remove</span>
+                                    <i class="fas fa-trash timeline-news__options-icon"></i><span>Remove</span>
                                 </li>
                             </ul>
                         </div>`;
@@ -915,7 +915,7 @@ function postComment(data, authorId, postId) {
                                     <i class="fas fa-ellipsis-h"></i>
                                     <ul class="timeline-news__options-cmt-list">
                                         <li class="timeline-news__options-cmt-item timeline-news__options-cmt-remove" data-cmtid="${comment._id}" data-postid="${comment.postId}">
-                                            <i class="fas fa-trash-alt timeline-news__options-icon"></i><span>Remove</span>
+                                            <i class="fas fa-trash timeline-news__options-icon"></i><span>Remove</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -1247,3 +1247,24 @@ if (window.location.href.includes('/notification/me/edit/')) {
         }
     }
 }
+
+// Make connection with socket.io
+const socket = io.connect();
+
+const btnPostNotify = document.querySelector('.btn.btn-submit-form-notify');
+
+if (btnPostNotify) {
+    btnPostNotify.addEventListener('click', (e) => {
+        // e.preventDefault();
+        console.log(1);
+        socket.emit('post', {});
+    });
+}
+
+socket.on('post', (data) => {
+    var html = `<div class="message-real-time">
+                    ${data.notification.ofDepartment} vừa đăng một thông báo:
+                    <a href="/notification/detail/${data.notification._id}"> ${data.notification.title}</a>
+                </div>`;
+    $('.wrap-message-real-time').html(html);
+})

@@ -377,7 +377,7 @@ input::placeholder {
     list-style: none;
     background-color: #fff;
     padding: 12px 0;
-    min-width: 164px;
+    min-width: 162px;
     box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.2);
     border-radius: 4px;
     transform-origin: top right;
@@ -1354,8 +1354,10 @@ tr th:first-child {
 }
 
 .timeline-news__options-icon {
+    position: relative;
+    top: 0.5px;
     font-size: 1.5rem;
-    padding-right: 6px;
+    padding-right: 8px;
 }
 
 .timeline-news__content-text {
@@ -1577,7 +1579,7 @@ tr th:first-child {
 
 .timeline-news__options-cmt-list {
     list-style: none;
-    min-width: 92px;
+    min-width: 94px;
     position: absolute;
     top: 100%;
     right: 0;
@@ -2095,4 +2097,17 @@ label[for="notify-input-file"].form-label-notify {
 .btn.btn-edit-notification {
     background-color: dodgerblue;
     padding: 6px 22px;
+}
+
+/* Message real time */
+.message-real-time {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.3rem;
+    padding: 2px 8px;
+    border: 1px solid green;
+    background-color: #11c111;
+    z-index: 2;
 }

@@ -10,6 +10,7 @@ const cookieSession = require('cookie-session');
 const passport = require('passport');
 const flash = require('express-flash');
 const methodOverride = require('method-override');
+const socket = require('socket.io');
 
 // Connecting to MongoDB
 db.connect();
@@ -47,3 +48,7 @@ route(app);
 const server = app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}/auth/login`);
 });
+
+// Setup socket.io
+const io = socket(server);
+global.io = io;

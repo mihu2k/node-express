@@ -56,7 +56,15 @@ class NotificationController {
                 ofDepartment: fields.ofDepartment[0],
             }
 
-            await Notification.create(formData);
+            const notification = await Notification.create(formData);
+            const {_id} = notification;
+            const newNotification = await Notification.findById(_id)
+                                                      .populate({path: 'authorId', select: 'name'});
+
+            // Handle socket.io
+            global.io.sockets.emit('post', {
+                notification: newNotification,
+            });
         })
         res.redirect('/notification');
     }
