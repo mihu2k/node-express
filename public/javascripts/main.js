@@ -1268,3 +1268,27 @@ socket.on('post', (data) => {
                 </div>`;
     $('.wrap-message-real-time').html(html);
 })
+
+// Handle icon header: home, notifications, profile
+var url = new URL(window.location.href);
+var iconInHeader = document.querySelectorAll('.wrap-icon-home-header');
+
+if (url.pathname === '/') {
+    iconInHeader[0].classList.add('active');
+    iconInHeader[1].classList.remove('active');
+    iconInHeader[2].classList.remove('active');
+} else if (url.pathname === '/notification') {
+    iconInHeader[0].classList.remove('active');
+    iconInHeader[1].classList.add('active');
+    iconInHeader[2].classList.remove('active');
+} else if (url.pathname.includes('/profile')) {
+    iconInHeader[0].classList.remove('active');
+    iconInHeader[1].classList.remove('active');
+    iconInHeader[2].classList.add('active');
+} else if (url.pathname === '/auth/login') {
+    // dont something
+} else {
+    iconInHeader[0].classList.remove('active');
+    iconInHeader[1].classList.remove('active');
+    iconInHeader[2].classList.remove('active');
+}

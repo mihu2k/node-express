@@ -71,17 +71,35 @@
         </li>
     </ul>
 
+    <ul class="header__nav-list-icon">
+        <li class="header__nav-item">
+            <a href="/" class="wrap-icon-home-header" title="Home">
+                <img src="/images/home-icon.svg" alt="" class="header__nav-item-img">
+            </a>
+        </li>
+        <li class="header__nav-item">
+            <a href="/notification" class="wrap-icon-home-header" title="Notifications">
+                <img src="/images/bell.svg" alt="" class="header__nav-item-img">
+            </a>
+        </li>
+        <li class="header__nav-item">
+            <a href="/profile/<%= user._id %>" class="wrap-icon-home-header" title="Profile">
+                <img src="/images/user-profile.svg" alt="" class="header__nav-item-img">
+            </a>
+        </li>
+    </ul>
+
     <ul class="header__nav-list">
-        <li class="header__nav-item mr-16">
+        <li class="header__nav-item mr-16 header__nav-item-bell-right">
             <i class="header__nav-icon ti-bell"></i>
             <span class="header__nav-text">Notifications</span>
         </li>
-        <li class="header__nav-item mr-4">
-            <img src="<%= user.avatar %>" alt="" class="header__nav-avt">
-            <span class="header__nav-text header__nav-text-name"><%= user.name %></span>
+        <li class="header__nav-item mr-8 header__nav-item-user-inf">
+            <img src="<%= user.avatar %>" alt="" class="header__nav-avt" title="<%= user.name %>">
+            <span class="header__nav-text header__nav-text-name" title="<%= user.name %>"><%= user.name %></span>
         </li>
         <li class="header__nav-item header__nav-icon-down">
-            <i class="header__nav-icon ti-angle-down"></i>
+            <i class="fas fa-caret-down header__nav-icon"></i>
 
             <div class="overlay-transparent"></div>
 

@@ -2,18 +2,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const authController = require('../controllers/Auth.controller');
-
-const checkEmail = (req, res, next) => {
-    const isValidEmail = req.user.email.includes('@student.tdtu.edu.vn');
-    
-    if (!isValidEmail) return req.logout();
-    else next();
-}
-
-const checkNotAuth = (req, res, next) => {
-    if (req.isAuthenticated()) return res.redirect('/');
-    next();
-}
+const { checkNotAuth, checkEmail } = require('../lib/middleware');
 
 router.get('/login', checkNotAuth, authController.showLoginPage);
 router.post('/login', passport.authenticate('local',

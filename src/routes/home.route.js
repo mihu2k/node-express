@@ -1,11 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const homeController = require('../controllers/Home.controller');
-
-const checkAuth = (req, res, next) => {
-    if (req.isAuthenticated()) return next();
-    res.redirect('/auth/login');
-}
+const { checkAuth } = require('../lib/middleware');
 
 router.post('/comment/post/:postid/author/:id', homeController.postComment);
 router.delete('/comment/:id/delete', homeController.deleteComment);

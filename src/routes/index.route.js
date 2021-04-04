@@ -4,22 +4,15 @@ const userRouter = require('./user.route');
 const departmentRouter = require('./department.route');
 const profileRouter = require('./profile.route');
 const notificationRouter = require('./notification.route');
-
-const checkUserType = (req, res, next) => {
-    var isAdmin = req.user.userType === 'admin';
-    if (isAdmin) {
-        return next();
-    }
-    res.redirect('/');
-};
+const { checkAuth, isAdmin } = require('../lib/middleware');
 
 const route = app => {
-    app.use('/notification', notificationRouter);
-    app.use('/profile', profileRouter);
-    app.use('/department', departmentRouter);
-    app.use('/user', checkUserType, userRouter);
+    app.use('/notification', checkAuth, notificationRouter);
+    app.use('/profile', checkAuth, profileRouter);
+    app.use('/department', checkAuth, departmentRouter);
+    app.use('/user', checkAuth, isAdmin, userRouter);
     app.use('/auth', authRouter);
-    app.use('/', homeRouter);
+    app.use('/', checkAuth, homeRouter);
 }
 
 module.exports = route;
