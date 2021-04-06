@@ -7,6 +7,10 @@
 
         <div class="container container-wrap-form-create">
             <div class="wrap-form-create-account">
+                <!-- Icon back -->
+                <div class="wrap-icon-back" title="Back"><i class="fas fa-arrow-left"></i></div>
+                <!-- End icon back -->
+                
                 <h2 class="form-create-heading">CREATE ACCOUNT</h2>
                 <form action="/user/storage" method="POST" class="form-create-account">
                     <div class="form-group">
@@ -29,6 +33,9 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        var listUser = JSON.parse('<%- listUser %>');
+    </script>
     <script src="/javascripts/main.js"></script>
 </body>
 </html>

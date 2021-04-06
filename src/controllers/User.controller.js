@@ -2,10 +2,12 @@ const User = require('../models/User.model');
 
 class UserController {
     // [GET] /user/create
-    create(req, res, next) {
+    async create(req, res, next) {
+        const listUser = await User.find({ username: {$ne: null} }).select('username name');
         res.render('users/create', {
             title: 'Manage | Create',
             user: req.user,
+            listUser: JSON.stringify(listUser),
         });
     }
 

@@ -21,8 +21,19 @@ module.exports = {
 
     // Check user is admin
     isAdmin: (req, res, next) => {
-        var isAdmin = req.user.userType === 'admin';
-        
-        return isAdmin ? next() : res.redirect('/');
+        const isAdmin = req.user.userType === 'admin';
+        return isAdmin ? next() : res.render('notFound', {title: 'Error'});
     },
+
+    // Check user is faculty/department
+    isDepartment: (req, res, next) => {
+        const isDepartment = req.user.userType === 'department';
+        return isDepartment ? next() : res.render('notFound', {title: 'Error'});
+    },
+
+    // Check user isn't student
+    isNotStudent: (req, res, next) => {
+        const isStudent = req.user.userType === 'student';
+        return isStudent ? res.render('notFound', {title: 'Error'}) : next();
+    }
 };

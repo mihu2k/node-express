@@ -149,25 +149,34 @@ document.addEventListener('DOMContentLoaded', function() {
     var messageErrorFormCreateAccount = document.querySelector('.form-message');
     var btnSubmitCreateAccount = document.querySelector('.btn-submit-create-account');
     var formCreateAccount = document.querySelector('.form-create-account');
-    
     if (btnSubmitCreateAccount) {
         btnSubmitCreateAccount.onclick = function() {
             var error;
-    
-            if (usernameFormCreateAccount.value === '') {
-                error = 'Please enter your username';
-                usernameFormCreateAccount.focus();
-            } else if (passwordFormCreateAccount.value === '') {
-                error = 'Please enter your password';
-                passwordFormCreateAccount.focus();
-            } else if (passwordFormCreateAccount.value.length < 6) {
-                error = 'Password must be at least 6 characters';
-                passwordFormCreateAccount.focus();
-            } else if (nameFormCreateAccount.value === '') {
-                error = 'Please enter your name department';
-                nameFormCreateAccount.focus();
-            } else {
-                error = '';
+
+            for(let i = 0; i < listUser.length; i++) {
+                if (usernameFormCreateAccount.value === listUser[i].username) {
+                    usernameFormCreateAccount.focus();
+                    error = 'Account already exists';
+                    break;
+                } else if (usernameFormCreateAccount.value === '') {
+                    error = 'Please enter your username';
+                    usernameFormCreateAccount.focus();
+                } else if (passwordFormCreateAccount.value === '') {
+                    error = 'Please enter your password';
+                    passwordFormCreateAccount.focus();
+                } else if (passwordFormCreateAccount.value.length < 6) {
+                    error = 'Password must be at least 6 characters';
+                    passwordFormCreateAccount.focus();
+                } else if (nameFormCreateAccount.value === '') {
+                    error = 'Please enter your name department';
+                    nameFormCreateAccount.focus();
+                } else if (nameFormCreateAccount.value == listUser[i].name) {
+                    error = 'Department name already exists';
+                    nameFormCreateAccount.focus();
+                    break;
+                } else {
+                    error = '';
+                }
             }
     
             if (error) {
@@ -192,6 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+
     // Check input value in form change password
     var currentPassword = document.getElementById('input-current-password');
     var newPassword = document.getElementById('input-new-password');
@@ -208,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 error = 'Please enter your current password';
                 currentPassword.focus();
             } else if (currentPassword.value !== password) {
-                error = 'Current password does not match';
+                error = 'Current password is invalid';
                 currentPassword.focus();
             } else if (newPassword.value === '') {
                 error = 'Please enter your new password';
@@ -248,6 +258,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Handle Btn back in form create account & form change password
+    if (btnSubmitCreateAccount || btnChangePassword) {
+        document.querySelector('.wrap-icon-back').onclick = () => {
+            window.location.href = document.referrer;
+        };
+    }
+
     // Handle checked = true for form management scope
     var checkboxList = document.querySelectorAll('.form-authorized-account input[type = checkbox]');
     var formAuthorized = document.querySelector('.form-authorized-account');
@@ -260,6 +277,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
         });
+
+        // Handle Btn back in form authorized
+        document.querySelector('.wrap-icon-back-form-authorized').onclick = () => {
+            window.location.href = document.referrer;
+        };
     }
 
     // When click btn edit profile, will show modal
@@ -1141,6 +1163,22 @@ $('#form-filter-department').submit((e) => {
     });
 });
 
+// Handle search notification by name
+$('.body-notify-input-search').keyup(function() {
+    let filter = $(this).val().toUpperCase();
+    let name;
+    var items = $('.container__notify-item');
+
+    for(let i = 0; i < items.length; i++) {
+        name = items[i].querySelector('.container__notify-item-title');
+        if (name.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            items[i].style.display = '';
+        } else {
+            items[i].style.display = 'none';
+        }
+    }
+});
+
 // Show file name when choose file
 var inputFileNotification = document.getElementById('notify-input-file');
 
@@ -1255,8 +1293,6 @@ const btnPostNotify = document.querySelector('.btn.btn-submit-form-notify');
 
 if (btnPostNotify) {
     btnPostNotify.addEventListener('click', (e) => {
-        // e.preventDefault();
-        console.log(1);
         socket.emit('post', {});
     });
 }

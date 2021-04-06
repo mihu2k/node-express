@@ -45,6 +45,11 @@ app.use(methodOverride('_method'));
 // Def routes
 route(app);
 
+// 404 Not found page
+app.get('*', (req, res) => {
+    res.status(404).render('notFound', {title: 'Error'});
+});
+
 const server = app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}/auth/login`);
 });

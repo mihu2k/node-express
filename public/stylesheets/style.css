@@ -3,6 +3,8 @@
 :root {
     --gradient-color: linear-gradient(-30deg, #b066fe, #63e2ff);
     --gradient-color-btn: linear-gradient(45deg, #06d6e0, #f606ff);
+    --primary-color: #2b81f3;
+    --bg-color-hover: #196ad3;
 }
 
 * {
@@ -158,6 +160,11 @@ input::placeholder {
 .col-lg-7 {
     max-width: 58.33333%;
     flex: 0 0 58.33333%;
+}
+
+.col-md-12 {
+    max-width: 100%;
+    flex: 0 0 100%;
 }
 
 /* Login */
@@ -401,7 +408,7 @@ input::placeholder {
 .header__nav-user-menu {
     position: absolute;
     right: 0;
-    top: calc(100% + 11px);
+    top: calc(100% + 7px);
     list-style: none;
     background-color: #fff;
     padding: 8px 0;
@@ -548,7 +555,7 @@ input::placeholder {
     top: 1px;
     font-size: 1.8rem;
     padding-right: 8px;
-    color: darkred;
+    color: var(--bg-color-hover);
 }
 
 .navigation-content {
@@ -715,11 +722,29 @@ tr th:first-child {
 }
 
 .wrap-form-create-account {
+    position: relative;
     margin-top: 160px;
     width: 400px;
     padding: 32px;
     border-radius: 8px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.wrap-icon-back,
+.wrap-icon-back-form-authorized {
+    cursor: pointer;
+    position: absolute;
+    top: 29px;
+    left: 2%;
+    font-size: 1.8rem;
+    padding: 7px 12px;
+    border-radius: 50%;
+}
+
+.wrap-icon-back:hover,
+.wrap-icon-back-form-authorized:hover {
+    color: #fff;
+    background-color: #2b81f3
 }
 
 .form-create-heading {
@@ -765,17 +790,18 @@ tr th:first-child {
     color: #fff;
     font-size: 1.5rem;
     border-radius: 4px;
-    background-color: #1dbfaf;
+    background-color: var(--primary-color);
 }
 
 .btn-submit-create-account:hover,
 .btn-submit-update-scope:hover {
     cursor: pointer;
-    background-color: #21b1a2;
+    background-color: var(--bg-color-hover);
 }
 
 /* Form authorized */
 .wrap-form-authorized-account {
+    position: relative;
     margin-top: 140px;
     padding: 32px;
     border-radius: 8px;
@@ -817,7 +843,7 @@ tr th:first-child {
     color: #fff;
     font-size: 1.5rem;
     border-radius: 4px;
-    background-color: #1dbfaf;
+    background-color: var(--primary-color);
 }
 
 /* Form change password */
@@ -1883,7 +1909,9 @@ tr th:first-child {
     padding: 8px 8px;
     margin-right: 16px;
     height: 36px;
-    border: 1px solid #2b81f3;
+    border: 1px solid #b3b3b3;
+    border-radius: 2px;
+    outline-color: var(--primary-color);
 }
 
 #form-filter-department {
@@ -1897,7 +1925,8 @@ tr th:first-child {
 #filter-department {
     height: 100%;
     padding: 0 8px;
-    border: 1px solid #2b81f3;
+    border: 1px solid #b3b3b3;
+    border-radius: 2px;
 }
 
 .btn-submit-form-filter-department {
@@ -2000,12 +2029,16 @@ tr th:first-child {
 
 input[type="text"].form-control-notify {
     height: 36px;
-    border: 1px solid #2b81f3;
+    border: 1px solid #b3b3b3;
+    outline-color: var(--primary-color);
+    border-radius: 2px;
 }
 
 #textarea-notify,
 #textarea-notify-edit {
-    border: 1px solid #2b81f3;
+    border: 1px solid #b3b3b3;
+    outline-color: var(--primary-color);
+    border-radius: 2px;
 }
 
 input[type="file"].form-control-notify {
@@ -2037,7 +2070,8 @@ label[for="notify-input-file"].form-label-notify {
     display: block;
     max-width: 100%;
     height: 34px;
-    border: 1px solid #2b81f3;
+    border: 1px solid #b3b3b3;
+    border-radius: 2px;
 }
 
 .item-file-upload,
@@ -2173,6 +2207,216 @@ label[for="notify-input-file"].form-label-notify {
     z-index: 2;
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
+}
+
+/* Not found page */
+.wrap-err-page {
+    display: flex;
+    justify-content: center;
+}
+
+.error-text {
+    text-align: center;
+}
+
+.error {
+    text-align: center;
+    font-size: 10rem;
+    font-weight: 400;
+}
+
+.error-text h4 {
+    font-size: 3rem;
+    font-family: 'Raleway', sans-serif;
+}
+
+.error-text p {
+    font-size: 1.8rem;
+    font-family: 'Lato', sans-serif;
+    margin: 24px 0;
+}
+
+.error-text a.btn-primary-back-go-home {
+    font-size: 1.6rem;
+    text-decoration: none;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 8px 16px 9px;
+    display: inline-block;
+    border-radius: 999px;
+}
+
+.error-text a.btn-primary-back-go-home:hover {
+    background-color: var(--bg-color-hover);
+}
+
+.wrap-sticker {
+    display: flex;
+    justify-content: center;
+}
+
+@keyframes bob {
+    0% {
+        top: 0;
+    }
+    50% {
+        top: 0.2em;
+    }
+}
+
+.im-sheep {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    font-size: 2em;
+    margin: 36px 0 72px;
+}
+
+.im-sheep * {
+    transition: transform 0.3s;
+}
+
+.im-sheep .top {
+    position: relative;
+    top: 0;
+    animation: bob 1s infinite;
+}
+
+.im-sheep:hover .head {
+    transform: rotate(0deg);
+}
+
+.im-sheep:hover .head .im-eye {
+    width: 1.25em;
+    height: 1.25em;
+}
+
+.im-sheep:hover .head .im-eye:before {
+    right: 30%;
+}
+
+.im-sheep:hover .top {
+    animation-play-state: paused;
+}
+
+.im-sheep .head {
+    display: inline-block;
+    width: 5em;
+    height: 5em;
+    border-radius: 100%;
+    background: #253858;
+    vertical-align: middle;
+    position: relative;
+    top: 1em;
+    transform: rotate(30deg);
+}
+
+.im-sheep .head:before {
+    content: '';
+    display: inline-block;
+    width: 80%;
+    height: 50%;
+    background: #253858;
+    position: absolute;
+    bottom: 0;
+    right: -10%;
+    border-radius: 50% 40%;
+}
+
+.im-sheep .head:hover .im-ear.one, .im-sheep .head:hover .im-ear.two {
+    transform: rotate(0deg);
+}
+
+.im-sheep .head .im-eye {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border-radius: 100%;
+    background: white;
+    position: absolute;
+    overflow: hidden;
+}
+
+.im-sheep .head .im-eye:before {
+    content: '';
+    display: inline-block;
+    background: black;
+    width: 50%;
+    height: 50%;
+    border-radius: 100%;
+    position: absolute;
+    right: 10%;
+    bottom: 10%;
+    transition: all 0.3s;
+}
+
+.im-sheep .head .im-eye.one {
+    right: -2%;
+    top: 1.7em;
+}
+
+.im-sheep .head .im-eye.two {
+    right: 2.5em;
+    top: 1.7em;
+}
+
+.im-sheep .head .im-ear {
+    background: #253858;
+    width: 50%;
+    height: 30%;
+    border-radius: 100%;
+    position: absolute;
+}
+
+.im-sheep .head .im-ear.one {
+    left: -10%;
+    top: 5%;
+    transform: rotate(-30deg);
+}
+
+.im-sheep .head .im-ear.two {
+    top: 2%;
+    right: -5%;
+    transform: rotate(20deg);
+}
+
+.im-sheep .body {
+    display: inline-block;
+    width: 7em;
+    height: 7em;
+    border-radius: 100%;
+    background: #0054D1;
+    position: relative;
+    vertical-align: middle;
+    margin-right: -3em;
+}
+
+.im-sheep .im-legs {
+    display: inline-block;
+    position: absolute;
+    top: 80%;
+    left: 10%;
+    z-index: -1;
+}
+
+.im-sheep .im-legs .im-leg {
+    display: inline-block;
+    background: #141214;
+    width: 0.5em;
+    height: 2.5em;
+    margin: 0.2em;
+}
+
+.im-sheep::before {
+    left: 0;
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 112%;
+    width: 100%;
+    height: 18%;
+    border-radius: 100%;
+    background: rgba(0, 0, 0, 0.2);
 }
 
 /***** Responsive *****/
@@ -2434,5 +2678,10 @@ label[for="notify-input-file"].form-label-notify {
 
     .btn-submit-update-scope {
         width: 100%;
+    }
+
+    /* Not found page */
+    .error {
+        font-size: 8rem;
     }
 }
