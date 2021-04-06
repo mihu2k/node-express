@@ -1215,15 +1215,15 @@ if (window.location.href.includes('/notification/me/edit/')) {
     function appendRadiobtn() {
         var html = `<div class="form-group-edit-notification">
                         <input type="radio" class="form-control-notify" id="notify-radio-edit" name="radioEdit" value="upload" required checked>
-                        <label for="notify-radio-edit" class="form-label-notify-edit">Upload files</label>
+                        <label for="notify-radio-edit" class="form-label-notify-edit">Change files</label>
                     </div>
                     <div class="form-group-edit-notification">
                         <input type="radio" class="form-control-notify" id="notify-radio-edit-1" name="radioEdit" value="unchange">
-                        <label for="notify-radio-edit-1" class="form-label-notify-edit">Giữ nguyên</label>
+                        <label for="notify-radio-edit-1" class="form-label-notify-edit">Preserve the old files</label>
                     </div>
                     <div class="form-group-edit-notification">
                         <input type="radio" class="form-control-notify" id="notify-radio-edit-2" name="radioEdit" value="deleteAll">
-                        <label for="notify-radio-edit-2" class="form-label-notify-edit">Xóa tất cả</label>
+                        <label for="notify-radio-edit-2" class="form-label-notify-edit">Delete all old files</label>
                     </div>`;
         $('.wrap-form-group-edit-notification').html(html);
     }
