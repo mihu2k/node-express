@@ -48,23 +48,25 @@ class NotificationController {
                 }
             });
 
-            const formData = {
-                authorId: req.user._id,
-                title: fields.title[0],
-                content: fields.content[0],
-                files: fileUpload,
-                ofDepartment: fields.ofDepartment[0],
+            if (fields.title[0] !== '' && fields.ofDepartment[0] !== '') {
+                const formData = {
+                    authorId: req.user._id,
+                    title: fields.title[0],
+                    content: fields.content[0],
+                    files: fileUpload,
+                    ofDepartment: fields.ofDepartment[0],
+                }
+    
+                const notification = await Notification.create(formData);
+                const {_id} = notification;
+                const newNotification = await Notification.findById(_id)
+                                                          .populate({path: 'authorId', select: 'name'});
+    
+                // Handle socket.io
+                global.io.sockets.emit('post', {
+                    notification: newNotification,
+                });
             }
-
-            const notification = await Notification.create(formData);
-            const {_id} = notification;
-            const newNotification = await Notification.findById(_id)
-                                                      .populate({path: 'authorId', select: 'name'});
-
-            // Handle socket.io
-            global.io.sockets.emit('post', {
-                notification: newNotification,
-            });
         })
         res.redirect('/notification');
     }

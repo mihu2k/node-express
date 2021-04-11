@@ -35,5 +35,23 @@ module.exports = {
     isNotStudent: (req, res, next) => {
         const isStudent = req.user.userType === 'student';
         return isStudent ? res.render('notFound', {title: 'Error'}) : next();
-    }
+    },
+
+    // Validate login form
+    validateLoginForm: (req, res, next) => {
+        const {username, password} = req.body;
+    
+        if (!username) {
+            req.flash('error', 'Please enter a username');
+            res.redirect('/auth/login');
+        } else if (!password) {
+            req.flash('error', 'Please enter a password');
+            req.flash('username', username);
+            res.redirect('/auth/login');
+        } else if (password.length < 6) {
+            req.flash('error', 'Password must be at least 6 characters');
+            req.flash('username', username);
+            res.redirect('/auth/login');
+        } else { next() }
+    },
 };

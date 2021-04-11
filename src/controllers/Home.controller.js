@@ -8,7 +8,8 @@ const fs = require('fs');
 class HomeController {
     // [GET] /
     async show(req, res, next) {
-        const students = await User.find({ $or: [{userType: 'student'}, {userType: 'admin'}] });
+        const students = await User.find({ $or: [{userType: 'student'}, {userType: 'admin'}] })
+                                   .sort({ username: 1 });
         const getFourNotify = await Notification.find()
                                                 .populate({ path: 'authorId', select: 'name' })
                                                 .sort({ createdAt: -1 })
@@ -34,6 +35,7 @@ class HomeController {
     // [POST] /post/author/:id
     post(req, res, next) {
         const form = new multiparty.Form();
+        const regex = /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i;
         
         form.parse(req, (err, fields, files) => {
             if (err) return res.status(500).send({error: err.message});
@@ -41,6 +43,8 @@ class HomeController {
             var image, video;
             files.image.forEach(file => {
                 if (!file.originalFilename) {
+                    image = '';
+                } else if (!file.originalFilename.match(regex)) {
                     image = '';
                 } else {
                     fs.rename(file.path, './public/uploads/' + file.originalFilename, err => {
@@ -67,8 +71,12 @@ class HomeController {
     }
 
     // [DELETE] /post/:id/delete
-    deletePost(req, res, next) {
+    async deletePost(req, res, next) {
         if (req.params.id) {
+            // Delete cmt
+            const {comments} = await Post.findById(req.params.id);
+            await Comment.deleteMany({ _id: {$in: comments} });
+            // Delete post
             Post.deleteOne({ _id: req.params.id })
                 .then(() => res.json({ code: 200, message: 'Delete success!'}))
                 .catch(next);
@@ -78,6 +86,7 @@ class HomeController {
     // [PUT] /post/:id/edit
     editPost(req, res, next) {
         const form = new multiparty.Form();
+        const regex = /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i;
 
         form.parse(req, async (err, fields, files) => {
             if (err) return res.status(500).send({error: err.message});
@@ -86,6 +95,8 @@ class HomeController {
             files.imageEdit.forEach(file => {
                 if (!file.originalFilename) {
                     image = '';
+                } else if (!file.originalFilename.match(regex)) {
+                    image = 'unchange';
                 } else {
                     fs.rename(file.path, './public/uploads/' + file.originalFilename, err => {
                         if (err) console.log(err);
@@ -103,11 +114,24 @@ class HomeController {
                 video = fields.videoEdit[0].split('=')[1].slice(0, 11);
             }
 
+            // Check image giữ nguyên hay xóa luôn
+            if (!image) {
+                if (fields.unchangeImage) {
+                    image = 'unchange';
+                } else {
+                    image = ''; // Xóa img
+                }
+            }
+
             var formData = {
                 content: fields.textareaEdit[0],
                 video,
                 image,
             };
+
+            if (image == 'unchange') {
+                delete formData.image; // Không cần update img
+            }
 
             await Post.updateOne({ _id: req.params.id }, formData)
             Post.findById(req.params.id).populate({path: 'authorId', select: 'avatar name'})
@@ -129,11 +153,13 @@ class HomeController {
                 contentComment: fields.contentCmt[0],
             };
 
-            const comment = await Comment.create(data)
-            Post.updateOne({ _id: req.params.postid }, { $push: { comments: comment._id } })
-                .then(() => {})
-            Comment.findById(comment._id).populate({ path: 'userCommentId', select: 'avatar name' })
-                .then((comment) => res.json(comment))
+            if (fields.contentCmt[0] !== '') {
+                const comment = await Comment.create(data)
+                Post.updateOne({ _id: req.params.postid }, { $push: { comments: comment._id } })
+                    .then(() => {})
+                Comment.findById(comment._id).populate({ path: 'userCommentId', select: 'avatar name' })
+                    .then((comment) => res.json(comment))
+            } else { return }
         });
     }
 

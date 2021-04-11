@@ -5,13 +5,13 @@
     <div class="login-app">
         <div class="login-app-content">
             <div class="wrap-login-img">
-                <img src="/images/social-network.svg" alt="" class="login-img">
+                <img src="/images/bg-login.svg" alt="" class="login-img">
             </div>
             <div class="login-form">
-                <form action="/auth/login" method="POST">
-                    <h2 class="login-form-heading">Sign in</h2>
+                <form action="/auth/login" method="POST" novalidate>
+                    <h2 class="login-form-heading">Welcome</h2>
                     <div class="form-group-login">
-                        <input type="text" class="form-control-login" required name="username" id="username">
+                        <input value="<%= username %>" type="text" class="form-control-login" required name="username" id="username">
                         <label for="username" class="form-label-login">Username</label>
                     </div>
                     <div class="form-group-login">
@@ -23,8 +23,8 @@
                         <label for="rememberMe">Remember</label>
                     </div>
 
-                    <% if (messages.error) { %>
-                        <p class="alert alert-danger"><%= messages.error %></p>
+                    <% if (error.length > 0) { %>
+                        <p class="alert alert-danger"><%= error[0] %></p>
                     <% } %>
                     <button class="login-btn login-submit-btn" type="submit">SIGN IN</button>
                 </form>
@@ -32,9 +32,7 @@
                     <span class="separate-or">OR</span>
                 </div>
                 <button class="login-btn btn-login-with-gg">
-                    <span class="login-with-gg">
-                        Sign in with Google
-                    </span>
+                    <span class="login-with-gg">Sign in with Google</span>
                 </button>
             </div>
         </div>

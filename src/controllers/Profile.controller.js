@@ -31,6 +31,7 @@ class ProfileController {
     // [PUT] /profile/:id/edit
     edit(req, res, next) {
         const form = new multiparty.Form();
+        const regex = /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i;
 
 	    form.parse(req, async (err, fields, files) => {
 		    if (err) return res.status(500).send({ error: err.message });
@@ -39,13 +40,15 @@ class ProfileController {
             files.editAvtProf.forEach(file => {
                 if (!file.originalFilename) {
                     avatar = '';
+                } else if (!file.originalFilename.match(regex)) {
+                    avatar = '';
                 } else {
                     fs.rename(file.path, './public/uploads/' + file.originalFilename, err => {
                         if (err) console.log(err)
                     })
                     avatar = '/uploads/' + file.originalFilename;
                 }
-            })
+            });
 
             var formData = {
                 name: fields.editNameProf[0],

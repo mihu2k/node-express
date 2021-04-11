@@ -201,7 +201,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-
     // Check input value in form change password
     var currentPassword = document.getElementById('input-current-password');
     var newPassword = document.getElementById('input-new-password');
@@ -680,6 +679,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle click edit post
     var postId;
     $(document).on('click', '.timeline-news__options-item-edit', function(e) {
+        $('#chk-delete-img-form-edit-post').prop('checked', true);
         postId = $(this).data('id');
         var content = $(this).data('content');
         var video = $(this).data('video');
@@ -725,6 +725,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         $('.btn-close-image-form-post-edit').click(function() {
+            $('#chk-delete-img-form-edit-post').prop('checked', false);
             $('.btn-close-image-form-post-edit').css('display', 'none');
             $('.wrap-show-img__input-img-edit').css('display', 'none');
             $('#form-edit-post-upload-img').val('');
@@ -732,6 +733,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Close form edit post
         $('.btn-close-edit-form-post').click(function() {
+            $('#chk-delete-img-form-edit-post').prop('checked', true);
             $('.modal').css('display', 'none');
             $('.wrap-form-post-news').css('display', 'block');
             $('.wrap-form-edit-post-news').css('display', 'none');
@@ -751,7 +753,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle click delete post and call API
     $(document).on('click', '.timeline-news__options-item-delete', function(event) {
         postId = event.target.dataset.id;
-        deletePost(postId);
+        
+        // Custom alert
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this post!",
+            icon: "warning",
+            buttons: [true, "Yes, delete it!"],
+            dangerMode: true,
+        }).then(willDelete => {
+            if (willDelete) {
+                deletePost(postId);
+                swal("Poof! Your post has been deleted!", {icon: "success",});
+            } else {
+                // don't something
+            }
+        });
     })
 });
 
@@ -875,7 +892,7 @@ function appendPosts(posts, selector) {
                         `<div class="timeline-news__btn-options-cmt">
                             <i class="fas fa-ellipsis-h"></i>
                             <ul class="timeline-news__options-cmt-list">
-                                <li class="timeline-news__options-cmt-item timeline-news__options-cmt-remove" data-cmtid="${comment._id} data-postid="${comment.postId}">
+                                <li class="timeline-news__options-cmt-item timeline-news__options-cmt-remove" data-cmtid="${comment._id}" data-postid="${comment.postId}">
                                     <i class="fas fa-trash timeline-news__options-icon"></i><span>Remove</span>
                                 </li>
                             </ul>
@@ -907,7 +924,11 @@ $(document).on('submit', '.timeline-news__form-cmt', function(e) {
     var formData = new FormData(this);
     var authorId = e.target.dataset.id;
     var postId = e.target.dataset.postid;
-    postComment(formData, authorId, postId);
+    if ($(this).find('.form-control-cmt').val() === '') {
+        // do something
+    } else {
+        postComment(formData, authorId, postId);
+    }
 
     // Clear input
     $(this).find('.form-control-cmt').val('');
@@ -975,7 +996,19 @@ function deleteComment(id, postId) {
 $(document).on('click', '.timeline-news__options-cmt-remove', function() {
     var commentId = $(this).data('cmtid');
     var postId = $(this).data('postid');
-    deleteComment(commentId, postId);
+
+    // Alert
+    swal({
+        text: 'Are you sure you want to delete this comment?',
+        buttons: [true, 'Yes, delete it!'],
+        dangerMode: true,
+    }).then(willDelete => {
+        if (willDelete) {
+            deleteComment(commentId, postId);
+        } else {
+            // don't something
+        }
+    });
 });
 
 // Show posts in profile page
@@ -1079,7 +1112,7 @@ if (iconNew) {
 }
 
 // Notification page
-if (new URL(window.location.href).pathname === '/notification') {
+if (new URL(window.location.href).pathname === '/notification' || new URL(window.location.href).pathname === '/notification/') {
     // Pagination
     $('#pagination-container').pagination({
         className: 'paginationjs-theme-blue',
@@ -1202,17 +1235,56 @@ if (inputFileNotification) {
 $('.btn.btn-delete-notification').click(e => {
     e.preventDefault();
     const id = e.target.id; // get value in attr id
+    let totalNotify = $('.total-accounts-text .text-danger').html();
 
-    if (confirm('Are you sure you want to delete this notification?')) {
-        $.ajax({
-            type: 'DELETE',
-            url: '/notification/me/delete/' + id,
-            success: function(response) {
-                $('#' + id).parent().parent().remove();
-            }
-        })
-    }
+    // Custom alert
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this notification!",
+        icon: "warning",
+        buttons: [true, "Yes, delete it!"],
+        dangerMode: true,
+    }).then(willDelete => {
+        if (willDelete) {
+            $.ajax({
+                type: 'DELETE',
+                url: '/notification/me/delete/' + id,
+                success: function(response) {
+                    $('#' + id).parent().parent().remove();
+                    $('.total-accounts-text .text-danger').html(totalNotify - 1);
+                }
+            })
+            swal("Poof! Your notification has been deleted!", {icon: "success",});
+        } else {
+            // don't something
+        }
+    });
 })
+
+const configCKE = {
+    uiColor: '#2b81f3',
+	toolbar: [
+		{ name: 'document', items: ['Source', '-', 'Save', 'NewPage', 'ExportPdf', 'Preview', 'Print', '-', 'Templates'] },
+		{ name: 'clipboard', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'] },
+		{ name: 'editing', items: ['Find', 'Replace', '-', 'SelectAll', '-', 'Scayt'] },
+		{ name: 'forms', items: ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'] },
+		// '/',
+		{ name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'CopyFormatting', 'RemoveFormat'] },
+		{ name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language'] },
+		{ name: 'links', items: ['Link', 'Unlink'] },
+		{ name: 'insert', items: ['Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe'] },
+		'/',
+		{ name: 'styles', items: ['Styles', 'Format', 'Font', 'FontSize'] },
+		{ name: 'colors', items: ['TextColor', 'BGColor'] },
+		{ name: 'tools', items: ['Maximize', 'ShowBlocks'] },
+	],
+};
+
+// Using CKEditor
+if (new URL(window.location.href).pathname.includes('/notification/post')) {
+    // Using CKEditor
+    CKEDITOR.replace('textarea-notify', configCKE);
+}
 
 // Đổ data cũ vào input trước khi edit
 if (window.location.href.includes('/notification/me/edit/')) {
@@ -1229,7 +1301,8 @@ if (window.location.href.includes('/notification/me/edit/')) {
                 })
                 
                 $('#notify-input-text-edit').val(data.title);
-                $('#textarea-notify-edit').val(data.content);
+                CKEDITOR.replace('textarea-notify-edit', configCKE);
+                CKEDITOR.instances['textarea-notify-edit'].setData(data.content);
                 console.log(data);
 
                 if (data.files.length > 0) {
@@ -1313,11 +1386,11 @@ if (url.pathname === '/') {
     iconInHeader[0].classList.add('active');
     iconInHeader[1].classList.remove('active');
     iconInHeader[2].classList.remove('active');
-} else if (url.pathname === '/notification') {
+} else if (url.pathname.includes('/profile')) {
     iconInHeader[0].classList.remove('active');
     iconInHeader[1].classList.add('active');
     iconInHeader[2].classList.remove('active');
-} else if (url.pathname.includes('/profile')) {
+} else if (url.pathname === '/notification') {
     iconInHeader[0].classList.remove('active');
     iconInHeader[1].classList.remove('active');
     iconInHeader[2].classList.add('active');
@@ -1327,4 +1400,153 @@ if (url.pathname === '/') {
     iconInHeader[0].classList.remove('active');
     iconInHeader[1].classList.remove('active');
     iconInHeader[2].classList.remove('active');
+}
+
+// Validate edit profile form
+var nameProfile = document.getElementById('input-edit-name-prof');
+var groupProfile = document.getElementById('input-edit-group-prof');
+var facultyProfile = document.getElementById('input-edit-faculty-prof');
+var formEditProfile = document.querySelector('.form-edit-prof');
+var btnSubmitEditProfile = document.querySelector('.btn-submit-edit-prof');
+
+if (formEditProfile) {
+    nameProfile.onkeyup = () => {
+        if (nameProfile.value === '' || nameProfile.value.length < 4) {
+            btnSubmitEditProfile.classList.add('disabled');
+            btnSubmitEditProfile.setAttribute('disabled', 'disabled');
+        } else {
+            btnSubmitEditProfile.classList.remove('disabled');
+            btnSubmitEditProfile.removeAttribute('disabled');
+        }
+    }
+
+    groupProfile.onkeyup = () => {
+        if (groupProfile.value === '') {
+            btnSubmitEditProfile.classList.add('disabled');
+            btnSubmitEditProfile.setAttribute('disabled', 'disabled');
+        } else {
+            btnSubmitEditProfile.classList.remove('disabled');
+            btnSubmitEditProfile.removeAttribute('disabled');
+        }
+    }
+
+    facultyProfile.onkeyup = () => {
+        if (facultyProfile.value === '') {
+            btnSubmitEditProfile.classList.add('disabled');
+            btnSubmitEditProfile.setAttribute('disabled', 'disabled');
+        } else {
+            btnSubmitEditProfile.classList.remove('disabled');
+            btnSubmitEditProfile.removeAttribute('disabled');
+        }
+    }
+}
+
+// Validate post news form
+var formPostNews = document.querySelector('.form-post-news');
+var textareaPostNews = document.getElementById('textareaCreate');
+var btnSubmitPostNews = document.querySelector('.btn-submit-form-post-news');
+
+if (formPostNews) {
+    if (textareaPostNews.value === '') {
+        btnSubmitPostNews.classList.add('disabled');
+        btnSubmitPostNews.setAttribute('disabled', 'disabled');
+    }
+
+    textareaPostNews.onkeyup = () => {
+        if (textareaPostNews.value === '') {
+            btnSubmitPostNews.classList.add('disabled');
+            btnSubmitPostNews.setAttribute('disabled', 'disabled');
+        } else {
+            btnSubmitPostNews.classList.remove('disabled');
+            btnSubmitPostNews.removeAttribute('disabled');
+        }
+    }
+}
+
+// Validate form edit post news
+var formEditPostNews = document.querySelector('.form-edit-post-news');
+var textareaEditPostNews = document.getElementById('textareaEdit');
+var videoEditPostNews = document.getElementById('form-edit-post-input-link-video')
+var btnSubmitEditPostNews = document.querySelector('.form-edit-post-news .btn-submit-form-post-news');
+
+if (formEditPostNews) {
+    textareaEditPostNews.onkeyup = () => {
+        if (textareaEditPostNews.value === '') {
+            btnSubmitEditPostNews.classList.add('disabled');
+            btnSubmitEditPostNews.setAttribute('disabled', 'disabled');
+        } else {
+            btnSubmitEditPostNews.classList.remove('disabled');
+            btnSubmitEditPostNews.removeAttribute('disabled');
+        }
+    }
+}
+
+// Validate form post notification
+var formPostNotification = document.getElementById('form-post-notification');
+var selectPostNotification = document.getElementById('ofDepartment');
+var titlePostNotification = document.getElementById('notify-input-text');
+
+if (formPostNotification) {
+    btnPostNotify.classList.add('disabled');
+    btnPostNotify.setAttribute('disabled', 'disabled');
+
+    selectPostNotification.onmouseup = () => {
+        if (selectPostNotification.value === '') {
+            btnPostNotify.classList.add('disabled');
+            btnPostNotify.setAttribute('disabled', 'disabled');
+        } else if (titlePostNotification.value === '') {
+            btnPostNotify.classList.add('disabled');
+            btnPostNotify.setAttribute('disabled', 'disabled');
+        } else {
+            btnPostNotify.classList.remove('disabled');
+            btnPostNotify.removeAttribute('disabled');
+        }
+    }
+
+    titlePostNotification.onkeyup = () => {
+        if (selectPostNotification.value === '') {
+            btnPostNotify.classList.add('disabled');
+            btnPostNotify.setAttribute('disabled', 'disabled');
+        } else if (titlePostNotification.value === '') {
+            btnPostNotify.classList.add('disabled');
+            btnPostNotify.setAttribute('disabled', 'disabled');
+        } else {
+            btnPostNotify.classList.remove('disabled');
+            btnPostNotify.removeAttribute('disabled');
+        }
+    }
+}
+
+// Validate form edit notification
+var formEditNotification = document.getElementById('form-edit-notification');
+var selectEditNotification = document.getElementById('ofDepartmentEdit');
+var titleEditNotification = document.getElementById('notify-input-text-edit');
+var btnEditNotify = document.querySelector('.btn.btn-submit-form-edit-notify');
+
+if (formEditNotification) {
+    selectEditNotification.onmouseup = () => {
+        if (selectEditNotification.value === '') {
+            btnEditNotify.classList.add('disabled');
+            btnEditNotify.setAttribute('disabled', 'disabled');
+        } else if (titleEditNotification.value === '') {
+            btnEditNotify.classList.add('disabled');
+            btnEditNotify.setAttribute('disabled', 'disabled');
+        } else {
+            btnEditNotify.classList.remove('disabled');
+            btnEditNotify.removeAttribute('disabled');
+        }
+    }
+
+    titleEditNotification.onkeyup = () => {
+        if (selectEditNotification.value === '') {
+            btnEditNotify.classList.add('disabled');
+            btnEditNotify.setAttribute('disabled', 'disabled');
+        } else if (titleEditNotification.value === '') {
+            btnEditNotify.classList.add('disabled');
+            btnEditNotify.setAttribute('disabled', 'disabled');
+        } else {
+            btnEditNotify.classList.remove('disabled');
+            btnEditNotify.removeAttribute('disabled');
+        }
+    }
 }

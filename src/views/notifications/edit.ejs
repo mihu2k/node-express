@@ -18,7 +18,7 @@
     
                 <div class="wrap-form-post-notify">
                     <h4 class="form-post-notify__heading">Edit Notification</h4>
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="" method="POST" enctype="multipart/form-data" id="form-edit-notification">
                         <div class="body-notify-select-form-post">
                             <select name="ofDepartmentEdit" id="ofDepartmentEdit" required>
                                 <option value="">Select Faculty/Department</option>
@@ -29,19 +29,20 @@
                         </div>
                         <div class="form-group">
                             <label for="notify-input-text-edit" class="form-label-notify">Title <span class="star-red">*</span></label>
-                            <input type="text" class="form-control-notify" id="notify-input-text-edit" name="titleEdit">
+                            <input type="text" class="form-control-notify" id="notify-input-text-edit" name="titleEdit" required placeholder="Please enter a notification title...">
                         </div>
                         <div class="form-group">
                             <label for="textarea-notify-edit" class="form-label-notify">Content <span class="star-red">*</span></label>
-                            <textarea name="contentEdit" id="textarea-notify-edit" cols="30" rows="10"></textarea>
+                            <textarea name="contentEdit" id="textarea-notify-edit" cols="30" rows="10" required placeholder="Please enter details of the notification!!!"></textarea>
                         </div>
                         <div class="wrap-form-group-edit-notification"></div>
                         <div class="form-group">
                             <label for="notify-input-file-edit" class="form-label-notify">Files</label>
-                            <input type="file" class="form-control-notify" id="notify-input-file-edit" name="filesEdit" multiple>
+                            <input type="file" class="form-control-notify" id="notify-input-file-edit" name="filesEdit" multiple
+                                accept="image/*,video/*,audio/*,.txt,.zip,.rar,.pdf,.pptx,.ppt,.xlsx,.xls,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                         </div>
                         <ul class="list-file-upload-edit"></ul>
-                        <button class="btn btn-submit-form-notify">Edit</button>
+                        <button class="btn btn-submit-form-edit-notify">Edit</button>
                     </form>
                 </div>
             </div>
@@ -51,6 +52,7 @@
     <!-- Message real time -->
     <div class="wrap-message-real-time"></div>
 
+    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/javascripts/main.js"></script>
 </body>

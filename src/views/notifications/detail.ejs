@@ -15,7 +15,7 @@
                         <li class="breadcrumb-item">Notification Details</li>
                     </ol>
                 </nav>
-    
+
                 <div class="wrap-details-notification">
                     <h2 class="details-notification__heading"><%= notification.title %></h2>
                     <p class="details-notification__department">
@@ -26,7 +26,7 @@
                         <% } %>
                          | Date Created <%= new Date(notification.createdAt).toLocaleDateString('en-US') %>
                     </p>
-                    <p class="details-notification__content"><%= notification.content %></p>
+                    <div class="details-notification__content"><%- notification.content %></div>
                     <% if (notification.files.length > 0) { %>
                     <div class="details-notification__display-file">
                         <h5 class="display-file-heading">List of file attachment:</h5>

@@ -33,6 +33,10 @@
                             <i class="fas fa-user navigation-icon"></i>
                             <span class="navigation-content">Account management</span>
                         </a>
+                        <a href="/notification/me" class="navigation-link navigation-item">
+                            <i class="fas fa-bell navigation-icon"></i>
+                            <span class="navigation-content">Notification management</span>
+                        </a>
                     <% } %>
                     <li class="navigation-item navigation-wrap-sub-item">
                         <i class="fas fa-list navigation-icon"></i>
@@ -78,13 +82,13 @@
             </a>
         </li>
         <li class="header__nav-item">
-            <a href="/notification" class="wrap-icon-home-header" title="Notifications">
-                <img src="/images/bell.svg" alt="" class="header__nav-item-img">
+            <a href="/profile/<%= user._id %>" class="wrap-icon-home-header" title="Profile">
+                <img src="/images/profile-user.svg" alt="" class="header__nav-item-img header__nav-item-img-profile">
             </a>
         </li>
         <li class="header__nav-item">
-            <a href="/profile/<%= user._id %>" class="wrap-icon-home-header" title="Profile">
-                <img src="/images/user-profile.svg" alt="" class="header__nav-item-img">
+            <a href="/notification" class="wrap-icon-home-header" title="Notifications">
+                <img src="/images/bell.svg" alt="" class="header__nav-item-img">
             </a>
         </li>
     </ul>
