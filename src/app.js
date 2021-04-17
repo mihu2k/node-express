@@ -3,7 +3,7 @@ require('./config/passport-setup');
 const path = require('path');
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const db = require('./config/db/index');
 const route = require('./routes/index.route');
 const cookieSession = require('cookie-session');
