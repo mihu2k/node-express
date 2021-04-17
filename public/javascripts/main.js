@@ -792,7 +792,6 @@ function getPosts(page = 1) {
         url: '/post?page=' + page,
         type: 'GET',
         success: function(posts) {
-            console.log(posts);
             if (posts.length === 0) {loadMore = true}
 
             appendPosts(posts, '.app__container-timeline');
@@ -944,7 +943,6 @@ function postComment(data, authorId, postId) {
         contentType: false,
         processData: false,
         success: function(comment) {
-            // console.log(comment);
             var html = `<ul class="timeline-news__cmt-list">
                             <li class="timeline-news__cmt-item timeline-news__cmt-item${comment._id}">
                                 <a href="/profile/${comment.userCommentId._id}" class="avt-user-comment-link">
@@ -1303,7 +1301,6 @@ if (window.location.href.includes('/notification/me/edit/')) {
                 $('#notify-input-text-edit').val(data.title);
                 CKEDITOR.replace('textarea-notify-edit', configCKE);
                 CKEDITOR.instances['textarea-notify-edit'].setData(data.content);
-                console.log(data);
 
                 if (data.files.length > 0) {
                     appendRadiobtn();
