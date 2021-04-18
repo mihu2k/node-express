@@ -1287,12 +1287,23 @@ tr th:first-child {
     overflow-y: auto;
 }
 
+.wrap-show-img__input-img::-webkit-scrollbar,
+.wrap-show-img__input-img-edit::-webkit-scrollbar {
+    width: 8px;
+}
+
+.wrap-show-img__input-img::-webkit-scrollbar-thumb,
+.wrap-show-img__input-img-edit::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: rgb(189, 189, 189);
+}
+
 .btn-close-image-form-post-news,
 .btn-close-image-form-post-edit {
     cursor: pointer;
     position: absolute;
     top: 0;
-    right: 16.5px;
+    right: 8px;
     color: #fff;
     font-size: 2.2rem;
     padding: 0 8px;
