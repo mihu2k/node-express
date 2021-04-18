@@ -34,7 +34,7 @@ class NotificationController {
 
     // [POST] /notification/post
     handleFormPost(req, res, next) {
-        const form = new multiparty.Form();
+        const form = new multiparty.Form({ uploadDir: './public/uploads/notifications/' });
         form.parse(req, async (err, fields, files) => {
             if (err) return res.status(500).send({ error: err.message });
 
@@ -137,7 +137,7 @@ class NotificationController {
 
     // [POST] /notification/me/edit/:id
     editNotification(req, res) {
-        const form = new multiparty.Form();
+        const form = new multiparty.Form({ uploadDir: './public/uploads/notifications/' });
         form.parse(req, async (err, fields, files) => {
             if (err) return res.status(500).send({ error: err.message });
 

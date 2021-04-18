@@ -30,7 +30,7 @@ class ProfileController {
 
     // [PUT] /profile/:id/edit
     edit(req, res, next) {
-        const form = new multiparty.Form();
+        const form = new multiparty.Form({ uploadDir: './public/uploads/' });
         const regex = /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i;
 
 	    form.parse(req, async (err, fields, files) => {
