@@ -2606,6 +2606,10 @@ label[for="notify-input-file"].form-label-notify {
         position: relative;
     }
 
+    .btn-close-edit-prof, .btn-close-edit-form-post {
+        line-height: 39px;
+    }
+
     #textareaEdit {
         max-height: 100px;
     }
