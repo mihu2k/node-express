@@ -1547,3 +1547,8 @@ if (formEditNotification) {
         }
     }
 }
+
+// Handle show color when click btn like post
+$(document).on('click', '.timeline-news__activity-liked', function() {
+    $(this).toggleClass('second-color');
+});

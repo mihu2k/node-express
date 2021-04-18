@@ -2,6 +2,7 @@
     --gradient-color: linear-gradient(-30deg, #b066fe, #63e2ff);
     --gradient-color-btn: linear-gradient(45deg, #06d6e0, #f606ff);
     --primary-color: #2b81f3;
+    --second-color: #0571ed;
     --bg-color-hover: #196ad3;
 }
 
@@ -55,6 +56,10 @@ html {
 
 .mr-4 {
     margin-right: 4px !important;
+}
+
+.second-color {
+    color: var(--second-color);
 }
 
 .alert {
