@@ -94,13 +94,9 @@
     </ul>
 
     <ul class="header__nav-list">
-        <li class="header__nav-item mr-16 header__nav-item-bell-right">
-            <i class="header__nav-icon ti-bell"></i>
-            <span class="header__nav-text">Notifications</span>
-        </li>
         <li class="header__nav-item mr-8 header__nav-item-user-inf">
             <img src="<%= user.avatar %>" alt="" class="header__nav-avt" title="<%= user.name %>">
-            <span class="header__nav-text header__nav-text-name" title="<%= user.name %>"><%= user.name %></span>
+            <a href="/profile/<%= user._id %>" class="header__nav-text header__nav-text-name" title="<%= user.name %>"><%= user.name %></a>
         </li>
         <li class="header__nav-item header__nav-icon-down">
             <i class="fas fa-caret-down header__nav-icon"></i>

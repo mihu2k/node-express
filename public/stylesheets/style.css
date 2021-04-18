@@ -592,6 +592,8 @@ input::placeholder {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
     font-weight: 600;
+    color: #333;
+    text-decoration: none;
 }
 
 .header__nav-avt {
@@ -2520,10 +2522,6 @@ label[for="notify-input-file"].form-label-notify {
     }
 
     /* Home page */
-    .header__nav-item-bell-right {
-        display: none;
-    }
-
     .app__container-timeline {
         padding: 32px 28px;
     }
@@ -2574,10 +2572,6 @@ label[for="notify-input-file"].form-label-notify {
 
     .header__nav-item-img {
         height: 22px;
-    }
-
-    .header__nav-item-bell-right {
-        display: none;
     }
 
     .header__nav-item-user-inf {
