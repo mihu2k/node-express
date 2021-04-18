@@ -2449,6 +2449,10 @@ label[for="notify-input-file"].form-label-notify {
         margin-left: 0;
     }
 
+    .login-btn.btn-login-with-gg {
+        margin-bottom: 12px;
+    }
+
     /* Notification page */
     .breadcrumb-notification {
         display: none;
