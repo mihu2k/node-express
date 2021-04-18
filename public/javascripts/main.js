@@ -501,7 +501,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="separate-timeline-news"></div>
                             <div class="timeline-news__show-activity">
                                 <span class="timeline-news__activity-liked">
-                                    <i class="far fa-thumbs-up timeline-news__activity-icon"></i> Liked
+                                    <i class="far fa-thumbs-up timeline-news__activity-icon"></i> Like
                                 </span>
                                 <span class="timeline-news__activity-comment">
                                     <i class="far fa-comment-alt timeline-news__activity-icon timeline-news__cmt-icon"></i> Comment
@@ -622,7 +622,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="separate-timeline-news"></div>
                     <div class="timeline-news__show-activity">
                         <span class="timeline-news__activity-liked">
-                            <i class="far fa-thumbs-up timeline-news__activity-icon"></i> Liked
+                            <i class="far fa-thumbs-up timeline-news__activity-icon"></i> Like
                         </span>
                         <span class="timeline-news__activity-comment">
                             <i class="far fa-comment-alt timeline-news__activity-icon timeline-news__cmt-icon"></i> Comment
@@ -857,7 +857,7 @@ function appendPosts(posts, selector) {
                 <div class="separate-timeline-news"></div>
                 <div class="timeline-news__show-activity">
                     <span class="timeline-news__activity-liked">
-                        <i class="far fa-thumbs-up timeline-news__activity-icon"></i> Liked
+                        <i class="far fa-thumbs-up timeline-news__activity-icon"></i> Like
                     </span>
                     <span class="timeline-news__activity-comment">
                         <i class="far fa-comment-alt timeline-news__activity-icon timeline-news__cmt-icon"></i> Comment
