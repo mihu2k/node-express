@@ -2600,6 +2600,16 @@ label[for="notify-input-file"].form-label-notify {
         overflow: hidden;
     }
 
+    .form-post-news__container {
+        max-height: 100vh;
+        overflow-y: scroll;
+        position: relative;
+    }
+
+    #textareaEdit {
+        max-height: 100px;
+    }
+
     /* Profile page */
     .wrap-profile {
         margin-top: 140px;
